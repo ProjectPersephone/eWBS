@@ -1,0 +1,46 @@
+defaultTasks 'clean', 'build', 'test'
+
+apply plugin: "java"
+apply plugin: "eclipse"
+
+repositories {
+    mavenCentral()
+}
+
+ext.springVersion = "3.2.2"
+ext.springExceptionHandlerVersion = "2.0.1"
+ext.springDataVersion = '1.6.1'
+
+List SPRING = [
+        "org.springframework.data:spring-data-mongodb:${springDataVersion}.RELEASE",
+         "org.springframework:spring-webmvc:${springVersion}.RELEASE",
+        "org.springframework:spring-web:${springVersion}.RELEASE",
+        "org.springframework:spring-context:${springVersion}.RELEASE",
+        "org.springframework:spring-test:${springVersion}.RELEASE",
+        "com.github.raychatter:spring-restful-exception-handler:${springExceptionHandlerVersion}.RELEASE"
+        
+        
+]
+
+List SPRING_SOURCES = [
+        "org.springframework:spring-webmvc:${springVersion}.RELEASE:sources",
+        "org.springframework:spring-web:${springVersion}.RELEASE:sources",
+        "org.springframework:spring-context:${springVersion}.RELEASE:sources",
+        "com.github.raychatter:spring-restful-exception-handler:${springExceptionHandlerVersion}:sources",
+        "org.springframework.data:spring-data-mongodb:${springDataVersion}.RELEASE:sources"
+        
+]
+
+List XUNIT = [
+        'junit:junit:4.10',
+        'org.mockito:mockito-all:1.9.5'
+]
+
+dependencies {
+    compile SPRING, SPRING_SOURCES
+    compile group: 'org.projectlombok', name: 'lombok', version: '0.11.8'
+    compile group: 'javax.servlet', name: 'servlet-api', version: '2.5'
+    compile group: 'org.codehaus.jackson', name: 'jackson-core-lgpl', version: '1.9.11'
+	compile group: 'org.codehaus.jackson', name: 'jackson-mapper-lgpl', version: '1.9.11'
+	testCompile SPRING, SPRING_SOURCES, XUNIT
+}
