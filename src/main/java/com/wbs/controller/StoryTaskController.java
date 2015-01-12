@@ -11,4 +11,8 @@ public class StoryTaskController {
 	@Autowired
 	private StoryTaskService storyTaskService;
 
+	public String saveStoryTask() {
+		return "hello";
+	}
+
 }

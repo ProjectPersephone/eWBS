@@ -5,11 +5,14 @@
 
 		    http://www.springframework.org/schema/data/mongo http://www.springframework.org/schema/data/mongo/spring-mongo.xsd">
 
-	<bean id="mongoClient" class="com.mongodb.MongoClient" />
+	<!-- Factory bean that creates the Mongo instance -->
+	<bean id="mongo" class="org.springframework.data.mongodb.core.MongoFactoryBean">
+		<property name="host" value="${host.name}" />
+	</bean>
 
-	<mongo:db-factory dbname="${db.name}" mongo-ref="mongoClient"
-		id="mongoDbFactory" />
-
-	<mongo:repositories base-package="com.wbs.repository"
-		mongo-template-ref="mongoTemplate" />
+	<!-- MongoTemplate for connecting and quering the documents in the database -->
+	<bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
+		<constructor-arg name="mongo" ref="mongo" />
+		<constructor-arg name="databaseName" value="${db.name}" />
+	</bean>
 </beans>

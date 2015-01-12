@@ -21,10 +21,6 @@
 	<context:property-placeholder
 		properties-ref="app" />
 
-	<!-- RestTemplate for external HTTP calls -->
-	<bean id="restTemplate" class="org.springframework.web.client.RestTemplate">
-	</bean>
-
 	<import resource="classpath:mongo-context.xml" />
 
 </beans>
