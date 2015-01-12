@@ -10,6 +10,6 @@
 	<mongo:db-factory dbname="${db.name}" mongo-ref="mongoClient"
 		id="mongoDbFactory" />
 
-	<mongo:repositories base-package="com.bs.repository"
+	<mongo:repositories base-package="com.wbs.repository"
 		mongo-template-ref="mongoTemplate" />
 </beans>
