@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mongo="http://www.springframework.org/schema/data/mongo"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+
+		    http://www.springframework.org/schema/data/mongo http://www.springframework.org/schema/data/mongo/spring-mongo.xsd">
+
+	<bean id="mongoClient" class="com.mongodb.MongoClient" />
+
+	<mongo:db-factory dbname="${db.name}" mongo-ref="mongoClient"
+		id="mongoDbFactory" />
+
+	<mongo:repositories base-package="com.bs.repository"
+		mongo-template-ref="mongoTemplate" />
+</beans>
