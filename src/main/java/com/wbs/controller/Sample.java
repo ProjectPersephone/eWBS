@@ -10,7 +10,7 @@ import com.wbs.domain.StoryTask;
 import com.wbs.service.StoryTaskService;
 
 @Controller
-@RequestMapping("/sample")
+@RequestMapping("/samplea")
 public class Sample {
 
 	@Autowired

@@ -40,4 +40,10 @@ public class UserRepository {
 		List<User> userList = mongoTemplate.findAll(User.class);
 		return userList ;
 	}
+
+	public User authenticateUser(User user) {
+		Query query= new Query(Criteria.where("username").is(user.getUsername()).and("password").is(user.getPassword()));
+		User user2=mongoTemplate.findOne(query,User.class);
+		return user2;
+	}
 }
