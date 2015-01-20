@@ -24,4 +24,8 @@ public class UserService {
 	public List<User> getAllUsers() {
 		return userRepository.getAllUsers();
 	}
+
+	public User authenticateUser(User user) {
+		return userRepository.authenticateUser(user);
+	}
 }
