@@ -29,5 +29,6 @@ public class DefectAndDPReviewBugsController {
 		List<DefectAndDPReviewBugs> Defetcts=defectAndDPReviewBugsService.findAllDefectAndDPReviewBugs();
 		return new ResponseEntity<List<DefectAndDPReviewBugs>>(Defetcts,HttpStatus.OK);
 	}
+	
 }
 
