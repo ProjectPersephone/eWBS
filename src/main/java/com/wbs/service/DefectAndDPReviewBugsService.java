@@ -22,4 +22,8 @@ public class DefectAndDPReviewBugsService {
 			return defectAndDPReviewBugsRepository.findAll();
 		}
 		
+		public DefectAndDPReviewBugs findByProject(int projectId) {
+			return defectAndDPReviewBugsRepository.findByProject(projectId);
+		}
+
 }

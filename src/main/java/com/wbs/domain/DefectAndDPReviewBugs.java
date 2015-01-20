@@ -1,5 +1,7 @@
 package com.wbs.domain;
 
+import java.util.Map;
+
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -12,45 +14,17 @@ import lombok.Setter;
 @Document(collection = "DefectAndDPReviewBugs")
 public class DefectAndDPReviewBugs extends AuditEntity {
 	
-	private int requirementsCriticalDefects;
-	private int requirementsMajorDefects;
-	private int requirementsMinorDefects;
-	private int requirementsSuggestions;
-	
-	private int analysisCriticalDefects;
-	private int analysisMajorDefects;
-	private int analysisMinorDefects;
-	private int analysisSuggestions;
+	private int projectId;
 
-	private int designCriticalDefects;
-	private int designMajorDefects;
-	private int designMinorDefects;
-	private int designSuggestions;
+	private Map<String, Integer> requirementsDefects;
+	private Map<String, Integer> analysisDefects;
+	private Map<String, Integer> designDefects;
+	private Map<String, Integer> codeReviewsDefects;
+	private Map<String, Integer> unitTestingDefects;
+	private Map<String, Integer> integrationTestingDefects;
+	private Map<String, Integer> systemTestingDefects;
+	private Map<String, Integer> productionDefects;
 
-	private int codeReviewsCriticalDefects;
-	private int codeReviewsMajorDefects;
-	private int codeReviewsMinorDefects;
-	private int codeReviewsSuggestions;
-	
-	private int unitTestingCriticalDefects;
-	private int unitTestingMajorDefects;
-	private int unitTestingMinorDefects;
-	private int unitTestingSuggestions;
-	
-	private int integrationTestingCriticalDefects;
-	private int integrationTestingMajorDefects;
-	private int integrationTestingMinorDefects;
-	private int integrationTestingSuggestions;
-
-	private int systemTestingCriticalDefects;
-	private int systemTestingMajorDefects;
-	private int systemTestingMinorDefects;
-	private int systemTestingSuggestions;
-	
-	private int productionCriticalDefects;
-	private int productionMajorDefects;
-	private int productionMinorDefects;
-	private int productionSuggestions;
 	
 	private int totalDefects;
 	private int totalWeightedDefects;

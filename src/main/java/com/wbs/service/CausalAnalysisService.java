@@ -22,4 +22,9 @@ public class CausalAnalysisService {
 			return causalAnalysisRepository.findAll();
 		}
 		
+		public CausalAnalysis findByProject(int projectId) {
+			return causalAnalysisRepository.findByProject(projectId);
+		}
+
+		
 }
