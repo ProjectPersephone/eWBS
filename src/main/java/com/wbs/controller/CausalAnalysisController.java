@@ -29,5 +29,6 @@ public class CausalAnalysisController {
 		List<CausalAnalysis> Defetcts=causalAnalysisService.findAllCasualAnalysis();
 		return new ResponseEntity<List<CausalAnalysis>>(Defetcts,HttpStatus.OK);
 	}
+	
 }
 
