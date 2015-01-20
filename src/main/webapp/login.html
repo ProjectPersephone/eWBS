@@ -1,0 +1,34 @@
+<div class="container-fluid" ng-controller="LoginController">
+	<div id="page-login" class="row">
+		<div
+			class="col-xs-12 col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3">
+			<br> <br> <br>
+			<div class="text-center">
+				<h2>Work Breakdown Structure</h2>
+			</div>
+			<div class="box">
+				<div class="box-content">
+					<div class="text-center">
+						<h3 class="page-header">Login Page</h3>
+					</div>
+					<form name="LoginForm">
+						<div class="form-group">
+							<label class="control-label">Username</label> <input type="text"
+								class="form-control" name="username" ng-model="user.username"
+								required>
+						</div>
+						<div class="form-group">
+							<label class="control-label">Password</label> <input
+								type="password" class="form-control" name="password"
+								ng-model="user.password" ng-minlength="4" required>
+						</div>
+						<div class="text-center">
+							<input type="submit" class="btn btn-primary" value="Sign in"
+								ng-disabled='!LoginForm.$valid' ng-click="submit()" />
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
