@@ -5,6 +5,11 @@
 
 		    http://www.springframework.org/schema/data/mongo http://www.springframework.org/schema/data/mongo/spring-mongo.xsd">
 
+	<mongo:auditing auditor-aware-ref="entityAuditor"/>
+	<bean id="entityAuditor" class="com.wbs.repository.PAFAuditor"/>
+	
+	<bean id="mongoClient" class="com.mongodb.MongoClient"/>
+	
 	<!-- Factory bean that creates the Mongo instance -->
 	<bean id="mongo" class="org.springframework.data.mongodb.core.MongoFactoryBean">
 		<property name="host" value="${host.name}" />
