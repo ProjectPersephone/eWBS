@@ -5,15 +5,10 @@
 
 		    http://www.springframework.org/schema/data/mongo http://www.springframework.org/schema/data/mongo/spring-mongo.xsd">
 
-	<mongo:auditing auditor-aware-ref="entityAuditor"/>
-	<bean id="entityAuditor" class="com.wbs.repository.PAFAuditor"/>
-	
-	<bean id="mongoClient" class="com.mongodb.MongoClient"/>
-	
-	<!-- Factory bean that creates the Mongo instance -->
-	<bean id="mongo" class="org.springframework.data.mongodb.core.MongoFactoryBean">
-		<property name="host" value="${host.name}" />
-	</bean>
+	<bean id="mongoClient" class="com.mongodb.MongoClient" />
+
+	<mongo:db-factory dbname="${db.name}" mongo-ref="mongoClient"
+		id="mongoDbFactory" />
 
 	<bean id="mappingContext"
 		class="org.springframework.data.mongodb.core.mapping.MongoMappingContext" />
@@ -32,9 +27,10 @@
 		<property name="typeMapper" ref="defaultMongoTypeMapper" />
 	</bean>
 
-	<!-- MongoTemplate for connecting and quering the documents in the database -->
 	<bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
-		<constructor-arg name="mongo" ref="mongo" />
-		<constructor-arg name="databaseName" value="${db.name}" />
+		<constructor-arg name="mongoDbFactory" ref="mongoDbFactory" />
+		<constructor-arg name="mongoConverter" ref="mappingMongoConverter" />
 	</bean>
+	<mongo:repositories base-package="com.wbs.repository"
+		mongo-template-ref="mongoTemplate" />
 </beans>

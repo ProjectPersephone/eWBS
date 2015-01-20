@@ -1,5 +1,7 @@
 package com.wbs.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,5 +16,13 @@ public class StoryTaskService {
 
 	public void saveStoryTask(StoryTask storyTask) {
 		storyTaskRepository.saveStoryTask(storyTask);
+	}
+
+	public List<StoryTask> getStoryTaskList() {
+		return storyTaskRepository.getStoryTaskList();
+	}
+
+	public StoryTask getStoryTask(int storyTaskId) {
+		return storyTaskRepository.getStoryTask(storyTaskId);
 	}
 }
