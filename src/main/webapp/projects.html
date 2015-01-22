@@ -22,7 +22,7 @@
 							<th>#</th>
 							<th>Project Name</th>
 							<th>Starting Date</th>
-							<th>Homepage</th>
+							<th></th>
 							<th>Product description</th>
 						</tr>
 					</thead>
@@ -89,3 +89,73 @@
 		</div>
 	</div>
 </div>
+<div class="row">
+	<div class="col-xs-12 col-sm-8">
+		<div class="box">
+			<div class="box-content">
+				<form id="defaultForm" method="post" action="validators.html"
+					class="form-horizontal">
+					<fieldset>
+						<legend>Project ADD/EDIT</legend>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">Project Name</label>
+							<div class="col-sm-5">
+								<input type="text" class="form-control" name="projectName" />
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">Description</label>
+							<div class="col-sm-5">
+								<input type="text" class="form-control" name="projectDesc" />
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">Prepared By</label>
+							<div class="col-sm-5">
+								<input type="text" class="form-control" name="projectName" />
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">Approved By</label>
+							<div class="col-sm-5">
+								<input type="text" class="form-control" name="projectName" />
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">From Date</label>
+							<div class="col-sm-5">
+								<input type="text" class="form-control" name="projectName"
+									id="fromDate" />
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">To Date</label>
+							<div class="col-sm-5">
+								<input type="text" class="form-control" name="projectName"
+									id="toDate" />
+							</div>
+						</div>
+
+
+						<div class="form-group">
+							<div class="col-sm-9 col-sm-offset-3">
+								<button type="submit" class="btn btn-primary">Submit</button>
+							</div>
+						</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+	// When the document is ready
+	$(document).ready(function() {
+		$('#fromDate').datepicker({
+			format : "dd/mm/yyyy"
+		});
+		$('#toDate').datepicker({
+			format : "dd/mm/yyyy"
+		});
+
+	});
+</script>
