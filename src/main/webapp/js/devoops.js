@@ -235,7 +235,7 @@ function LoadAjaxContent(url) {
 	$('.preloader').show();
 	$.ajax({
 		mimeType : 'text/html; charset=utf-8', // ! Need set mimeType only when
-												// run from local file
+		// run from local file
 		url : url,
 		type : 'GET',
 		success : function(data) {
@@ -243,7 +243,7 @@ function LoadAjaxContent(url) {
 			$('.preloader').hide();
 		},
 		error : function(jqXHR, textStatus, errorThrown) {
-			//` alert(errorThrown);
+			// ` alert(errorThrown);
 		},
 		dataType : "html",
 		async : false
@@ -2201,8 +2201,8 @@ function LoadTestMap() {
 	$.getJSON("http://www.telize.com/geoip?callback=?",
 			function(json) {
 				var osmap = new OpenLayers.Layer.OSM("OpenStreetMap");// создание
-																		// слоя
-																		// карты
+				// слоя
+				// карты
 				var googlestreets = new OpenLayers.Layer.Google(
 						"Google Streets", {
 							numZoomLevels : 22,
@@ -2222,8 +2222,8 @@ function LoadTestMap() {
 				});
 				// Create map in element with ID - map-2
 				var osmap1 = new OpenLayers.Layer.OSM("OpenStreetMap");// создание
-																		// слоя
-																		// карты
+				// слоя
+				// карты
 				var map2_layers = [ osmap1 ];
 				var map2 = drawMap(json.longitude, json.latitude, "map-2",
 						map2_layers);
@@ -2253,7 +2253,7 @@ function LoadTestMap() {
 function FullScreenMap() {
 	$.getJSON("http://www.telize.com/geoip?callback=?", function(json) {
 		var osmap = new OpenLayers.Layer.OSM("OpenStreetMap");// создание слоя
-																// карты
+		// карты
 		var googlestreets = new OpenLayers.Layer.Google("Google Streets", {
 			numZoomLevels : 22,
 			visibility : false
@@ -2624,9 +2624,9 @@ function DrawCalendar() {
 																		end : end,
 																		allDay : allDay
 																	}, true // make
-																			// the
-																			// event
-																			// "stick"
+															// the
+															// event
+															// "stick"
 															);
 												}
 												CloseModalBox();
@@ -2635,10 +2635,10 @@ function DrawCalendar() {
 						},
 						editable : true,
 						droppable : true, // this allows things to be dropped
-											// onto the calendar !!!
+						// onto the calendar !!!
 						drop : function(date, allDay) { // this function is
-														// called when something
-														// is dropped
+							// called when something
+							// is dropped
 							// retrieve the dropped element's stored Event
 							// Object
 							var originalEventObject = $(this).data(
@@ -2774,11 +2774,6 @@ $(document)
 						$('div#main').toggleClass('sidebar-show');
 						setTimeout(MessagesMenuWidth, 250);
 					});
-					var ajax_url = location.hash.replace(/^#/, '');
-					if (ajax_url.length < 1) {
-						ajax_url = 'projects.html';
-					}
-					LoadAjaxContent(ajax_url);
 					$('.main-menu')
 							.on(
 									'click',

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="mainApp">
+<html lang="en" ng-app="loginApp">
 <head>
 <meta charset="utf-8">
 <title>Work Breakdown Structure</title>
@@ -14,53 +14,44 @@
 <script src="js/bootstrap.js"></script>
 <script src="js/devoops.js"></script>
 <script src="https://code.angularjs.org/1.2.22/angular.js"></script>
-<script src="https://code.angularjs.org/1.2.20/angular-route.js"></script>
+<script src="https://code.angularjs.org/1.2.22/angular-cookies.js"></script>
+<script src="https://code.angularjs.org/1.2.22/angular-route.js"></script>
 <script type="text/javascript" src="js/app/mainApp.js"></script>
 <script type="text/javascript" src="js/app/controllers.js"></script>
 <body>
-
-	<header class="navbar" ng-include src="'header.html'"> </header>
-	<!--End Header-->
-
-	<!--Start Container-->
-	<div id="main" class="container-fluid">
-		<div class="row">
-			<div id="sidebar-left" class="col-xs-2 col-sm-2">
-				<ul class="nav main-menu">
-					<li><a href="#/projects" class="active ajax-link"> <i
-							class="fa fa-dashboard"></i> <span class="hidden-xs">Projects</span>
-					</a></li>
-					<li class="dropdown"><a href="#" class="dropdown-toggle">
-							<i class="fa fa-bar-chart-o"></i> <span class="hidden-xs">Matrics
-								Data</span>
-					</a>
-						<ul class="dropdown-menu">
-							<li><a class="ajax-link" href="#/storytask.html">Task</a></li>
-							<li><a class="ajax-link" href="#/ajax/charts_flot.html">Flot
-									Charts</a></li>
-						</ul></li>
-					<li class="dropdown"><a href="#" class="dropdown-toggle">
-							<i class="fa fa-table"></i> <span class="hidden-xs">Tables</span>
-					</a>
-						<ul class="dropdown-menu">
-							<li><a class="ajax-link" href="ajax/tables_simple.html">Simple
-									Tables</a></li>
-							<li><a class="ajax-link" href="ajax/tables_datatables.html">Data
-									Tables</a></li>
-							<li><a class="ajax-link" href="ajax/tables_beauty.html">Beauty
-									Tables</a></li>
-						</ul></li>
-				</ul>
+	<div class="container-fluid" ng-controller="LoginController">
+		<div id="page-login" class="row">
+			<div
+				class="col-xs-12 col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3">
+				<br> <br> <br>
+				<div class="text-center">
+					<h2>Work Breakdown Structure</h2>
+				</div>
+				<div class="box">
+					<div class="box-content">
+						<div class="text-center">
+							<h3 class="page-header">Login Page</h3>
+						</div>
+						<form name="LoginForm">
+							<div class="form-group">
+								<label class="control-label">Username</label> <input type="text"
+									class="form-control" name="username" ng-model="user.username"
+									required>
+							</div>
+							<div class="form-group">
+								<label class="control-label">Password</label> <input
+									type="password" class="form-control" name="password"
+									ng-model="user.password" ng-minlength="4" required>
+							</div>
+							<div class="text-center">
+								<input type="submit" class="btn btn-primary" value="Sign in"
+									ng-disabled='!LoginForm.$valid' ng-click="submit()" />
+							</div>
+						</form>
+					</div>
+				</div>
 			</div>
-
-			<!--Start Content-->
-			<div id="content" class="col-xs-12 col-sm-10">
-				<div ng-view></div>
-			</div>
-			<!--End Content-->
-
 		</div>
 	</div>
-
 </body>
 </html>
