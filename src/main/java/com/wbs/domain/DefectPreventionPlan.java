@@ -12,6 +12,7 @@ import lombok.Setter;
 @Document(collection = "DefectPreventionPlan")
 public class DefectPreventionPlan extends AuditEntity {
 	
+	private int projectId;
 	private String defectTypeAndDetails;
 	private String preventionPlan;
 	private String currentStatus;

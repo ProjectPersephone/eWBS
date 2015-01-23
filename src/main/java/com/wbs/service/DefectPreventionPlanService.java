@@ -22,4 +22,8 @@ public class DefectPreventionPlanService {
 			return defectPreventionPlanRepository.findAll();
 		}
 		
+		public DefectPreventionPlan findByProject(int projectId) {
+			return defectPreventionPlanRepository.findByProject(projectId);
+		}
+				
 }

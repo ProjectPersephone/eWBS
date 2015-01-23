@@ -36,5 +36,19 @@ public class UserController {
 		List<User> userList= userService.getAllUsers();
 		return new ResponseEntity<List<User>>(userList, HttpStatus.OK);
 	}
+	
+	@RequestMapping(value="/login", method=RequestMethod.POST)
+	public ResponseEntity<?> authenticateUser(@RequestBody User user){
+		User user2 = userService.authenticateUser(user);
+		System.out.print(user2);
+		if(user2 == null ) {
+			return new ResponseEntity<String>("incorrect username or password !",HttpStatus.UNAUTHORIZED);
+		}
+		else
+			return new ResponseEntity<User>(user2,HttpStatus.OK);
+	}
+
+	
+	
 }
 

@@ -4,6 +4,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Repository;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
+
 
 import com.wbs.domain.CausalAnalysis;
 @Repository
@@ -21,4 +24,13 @@ public class CausalAnalysisRepository {
 			List<CausalAnalysis> list=mongoTemplate.findAll(CausalAnalysis.class);	
 			return list;
 		}
+		
+		public CausalAnalysis findByProject(int projectId) {
+			Query query = new Query(Criteria.where("projectId").is(projectId));
+			System.out.println(query);
+			CausalAnalysis causalAnalysis = mongoTemplate.findOne(query, CausalAnalysis.class);
+			System.out.println(causalAnalysis);
+			return causalAnalysis;
+		}
+
 }

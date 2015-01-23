@@ -1,10 +1,12 @@
 package com.wbs.domain;
 
-import org.codehaus.jackson.annotate.JsonIgnoreProperties;
-import org.springframework.data.mongodb.core.mapping.Document;
+import java.util.List;
 
 import lombok.Getter;
 import lombok.Setter;
+
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 @Getter
 @Setter
@@ -12,48 +14,17 @@ import lombok.Setter;
 @Document(collection = "DefectAndDPReviewBugs")
 public class DefectAndDPReviewBugs extends AuditEntity {
 	
-	private int requirementsCriticalDefects;
-	private int requirementsMajorDefects;
-	private int requirementsMinorDefects;
-	private int requirementsSuggestions;
-	
-	private int analysisCriticalDefects;
-	private int analysisMajorDefects;
-	private int analysisMinorDefects;
-	private int analysisSuggestions;
+	private int projectId;
 
-	private int designCriticalDefects;
-	private int designMajorDefects;
-	private int designMinorDefects;
-	private int designSuggestions;
+	private List<Integer> requirementsDefects;
+	private List<Integer> analysisDefects;
+	private List<Integer> designDefects;
+	private List<Integer> codeReviewsDefects;
+	private List<Integer> unitTestingDefects;
+	private List<Integer> integrationTestingDefects;
+	private List<Integer> systemTestingDefects;
+	private List<Integer> productionDefects;
+	
 
-	private int codeReviewsCriticalDefects;
-	private int codeReviewsMajorDefects;
-	private int codeReviewsMinorDefects;
-	private int codeReviewsSuggestions;
-	
-	private int unitTestingCriticalDefects;
-	private int unitTestingMajorDefects;
-	private int unitTestingMinorDefects;
-	private int unitTestingSuggestions;
-	
-	private int integrationTestingCriticalDefects;
-	private int integrationTestingMajorDefects;
-	private int integrationTestingMinorDefects;
-	private int integrationTestingSuggestions;
 
-	private int systemTestingCriticalDefects;
-	private int systemTestingMajorDefects;
-	private int systemTestingMinorDefects;
-	private int systemTestingSuggestions;
-	
-	private int productionCriticalDefects;
-	private int productionMajorDefects;
-	private int productionMinorDefects;
-	private int productionSuggestions;
-	
-	private int totalDefects;
-	private int totalWeightedDefects;
-	private int defectDensity;
-	private int reviewEffectivenessPercentage;
 }

@@ -8,17 +8,19 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.wbs.domain.DefectAndDPReviewBugs;
 import com.wbs.service.DefectAndDPReviewBugsService;
 
 @Controller
+@RequestMapping(value="/defect", method=RequestMethod.POST)
 public class DefectAndDPReviewBugsController {
 	
 	@Autowired
 	private DefectAndDPReviewBugsService  defectAndDPReviewBugsService;
 	
-	@RequestMapping(value="/defect", method=RequestMethod.POST)
+	@RequestMapping(value="/save", method=RequestMethod.POST)
 	public ResponseEntity<String> createDefectAndDPReviewBugsService(@RequestBody DefectAndDPReviewBugs  defectAndDPReviewBugs){
 		defectAndDPReviewBugsService.createDefectAndDPReviewBugs(defectAndDPReviewBugs);
 		return new ResponseEntity<String>("DefectAndDPReviewBugs Table Created", HttpStatus.OK);
@@ -29,5 +31,12 @@ public class DefectAndDPReviewBugsController {
 		List<DefectAndDPReviewBugs> Defetcts=defectAndDPReviewBugsService.findAllDefectAndDPReviewBugs();
 		return new ResponseEntity<List<DefectAndDPReviewBugs>>(Defetcts,HttpStatus.OK);
 	}
+	
+	@RequestMapping(value="/findByProject", method=RequestMethod.GET)
+	public ResponseEntity<DefectAndDPReviewBugs> findByProject(@RequestParam(value="projectId", required=true) int projectId){
+		DefectAndDPReviewBugs Defetcts=defectAndDPReviewBugsService.findByProject(projectId);
+		return new ResponseEntity<DefectAndDPReviewBugs>(Defetcts,HttpStatus.OK);
+	}
+
 }
 
