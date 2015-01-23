@@ -1,12 +1,12 @@
 package com.wbs.domain;
 
-import java.util.Map;
-
-import org.codehaus.jackson.annotate.JsonIgnoreProperties;
-import org.springframework.data.mongodb.core.mapping.Document;
+import java.util.List;
 
 import lombok.Getter;
 import lombok.Setter;
+
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 @Getter
 @Setter
@@ -16,18 +16,15 @@ public class DefectAndDPReviewBugs extends AuditEntity {
 	
 	private int projectId;
 
-	private Map<String, Integer> requirementsDefects;
-	private Map<String, Integer> analysisDefects;
-	private Map<String, Integer> designDefects;
-	private Map<String, Integer> codeReviewsDefects;
-	private Map<String, Integer> unitTestingDefects;
-	private Map<String, Integer> integrationTestingDefects;
-	private Map<String, Integer> systemTestingDefects;
-	private Map<String, Integer> productionDefects;
-
+	private List<Integer> requirementsDefects;
+	private List<Integer> analysisDefects;
+	private List<Integer> designDefects;
+	private List<Integer> codeReviewsDefects;
+	private List<Integer> unitTestingDefects;
+	private List<Integer> integrationTestingDefects;
+	private List<Integer> systemTestingDefects;
+	private List<Integer> productionDefects;
 	
-	private int totalDefects;
-	private int totalWeightedDefects;
-	private int defectDensity;
-	private int reviewEffectivenessPercentage;
+
+
 }
