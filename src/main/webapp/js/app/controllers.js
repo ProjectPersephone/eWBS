@@ -35,13 +35,18 @@ loginApp.controller("LoginController", function($scope, $http, $cookieStore) {
 mainApp.controller("ProjectController", function($scope, $http, $cookieStore) {
 	$scope.flag = false;
 	$scope.project = {};
-	$http.get("/eWBS/resources/project/list").success(function(projectList) {
-		$scope.projectList = projectList;
-	});
+	load();
+	function load() {
+		$http.get("/eWBS/resources/project/list").success(
+				function(projectList) {
+					$scope.projectList = projectList;
+				});
+	}
 
 	$scope.save = function() {
 		$http.post('/eWBS/resources/project/add', $scope.project).success(
 				function(data, status) {
+					load();
 					alert("Project added successfully.");
 					$scope.flag = false;
 				});
@@ -62,7 +67,6 @@ mainApp.controller("reviewCommentsAndBugsController", function($scope, $http,
 	$scope.dbBugs.integrationTestingDefects = [ 0, 0, 0, 0 ];
 	$scope.dbBugs.systemTestingDefects = [ 0, 0, 0, 0 ];
 	$scope.dbBugs.productionDefects = [ 0, 0, 0, 0 ];
-
 
 	$scope.submit = function() {
 		alert("data bug" + JSON.stringify($scope.dbBugs));
