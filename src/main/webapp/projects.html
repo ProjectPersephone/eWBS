@@ -9,7 +9,8 @@
 <div ng-controller="ProjectController">
 	<div class="row" ng-if="!flag">
 		<div class="col-xs-12">
-			<span class="btn btn-primary" ng-click="add()">ADD NEW</span>
+			<span ng-if="role" class="btn btn-primary" ng-click="add()">ADD
+				NEW</span>
 			<div class="box">
 				<div class="box-name">
 					<span>Project List</span>
@@ -26,19 +27,20 @@
 								<th>ApprovedBy</th>
 								<th>FromDate</th>
 								<th>ToDate</th>
-								<th>SELECT</th>
+								<th ng-if="role">EDIT</th>
 							</tr>
 						</thead>
 						<tbody>
 							<tr ng-repeat="project in projectList">
-								<td>{{$index}}</td>
-								<td><a href>{{ project.projectName}}</a></td>
+								<td>{{$index+1}}</td>
+								<td><a href ng-click="select(project.projectName)">{{project.projectName}}</a></td>
 								<td>{{project.description }}</td>
 								<td>{{project.preparedBy }}</td>
 								<td>{{project.approvedBy }}</td>
 								<td>{{project.fromDate}}</td>
 								<td>{{project.toDate}}</td>
-								<td>SELECT</td>
+								<td ng-if="role"><a href
+									ng-click="update(project.projectName)">EDIT</a></td>
 							</tr>
 						</tbody>
 					</table>
@@ -103,19 +105,10 @@
 								</div>
 							</div>
 					</form>
-					<script typtext/javascript">
-						// When the document is ready
-						$(document).ready(function() {
-							$('#fromDate').datepicker({
-								format : "dd/mm/yyyy"
-							});
-							$('#toDate').datepicker({
-								format : "dd/mm/yyyy"
-							});
-
-						});
-					</script>
-
+					<scripttyptext/javascript"> // When the document is
+					ready $(document).ready(function() { $('#fromDate').datepicker({
+					format : "dd/mm/yyyy" }); $('#toDate').datepicker({ format :
+					"dd/mm/yyyy" }); }); </script>
 				</div>
 			</div>
 		</div>

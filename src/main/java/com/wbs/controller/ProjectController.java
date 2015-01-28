@@ -5,9 +5,11 @@ import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,7 +38,6 @@ public class ProjectController {
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseEntity<?> saveProject(@RequestBody Project project) {
-		System.out.println("Hello");
 		log.info("Adding new project {}", project.getProjectName());
 		projectService.saveProject(project);
 		return new ResponseEntity<String>("Project added", HttpStatus.OK);
@@ -49,5 +50,14 @@ public class ProjectController {
 		log.info("Requesting project: {}", projectName);
 		Project project = projectService.findProject(projectName);
 		return new ResponseEntity<Project>(project, HttpStatus.OK);
+	}
+
+	@ExceptionHandler(DuplicateKeyException.class)
+	@ResponseBody
+	public ResponseEntity<?> duplicateKeyExceptionHandler(
+			DuplicateKeyException e) {
+		log.info("DublicateKeyExceptionHandler :");
+		return new ResponseEntity<String>("Project Name already exists.",
+				HttpStatus.CONFLICT);
 	}
 }

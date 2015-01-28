@@ -1,5 +1,6 @@
 mainApp.controller("Profile", function($scope, $cookieStore) {
 	$scope.resource = $cookieStore.get("resource");
+	$scope.projectName = $cookieStore.get("projectName");
 	if ($cookieStore.get("username") == null) {
 		window.location = "/eWBS/";
 	}
@@ -32,8 +33,16 @@ loginApp.controller("LoginController", function($scope, $http, $cookieStore) {
 	}
 });
 
-mainApp.controller("ProjectController", function($scope, $http, $cookieStore) {
+mainApp.controller("ProjectController", function($scope, $location, $http,
+		$cookieStore) {
 	$scope.flag = false;
+
+	if ($cookieStore.get("role") == 'admin') {
+		$scope.role = true;
+	} else {
+		$scope.role = false;
+	}
+
 	$scope.project = {};
 	load();
 	function load() {
@@ -49,12 +58,29 @@ mainApp.controller("ProjectController", function($scope, $http, $cookieStore) {
 					load();
 					alert("Project added successfully.");
 					$scope.flag = false;
-				});
+				}).error(function(data, status) {
+			alert("Project added successfully.");
+		});
 	}
 	$scope.add = function() {
 		$scope.flag = true;
 	}
+
+	$scope.update = function(projectName) {
+		alert(projectName);
+	}
+
+	$scope.select = function(projectName) {
+		alert("Selected Project : " + projectName);
+		$cookieStore.put("projectName", projectName);
+		$location.reload();
+	}
 });
+
+mainApp.controller("StoryTaskController",
+		function($scope, $http, $cookieStore) {
+			alert("Hello");
+		});
 
 mainApp.controller("reviewCommentsAndBugsController", function($scope, $http,
 		$cookieStore) {
@@ -79,5 +105,4 @@ mainApp.controller("reviewCommentsAndBugsController", function($scope, $http,
 			}
 		});
 	}
-
 });

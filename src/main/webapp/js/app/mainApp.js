@@ -11,6 +11,10 @@ mainApp.config([ '$routeProvider', function($routeProvider) {
 		templateUrl : 'projects.html',
 		controller : 'ProjectController'
 	});
+	$routeProvider.when('/storytask', {
+		templateUrl : 'storytask.html',
+		controller : 'StoryTaskController'
+	});
 	$routeProvider.when('/reviewCommentsAndBugs', {
 		templateUrl : 'reviewCommentsAndBugs.html',
 		controller : 'reviewCommentsAndBugsController'
