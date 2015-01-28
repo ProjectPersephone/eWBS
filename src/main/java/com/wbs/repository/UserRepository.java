@@ -26,7 +26,7 @@ public class UserRepository {
 
 	public void save(User user) {
 		System.out.println("User :" + user);
-		mongoTemplate.save(user);
+		mongoTemplate.insert(user);
 	}
 	
 	public User getUser(String username) {
@@ -42,7 +42,7 @@ public class UserRepository {
 	}
 
 	public User authenticateUser(User user) {
-		Query query= new Query(Criteria.where("username").is(user.getUsername()).and("password").is(user.getPassword()));
+		Query query= new Query(Criteria.where("emailId").is(user.getEmailId()).and("password").is(user.getPassword()));
 		User user2=mongoTemplate.findOne(query,User.class);
 		return user2;
 	}
