@@ -15,6 +15,10 @@ mainApp.config([ '$routeProvider', function($routeProvider) {
 		templateUrl : 'reviewCommentsAndBugs.html',
 		controller : 'reviewCommentsAndBugsController'
 	});
+	$routeProvider.when('/defectLeakageMatrics', {
+		templateUrl : 'defectLeakageMatrics.html',
+		controller : 'defectLeakageMatricsController'
+	});
 	$routeProvider.otherwise({
 		redirectTo : '/'
 	});

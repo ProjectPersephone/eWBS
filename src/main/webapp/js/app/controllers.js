@@ -1,11 +1,12 @@
 mainApp.controller("Profile", function($scope, $cookieStore) {
-	$scope.resource = $cookieStore.get("resource");
-	if ($cookieStore.get("username") == null) {
+	$scope.name = $cookieStore.get("name");
+	$scope.projectName = $cookieStore.get("projectName");
+	if ($cookieStore.get("emailId") == null) {
 		window.location = "/eWBS/";
 	}
 	$scope.logout = function() {
-		$cookieStore.remove('username');
-		$cookieStore.remove('resource');
+		$cookieStore.remove('emailId');
+		$cookieStore.remove('name');
 		$cookieStore.remove('isLogged');
 		$cookieStore.remove('role');
 		window.location = "/eWBS/";
@@ -18,8 +19,8 @@ loginApp.controller("LoginController", function($scope, $http, $cookieStore) {
 				function(data, status) {
 					if (status == 200) {
 						alert("Login successfully.");
-						$cookieStore.put("username", data["username"]);
-						$cookieStore.put("resource", data["resource"]);
+						$cookieStore.put("emailId", data["emailId"]);
+						$cookieStore.put("name", data["name"]);
 						$cookieStore.put("role", data["role"]);
 						$cookieStore.put("isLogged", true);
 						window.location = "/eWBS/home.html";
@@ -32,8 +33,16 @@ loginApp.controller("LoginController", function($scope, $http, $cookieStore) {
 	}
 });
 
-mainApp.controller("ProjectController", function($scope, $http, $cookieStore) {
+mainApp.controller("ProjectController", function($scope, $location, $http,
+		$cookieStore) {
 	$scope.flag = false;
+
+	if ($cookieStore.get("role") == 'admin') {
+		$scope.role = true;
+	} else {
+		$scope.role = false;
+	}
+
 	$scope.project = {};
 	load();
 	function load() {
@@ -49,12 +58,37 @@ mainApp.controller("ProjectController", function($scope, $http, $cookieStore) {
 					load();
 					alert("Project added successfully.");
 					$scope.flag = false;
-				});
+				}).error(function(data, status) {
+			alert("Project added successfully.");
+		});
 	}
 	$scope.add = function() {
 		$scope.flag = true;
 	}
+
+	$scope.back = function() {
+		$scope.flag = false;
+	}
+
+	$scope.update = function(projectName) {
+		alert(projectName);
+	}
+
+	$scope.select = function(projectName) {
+		alert("Selected Project : " + projectName);
+		$cookieStore.put("projectName", projectName);
+		$location.reload();
+	}
 });
+
+mainApp.controller("StoryController", function($scope, $http, $cookieStore) {
+	$scope.flag = false;
+});
+
+mainApp.controller("StoryTaskController",
+		function($scope, $http, $cookieStore) {
+			alert("Hello");
+		});
 
 mainApp.controller("reviewCommentsAndBugsController", function($scope, $http,
 		$cookieStore) {
@@ -79,5 +113,51 @@ mainApp.controller("reviewCommentsAndBugsController", function($scope, $http,
 			}
 		});
 	}
-
 });
+
+mainApp
+		.controller(
+				"defectLeakageMatricsController",
+				function($scope, $http, $cookieStore) {
+					$scope.flag = false;
+					$scope.dbLeakage = {};
+					$scope.dbLeakage.requirements = [ 0, 0, 0, 0, 0, 0 ];
+					$scope.dbLeakage.analysis = [ 0, 0, 0, 0, 0, 0 ];
+					$scope.dbLeakage.design = [ 0, 0, 0, 0, 0, 0 ];
+					$scope.dbLeakage.coding = [ 0, 0, 0, 0, 0, 0 ];
+					$scope.dbLeakage.testing = [ 0, 0, 0, 0, 0, 0 ];
+					$scope.dbLeakage.production = [ 0, 0, 0, 0, 0, 0 ];
+
+					load();
+					function load() {
+						$http
+								.get(
+										"/eWBS/resources/DefectLeakageMetric/findByProject?projectName=a")
+								.success(function(dbLeakage) {
+									$scope.dbLeakage = dbLeakage;
+								});
+
+					}
+					$scope.submit = function() {
+						$http
+								.post(
+										'/eWBS/resources/DefectLeakageMetric/save',
+										$scope.dbLeakage)
+								.success(
+										function(data, status) {
+											if (status == 200) {
+												alert("data entered into database successfully");
+												load();
+												$scope.flag = false;
+											}
+										});
+					}
+					$scope.add = function() {
+						$scope.flag = true;
+					}
+
+					$scope.back = function() {
+						$scope.flag = false;
+					}
+
+				});

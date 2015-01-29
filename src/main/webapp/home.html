@@ -37,7 +37,12 @@
 									class="fa fa-search"></i>
 							</div>
 						</div>
-						<div class="col-xs-4 col-sm-8 top-panel-right">
+
+						<div class="col-xs-2 col-sm-4">
+							<h4>{{projectName}}</h4>
+						</div>
+
+						<div class="col-xs-4 col-sm-4 top-panel-right">
 							<ul class="nav navbar-nav pull-right panel-menu">
 								<li class="dropdown"><a href
 									class="dropdown-toggle account" data-toggle="dropdown">
@@ -45,7 +50,7 @@
 											<img src="img/default.jpg" class="img-rounded" alt="avatar" />
 										</div> <i class="fa fa-angle-down pull-right"></i>
 										<div class="user-mini pull-right">
-											<span class="welcome">Welcome,</span> <span>{{resource}}</span>
+											<span class="welcome">Welcome,</span> <span>{{name}}</span>
 										</div>
 								</a>
 									<ul class="dropdown-menu">
@@ -78,10 +83,24 @@
 								Data</span>
 					</a>
 						<ul class="dropdown-menu">
-							<li><a class="ajax-link" href="#/storytask.html">Task</a></li>
+							<li><a href="#/stories">Stories</a></li>
+							<li><a href="#/storytask">Task</a></li>
 							<li><a class="ajax-link" href="#/ajax/charts_flot.html">Flot
 									Charts</a></li>
 						</ul></li>
+						
+						<li class="dropdown"><a href="#" class="dropdown-toggle">
+							<i class="fa fa-table"></i> <span class="hidden-xs">Defects
+								and DP Plan</span>
+					</a>
+						<ul class="dropdown-menu">
+							<li><a class="ajax-link" href="#/reviewCommentsAndBugs">Review comments and
+									Bugs</a></li>
+							<li><a class="ajax-link" href="#/defectLeakageMatrics">Defect Leakage Metric</a></li>
+							<li><a class="ajax-link" href="#/causalAnalysis">Causal analysis</a></li>
+							<li><a class="ajax-link" href="#">Defect Prevention plan</a></li>
+						</ul></li>
+						
 					<li class="dropdown"><a href="#" class="dropdown-toggle">
 							<i class="fa fa-table"></i> <span class="hidden-xs">Tables</span>
 					</a>

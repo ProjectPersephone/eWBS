@@ -1,6 +1,6 @@
 package com.wbs.domain;
 
-import java.util.Map;
+import java.util.List;
 
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -14,26 +14,19 @@ import lombok.Setter;
 @Document(collection = "DefectLeakageMetric")
 public class DefectLeakageMetric extends AuditEntity {
 	
-	private int projectId;
-
-	private Map<String, Integer> requirements;
-	private Map<String, Integer> analysis;
-	private Map<String, Integer> design;
-	private Map<String, Integer> coding;
-	private Map<String, Integer> testing;
-	private Map<String, Integer> production;
-
-	private int requirementsLeakage;
-	private int analysisLeakage;
-	private int designLeakage;
-	private int codeingLeakage;
-	private int testingLeakage;
-	private int productionLeakage;
+	private String projectName;
 	
-	private String requirementsPreventiveaction;
-	private String analysisPreventiveaction;
-	private String designPreventiveaction;
-	private String codeingPreventiveaction;
-	private String testingPreventiveaction;
-	private String productionPreventiveaction;
+	private List<Integer> requirements;
+	private List<Integer> analysis;
+	private List<Integer> design;
+	private List<Integer> coding;
+	private List<Integer> testing;
+	private List<Integer> production;
+
+	private String requirementsPreventiveAction;
+	private String analysisPreventiveAction;
+	private String designPreventiveAction;
+	private String codingPreventiveAction;
+	private String testingPreventiveAction;
+	private String productionPreventiveAction;
 }
