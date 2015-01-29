@@ -1,12 +1,12 @@
 mainApp.controller("Profile", function($scope, $cookieStore) {
-	$scope.resource = $cookieStore.get("resource");
+	$scope.name = $cookieStore.get("name");
 	$scope.projectName = $cookieStore.get("projectName");
-	if ($cookieStore.get("username") == null) {
+	if ($cookieStore.get("emailId") == null) {
 		window.location = "/eWBS/";
 	}
 	$scope.logout = function() {
-		$cookieStore.remove('username');
-		$cookieStore.remove('resource');
+		$cookieStore.remove('emailId');
+		$cookieStore.remove('name');
 		$cookieStore.remove('isLogged');
 		$cookieStore.remove('role');
 		window.location = "/eWBS/";
@@ -19,8 +19,8 @@ loginApp.controller("LoginController", function($scope, $http, $cookieStore) {
 				function(data, status) {
 					if (status == 200) {
 						alert("Login successfully.");
-						$cookieStore.put("username", data["username"]);
-						$cookieStore.put("resource", data["resource"]);
+						$cookieStore.put("emailId", data["emailId"]);
+						$cookieStore.put("name", data["name"]);
 						$cookieStore.put("role", data["role"]);
 						$cookieStore.put("isLogged", true);
 						window.location = "/eWBS/home.html";
@@ -66,6 +66,10 @@ mainApp.controller("ProjectController", function($scope, $location, $http,
 		$scope.flag = true;
 	}
 
+	$scope.back = function() {
+		$scope.flag = false;
+	}
+
 	$scope.update = function(projectName) {
 		alert(projectName);
 	}
@@ -75,6 +79,10 @@ mainApp.controller("ProjectController", function($scope, $location, $http,
 		$cookieStore.put("projectName", projectName);
 		$location.reload();
 	}
+});
+
+mainApp.controller("StoryController", function($scope, $http, $cookieStore) {
+	$scope.flag = false;
 });
 
 mainApp.controller("StoryTaskController",
