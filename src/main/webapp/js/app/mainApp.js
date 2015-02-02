@@ -11,6 +11,10 @@ mainApp.config([ '$routeProvider', function($routeProvider) {
 		templateUrl : 'projects.html',
 		controller : 'ProjectController'
 	});
+	$routeProvider.when('/stories', {
+		templateUrl : 'stories.html',
+		controller : 'StoryController'
+	});
 	$routeProvider.when('/storytask', {
 		templateUrl : 'storytask.html',
 		controller : 'StoryTaskController'
@@ -19,7 +23,18 @@ mainApp.config([ '$routeProvider', function($routeProvider) {
 		templateUrl : 'reviewCommentsAndBugs.html',
 		controller : 'reviewCommentsAndBugsController'
 	});
+	$routeProvider.when('/defectLeakageMatrics', {
+		templateUrl : 'defectLeakageMatrics.html',
+		controller : 'defectLeakageMatricsController'
+	});
+	
+	$routeProvider.when('/causalAnalysis', {
+		templateUrl : 'causalAnalysis.html',
+		controller : 'causalAnalysisController'
+	});
+	
 	$routeProvider.otherwise({
 		redirectTo : '/'
 	});
 } ]);
+

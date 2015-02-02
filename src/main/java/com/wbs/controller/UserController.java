@@ -36,6 +36,13 @@ public class UserController {
 		return new ResponseEntity<User>(user, HttpStatus.OK);
 	}
 
+	@RequestMapping(value = "/userEdit", method = RequestMethod.GET)
+	public ResponseEntity<User> getUserForEdit(
+			@RequestParam(value = "username", required = true) String emailId) {
+		User user = userService.getUser(emailId);
+		return new ResponseEntity<User>(user, HttpStatus.OK);
+	}
+	
 	@RequestMapping(value = "/users", method = RequestMethod.GET)
 	public ResponseEntity<List<User>> getAll() {
 		List<User> userList = userService.getAllUsers();

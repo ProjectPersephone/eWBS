@@ -22,8 +22,8 @@ public class DefectPreventionPlanService {
 			return defectPreventionPlanRepository.findAll();
 		}
 		
-		public DefectPreventionPlan findByProject(int projectId) {
-			return defectPreventionPlanRepository.findByProject(projectId);
+		public List<DefectPreventionPlan> findByProject(String projectName) {
+			return defectPreventionPlanRepository.findByProject(projectName);
 		}
 				
 }
