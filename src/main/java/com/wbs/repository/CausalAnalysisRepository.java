@@ -15,7 +15,7 @@ public class CausalAnalysisRepository {
 		@Autowired
 		private MongoTemplate mongoTemplate;
 
-		public void save(CausalAnalysis causalAnalysis ) {
+		public void save(CausalAnalysis causalAnalysis) {
 			System.out.println("CausalAnalysis :" + causalAnalysis);
 			mongoTemplate.save(causalAnalysis);
 		}
@@ -25,12 +25,30 @@ public class CausalAnalysisRepository {
 			return list;
 		}
 		
-		public CausalAnalysis findByProject(int projectId) {
-			Query query = new Query(Criteria.where("projectId").is(projectId));
+		public List<CausalAnalysis> findByProject(String projectName) {
+			Query query = new Query(Criteria.where("projectName").is(projectName));
+			System.out.println(query);
+			List<CausalAnalysis> causalAnalysis = mongoTemplate.find(query, CausalAnalysis.class);
+			System.out.println(causalAnalysis);
+			return causalAnalysis;
+		}
+
+		public CausalAnalysis findByCauseofBug(String projectName,String causeOfBug)
+		{
+			Query query=new Query(Criteria.where("projectName").is(projectName).and("causeOfBug").is(causeOfBug));
 			System.out.println(query);
 			CausalAnalysis causalAnalysis = mongoTemplate.findOne(query, CausalAnalysis.class);
 			System.out.println(causalAnalysis);
 			return causalAnalysis;
 		}
-
+		
+		public void updateCause(CausalAnalysis causalAnalysis)
+		{
+			mongoTemplate.save(causalAnalysis);
+			/*Query query=new Query(Criteria.where("projectName").is(projectName));
+			System.out.println(query);
+			CausalAnalysis causalAnalysis = mongoTemplate.u(query, CausalAnalysis.class);
+			System.out.println(causalAnalysis);
+			return causalAnalysis;*/
+		}
 }

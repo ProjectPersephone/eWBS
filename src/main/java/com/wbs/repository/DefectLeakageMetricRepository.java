@@ -6,9 +6,8 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Repository;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
+import com.wbs.domain.DefectLeakageMetric;
 
-
-import com.wbs.domain.DefectLeakageMetric;;
 @Repository
 public class DefectLeakageMetricRepository {
 	
@@ -25,12 +24,9 @@ public class DefectLeakageMetricRepository {
 			return list;
 		}
 		
-		public DefectLeakageMetric findByProject(int projectId) {
-			Query query = new Query(Criteria.where("projectId").is(projectId));
-			System.out.println(query);
-			DefectLeakageMetric defectLeakageMetric = mongoTemplate.findOne(query, DefectLeakageMetric.class);
-			System.out.println(defectLeakageMetric);
-			return defectLeakageMetric;
+		public DefectLeakageMetric findProject(String projectName) {
+			Query query = new Query(Criteria.where("projectName").is(projectName));
+			return mongoTemplate.findOne(query, DefectLeakageMetric.class);
 		}
 
 }

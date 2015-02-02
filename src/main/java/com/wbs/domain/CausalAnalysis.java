@@ -12,7 +12,7 @@ import lombok.Setter;
 @Document(collection = "CausalAnalysis")
 public class CausalAnalysis extends AuditEntity {
 	
-	private int projectId;
+	private String projectName;
 	private String causeOfBug;
 	private int totalNoOfDefects;
 	private String correctiveActionTaken;

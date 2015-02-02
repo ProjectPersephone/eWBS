@@ -50,6 +50,8 @@
 	</div>
 	<div class="row" ng-if="flag">
 		<div class="col-xs-12 col-sm-8">
+			<span ng-if="role" class="btn btn-primary" ng-click="back()">BACK</span>
+
 			<div class="box">
 				<div class="box-content">
 					<form name="ProjectForm" class="form-horizontal">
@@ -105,10 +107,16 @@
 								</div>
 							</div>
 					</form>
-					<scripttyptext/javascript"> // When the document is
-					ready $(document).ready(function() { $('#fromDate').datepicker({
-					format : "dd/mm/yyyy" }); $('#toDate').datepicker({ format :
-					"dd/mm/yyyy" }); }); </script>
+					<script>
+						$(document).ready(function() {
+							$('#fromDate').datepicker({
+								format : "dd/mm/yyyy"
+							});
+							$('#toDate').datepicker({
+								format : "dd/mm/yyyy"
+							});
+						});
+					</script>
 				</div>
 			</div>
 		</div>

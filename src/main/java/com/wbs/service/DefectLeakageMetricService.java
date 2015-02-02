@@ -21,10 +21,9 @@ public class DefectLeakageMetricService {
 		public List<DefectLeakageMetric> findAllCasualAnalysis() {
 			return defectLeakageMetricRepository.findAll();
 		}
-		
-		public DefectLeakageMetric findByProject(int projectId) {
-			return defectLeakageMetricRepository.findByProject(projectId);
+	
+		public DefectLeakageMetric findProject(String projectName) {
+			return defectLeakageMetricRepository.findProject(projectName);
 		}
-
 		
 }

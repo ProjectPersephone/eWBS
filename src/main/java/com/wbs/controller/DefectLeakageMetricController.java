@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-
 import com.wbs.domain.DefectLeakageMetric;
 import com.wbs.service.DefectLeakageMetricService;
 
@@ -31,12 +30,12 @@ public class DefectLeakageMetricController {
 		List<DefectLeakageMetric> Defetcts=defectLeakageMetricService.findAllCasualAnalysis();
 		return new ResponseEntity<List<DefectLeakageMetric>>(Defetcts,HttpStatus.OK);
 	}
-	
-	@RequestMapping(value="/findByProject", method=RequestMethod.GET)
-	public ResponseEntity<DefectLeakageMetric> findByProject(@RequestParam(value="projectId", required=true) int projectId){
-		DefectLeakageMetric Defetcts=defectLeakageMetricService.findByProject(projectId);
-		return new ResponseEntity<DefectLeakageMetric>(Defetcts,HttpStatus.OK);
+		
+	@RequestMapping(value = "/findByProject", method = RequestMethod.GET)
+	public ResponseEntity<DefectLeakageMetric> findProject(
+			@RequestParam(value="projectName",required=true) String projectName) {
+		DefectLeakageMetric defectLeakageMetric = defectLeakageMetricService.findProject(projectName);
+		return new ResponseEntity<DefectLeakageMetric>(defectLeakageMetric, HttpStatus.OK);
 	}
-
 }
 
