@@ -27,7 +27,14 @@ mainApp.config([ '$routeProvider', function($routeProvider) {
 		templateUrl : 'defectLeakageMatrics.html',
 		controller : 'defectLeakageMatricsController'
 	});
+	
+	$routeProvider.when('/causalAnalysis', {
+		templateUrl : 'causalAnalysis.html',
+		controller : 'causalAnalysisController'
+	});
+	
 	$routeProvider.otherwise({
 		redirectTo : '/'
 	});
 } ]);
+
