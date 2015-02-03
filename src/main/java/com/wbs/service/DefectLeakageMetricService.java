@@ -15,6 +15,7 @@ public class DefectLeakageMetricService {
 		private DefectLeakageMetricRepository defectLeakageMetricRepository;
 
 		public void createCasualAnalysis(DefectLeakageMetric defectLeakageMetric) {
+			System.out.println(defectLeakageMetric.getProjectName());
 			defectLeakageMetricRepository.save(defectLeakageMetric);
 		}
 		
