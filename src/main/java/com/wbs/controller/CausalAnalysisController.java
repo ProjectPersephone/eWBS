@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -21,22 +22,35 @@ public class CausalAnalysisController {
 	private CausalAnalysisService  causalAnalysisService;
 	
 	@RequestMapping(value="/save", method=RequestMethod.POST)
-	public ResponseEntity<String> createDefectAndDPReviewBugsService(@RequestBody CausalAnalysis  causalAnalysis){
+	public ResponseEntity<String> createCauseService(@RequestParam(value="projectName", required=true) String projectName,@RequestBody CausalAnalysis  causalAnalysis){
+		causalAnalysis.setProjectName(projectName);
 		causalAnalysisService.createCasualAnalysis(causalAnalysis);
 		return new ResponseEntity<String>("Casual Analysis Table Created", HttpStatus.OK);
 	}
 	
 	@RequestMapping(value="/findAllanalysis", method=RequestMethod.POST)
-	public ResponseEntity<List<CausalAnalysis>> findAllDefectAndDPReviewBugsService(){
-		List<CausalAnalysis> Defetcts=causalAnalysisService.findAllCasualAnalysis();
-		return new ResponseEntity<List<CausalAnalysis>>(Defetcts,HttpStatus.OK);
+	public ResponseEntity<List<CausalAnalysis>> findAllCauseService(){
+		List<CausalAnalysis> causalAnalysis=causalAnalysisService.findAllCasualAnalysis();
+		return new ResponseEntity<List<CausalAnalysis>>(causalAnalysis,HttpStatus.OK);
 	}
 	
 	@RequestMapping(value="/findByProject", method=RequestMethod.GET)
-	public ResponseEntity<CausalAnalysis> findByProject(@RequestParam(value="projectId", required=true) int projectId){
-		CausalAnalysis Defetcts=causalAnalysisService.findByProject(projectId);
-		return new ResponseEntity<CausalAnalysis>(Defetcts,HttpStatus.OK);
+	public ResponseEntity<List<CausalAnalysis>> findByProject(@RequestParam(value="projectName", required=true) String projectName){
+		List<CausalAnalysis> causalAnalysis=causalAnalysisService.findByProject(projectName);
+		return new ResponseEntity<List<CausalAnalysis>>(causalAnalysis,HttpStatus.OK);
 	}
-
+	
+	@RequestMapping(value="/findCauseByName/{projectName}/{causeOfBug}",method=RequestMethod.GET)
+	public ResponseEntity<CausalAnalysis> findCauseByName(@PathVariable(value="projectName") String projectName, @PathVariable(value="causeOfBug") String causeOfBug){
+		CausalAnalysis causalAnalysis=causalAnalysisService.findByCauseName(projectName, causeOfBug);
+		return new ResponseEntity<CausalAnalysis>(causalAnalysis,HttpStatus.OK);
+	}
+	
+	@RequestMapping(value="/update/{projectName}", method=RequestMethod.POST)
+	public ResponseEntity<String> causeUpdate(@PathVariable(value="projectName") String projectName,@RequestBody CausalAnalysis  causalAnalysis){
+		causalAnalysis.setProjectName(projectName);
+		causalAnalysisService.createCasualAnalysis(causalAnalysis);
+		return new ResponseEntity<String>("Cause is updated", HttpStatus.OK);
+	}
 }
 

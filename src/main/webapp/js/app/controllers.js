@@ -81,6 +81,78 @@ mainApp.controller("ProjectController", function($scope, $location, $http,
 	}
 });
 
+mainApp.controller("causalAnalysisController", function($scope, $http,
+		$cookieStore) {
+	$scope.flag = false;
+	$scope.flagUpdate = false;
+	$scope.flagSave = true;
+
+	if ($cookieStore.get("role") == 'admin') {
+		$scope.role = true;
+	} else {
+		$scope.role = false;
+	}
+
+	$scope.causalAnalysis = {};
+	load();
+	function load() {
+		$http.get(
+				"/eWBS/resources/causalAnalysis/findByProject?projectName="
+						+ $cookieStore.get("projectName")).success(
+				function(causeList) {
+					// alert(JSON.stringify(causeList));
+					$scope.causalAnalysisList = causeList;
+				});
+	}
+
+	$scope.save = function() {
+		$http.post(
+				'/eWBS/resources/causalAnalysis/save?projectName='
+						+ $cookieStore.get("projectName"),
+				$scope.causalAnalysis).success(function(data, status) {
+			load();
+			alert("Cause added successfully.");
+			$scope.flag = false;
+		});
+	}
+	$scope.add = function() {
+		$scope.flag = true;
+	}
+
+	$scope.back = function() {
+		$scope.flag = false;
+	}
+
+	$scope.update = function(causeOfBug) {
+		// alert(causeOfBug);
+		$http.get(
+				"/eWBS/resources/causalAnalysis/findCauseByName/"
+						+ $cookieStore.get("projectName") + "/" + causeOfBug)
+				.success(function(cause) {
+					$scope.causalAnalysis = cause;
+					$scope.flag = true;
+					$scope.flagUpdate = true;
+					$scope.flagSave = false;
+				});
+	}
+
+	$scope.updateValue = function(causeOfBug) {
+
+		$http.post(
+				'/eWBS/resources/causalAnalysis/update/'
+						+ $cookieStore.get("projectName"),
+				$scope.causalAnalysis).success(function(data, status) {
+			load();
+			alert("Cause updated successfully.");
+			$scope.flag = false;
+			$scope.flagSave = true;
+			$scope.flagUpdate = false;
+		}).error(function(data, status) {
+			alert("Cause not updated" + status);
+		});
+	}
+});
+
 mainApp.controller("StoryController", function($scope, $http, $cookieStore) {
 	$scope.flag = false;
 });
@@ -101,6 +173,19 @@ mainApp.controller("reviewCommentsAndBugsController", function($scope, $http,
 	$scope.dbBugs.integrationTestingDefects = [ 0, 0, 0, 0 ];
 	$scope.dbBugs.systemTestingDefects = [ 0, 0, 0, 0 ];
 	$scope.dbBugs.productionDefects = [ 0, 0, 0, 0 ];
+	
+	load("gap");
+
+	function load(projectName) {
+		$http.get(
+				"/eWBS/resources/defect/findByProject?projectName="
+						+ projectName).success(function(data, status) {
+			$scope.dbBugs = data;
+		});
+	}
+	$scope.get = function() {
+		$scope.flag = true;
+	}
 
 	$scope.submit = function() {
 		alert("data bug" + JSON.stringify($scope.dbBugs));
@@ -161,3 +246,12 @@ mainApp
 					}
 
 				});
+
+mainApp.controller("metricReportController", function($scope, $http, $document,
+		$location, $cookieStore) {
+	$(document).ready(function() {
+		$("button").click(function() {
+			$("div").scrollLeft();
+		});
+	});
+});

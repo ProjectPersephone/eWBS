@@ -19,8 +19,9 @@ public class DefectAndDPReviewBugsRepository {
 			mongoTemplate.save(defectAndDPReviewBugs);
 		}
 		
-		public List<DefectAndDPReviewBugs> findAll() {
-			List<DefectAndDPReviewBugs> list=mongoTemplate.findAll(DefectAndDPReviewBugs.class);	
+		public DefectAndDPReviewBugs findAll(String projectName) {
+			Query query = new Query(Criteria.where("projectName").is(projectName));
+			DefectAndDPReviewBugs list=mongoTemplate.findOne(query, DefectAndDPReviewBugs.class);	
 			return list;
 		}
 		

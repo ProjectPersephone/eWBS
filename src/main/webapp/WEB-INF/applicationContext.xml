@@ -13,9 +13,41 @@
 
 	<context:annotation-config />
 	<context:component-scan base-package="com.wbs" />
-
+	<context:component-scan base-package="com.wbs.security" />
+	
 	<mvc:default-servlet-handler />
 	<mvc:annotation-driven />
+
+	<!-- Mail service -->
+	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="smtp.gmail.com" />
+		<property name="port" value="587" />
+		<property name="username" value="nisumwbs@gmail.com" />
+		<property name="password" value="nisum123" />
+		<property name="javaMailProperties">
+			<props>
+				<!-- Use SMTP transport protocol -->
+                <prop key="mail.transport.protocol">smtp</prop>
+				<!-- Use SMTP-AUTH to authenticate to SMTP server -->
+				<prop key="mail.smtp.auth">true</prop>
+				<!-- Use TLS to encrypt communication with SMTP server -->
+				<prop key="mail.smtp.starttls.enable">true</prop>
+			</props>
+		</property>
+	</bean>
+
+	<!-- Mail message -->
+	<bean id="mailMessage" class="org.springframework.mail.SimpleMailMessage">
+		<property name="from" value="nisumwbs@gmail.com" />
+		<property name="subject" value="Your Login Credentials for eWBS" />
+	</bean>
+	
+	<!-- You can have some pre-configured messagess also which are ready to send -->
+    <bean id="preConfiguredMessage" class="org.springframework.mail.SimpleMailMessage">
+        <property name="to" value="pradeeprawate@gmail.com"></property>
+        <property name="from" value="nisumwbs@gmail.com"></property>
+        <property name="subject" value="FATAL - Application crash !!"/>
+    </bean>
 
 	<util:properties id="app" location="classpath:application.properties" />
 	<context:property-placeholder

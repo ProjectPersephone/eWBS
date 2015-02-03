@@ -22,9 +22,15 @@ public class CausalAnalysisService {
 			return causalAnalysisRepository.findAll();
 		}
 		
-		public CausalAnalysis findByProject(int projectId) {
-			return causalAnalysisRepository.findByProject(projectId);
+		public List<CausalAnalysis> findByProject(String projectName) {
+			return causalAnalysisRepository.findByProject(projectName);
 		}
 
+		public CausalAnalysis findByCauseName(String projectName,String causeOfBug){
+			return causalAnalysisRepository.findByCauseofBug(projectName, causeOfBug);
+		}
 		
+		public void updateCause(CausalAnalysis causalAnalysis){
+			causalAnalysisRepository.updateCause(causalAnalysis);
+		}
 }

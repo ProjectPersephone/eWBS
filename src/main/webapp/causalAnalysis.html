@@ -1,0 +1,112 @@
+<!--Start Breadcrumb-->
+<div class="row">
+	<div id="breadcrumb" class="col-xs-12">
+		<ol class="breadcrumb">
+			<li><a href="#/causalAnalysis">Causal Analysis</a></li>
+		</ol>
+	</div>
+</div>
+<div ng-controller="causalAnalysisController">
+	<div class="row" ng-if="!flag">
+		<div class="col-xs-12">
+			<span ng-if="role" class="btn btn-primary" ng-click="add()">ADD NEW CAUSE</span>
+			<div class="box">
+				<div class="box-name">
+					<span>Causal Anaylsis</span>
+				</div>
+				<div class="box-content no-padding">
+					<table
+						class="table table-striped table-bordered table-hover table-heading no-border-bottom">
+						<thead>
+							<tr>
+								<th>#</th>
+								<th>Cause</th>
+								<th>Total number of defects</th>
+								<th>Corrective action taken</th>
+								<th>Preventive action planned ( with link to the
+													evidence)</th>
+								<th ng-if="role">Edit</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="causalAnalysis in causalAnalysisList">
+								<td>{{$index+1}}</td>
+								<td><a href>{{ causalAnalysis.causeOfBug}}</a></td>
+								<td>{{causalAnalysis.totalNoOfDefects }}</td>
+								<td>{{causalAnalysis.correctiveActionTaken }}</td>
+								<td>{{causalAnalysis.preventiveActionPlanned }}</td>
+								<td ng-if="role"><a href
+									ng-click="update(causalAnalysis.causeOfBug)">EDIT</a></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row" ng-if="flag">
+		<div class="col-xs-12 col-sm-8">
+		<span ng-if="role" class="btn btn-primary" ng-click="back()">BACK</span>
+			<div class="box">
+				<div class="box-content">
+					<form name="causeAnalysisForm" class="form-horizontal">
+						<fieldset>
+							<legend>Cause ADD/EDIT</legend>
+							<div class="form-group">
+							<input type="hidden" ng-model="causalAnalysis.projectId">
+				
+								<label class="col-sm-3 control-label">Cause</label>
+								<div class="col-sm-5">
+									<input type="text" class="form-control"
+										ng-model="causalAnalysis.causeOfBug" required />
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Total number of defects</label>
+								<div class="col-sm-5">
+									<input type="text" class="form-control"
+										ng-model="causalAnalysis.totalNoOfDefects" required />
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Corrective action taken</label>
+								<div class="col-sm-5">
+									<input type="text" class="form-control"
+										ng-model="causalAnalysis.correctiveActionTaken" required />
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Preventive action planned ( with link to the
+													evidence)</label>
+								<div class="col-sm-5">
+									<input type="text" class="form-control"
+										ng-model="causalAnalysis.preventiveActionPlanned" required />
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="col-sm-9 col-sm-offset-3">
+								<span ng-if="flagSave"><input  type="submit" class="btn btn-primary" value="Submit"
+										ng-disabled='!causeAnalysisForm.$valid' ng-click="save()" /></span>
+								<span ng-if="flagUpdate"><input  type="submit" class="btn btn-primary" value="Update"
+										ng-disabled='!causeAnalysisForm.$valid' ng-click="updateValue()" /></span>		
+								</div>
+							</div>
+					</form>
+					<!-- <script typtext/javascript">
+						// When the document is ready
+						$(document).ready(function() {
+							$('#fromDate').datepicker({
+								format : "dd/mm/yyyy"
+							});
+							$('#toDate').datepicker({
+								format : "dd/mm/yyyy"
+							});
+
+						});
+					</script>
+ -->
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

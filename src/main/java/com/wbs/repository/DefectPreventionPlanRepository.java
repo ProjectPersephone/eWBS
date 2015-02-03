@@ -24,10 +24,10 @@ public class DefectPreventionPlanRepository {
 			return list;
 		}
 		
-		public DefectPreventionPlan findByProject(int projectId) {
-			Query query = new Query(Criteria.where("projectId").is(projectId));
+		public List<DefectPreventionPlan> findByProject(String projectName) {
+			Query query = new Query(Criteria.where("projectName").is(projectName));
 			System.out.println(query);
-			DefectPreventionPlan defectPreventionPlan = mongoTemplate.findOne(query, DefectPreventionPlan.class);
+			List<DefectPreventionPlan> defectPreventionPlan = mongoTemplate.find(query, DefectPreventionPlan.class);
 			System.out.println(defectPreventionPlan);
 			return defectPreventionPlan;
 		}

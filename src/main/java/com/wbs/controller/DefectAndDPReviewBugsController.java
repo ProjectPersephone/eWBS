@@ -1,4 +1,5 @@
 package com.wbs.controller;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,29 +15,33 @@ import com.wbs.domain.DefectAndDPReviewBugs;
 import com.wbs.service.DefectAndDPReviewBugsService;
 
 @Controller
-@RequestMapping(value="/defect", method=RequestMethod.POST)
+@RequestMapping(value = "/defect", method = RequestMethod.POST)
 public class DefectAndDPReviewBugsController {
-	
+
 	@Autowired
-	private DefectAndDPReviewBugsService  defectAndDPReviewBugsService;
-	
-	@RequestMapping(value="/save", method=RequestMethod.POST)
-	public ResponseEntity<String> createDefectAndDPReviewBugsService(@RequestBody DefectAndDPReviewBugs  defectAndDPReviewBugs){
+	private DefectAndDPReviewBugsService defectAndDPReviewBugsService;
+
+	@RequestMapping(value = "/save", method = RequestMethod.POST)
+	public ResponseEntity<String> createDefectAndDPReviewBugsService(
+			@RequestBody DefectAndDPReviewBugs defectAndDPReviewBugs) {
 		defectAndDPReviewBugsService.createDefectAndDPReviewBugs(defectAndDPReviewBugs);
 		return new ResponseEntity<String>("DefectAndDPReviewBugs Table Created", HttpStatus.OK);
 	}
-	
-	@RequestMapping(value="/findAll", method=RequestMethod.POST)
-	public ResponseEntity<List<DefectAndDPReviewBugs>> findAllDefectAndDPReviewBugsService(){
-		List<DefectAndDPReviewBugs> Defetcts=defectAndDPReviewBugsService.findAllDefectAndDPReviewBugs();
-		return new ResponseEntity<List<DefectAndDPReviewBugs>>(Defetcts,HttpStatus.OK);
-	}
-	
-	@RequestMapping(value="/findByProject", method=RequestMethod.GET)
-	public ResponseEntity<DefectAndDPReviewBugs> findByProject(@RequestParam(value="projectId", required=true) int projectId){
-		DefectAndDPReviewBugs Defetcts=defectAndDPReviewBugsService.findByProject(projectId);
-		return new ResponseEntity<DefectAndDPReviewBugs>(Defetcts,HttpStatus.OK);
-	}
 
+	/*
+	 * @RequestMapping(value="/findAll", method=RequestMethod.POST) public
+	 * ResponseEntity<List<DefectAndDPReviewBugs>>
+	 * findAllDefectAndDPReviewBugsService(){ List<DefectAndDPReviewBugs>
+	 * Defetcts=defectAndDPReviewBugsService.findAllDefectAndDPReviewBugs();
+	 * return new
+	 * ResponseEntity<List<DefectAndDPReviewBugs>>(Defetcts,HttpStatus.OK); }
+	 */
+
+	@RequestMapping(value = "/findByProject", method = RequestMethod.GET)
+	public ResponseEntity<?> findByProject(@RequestParam(value = "projectName", required = true) String projectName) {
+		DefectAndDPReviewBugs defectAndDPReviewBugs = defectAndDPReviewBugsService
+				.findAllDefectAndDPReviewBugs(projectName);
+		return defectAndDPReviewBugs != null ? new ResponseEntity<DefectAndDPReviewBugs>(defectAndDPReviewBugs,
+				HttpStatus.OK) : new ResponseEntity<String>("Record not found.", HttpStatus.NOT_FOUND);
+	}
 }
-

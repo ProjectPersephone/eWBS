@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Getter
@@ -14,8 +15,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection = "DefectAndDPReviewBugs")
 public class DefectAndDPReviewBugs extends AuditEntity {
 	
-	private int projectId;
-
 	private List<Integer> requirementsDefects;
 	private List<Integer> analysisDefects;
 	private List<Integer> designDefects;
@@ -24,7 +23,6 @@ public class DefectAndDPReviewBugs extends AuditEntity {
 	private List<Integer> integrationTestingDefects;
 	private List<Integer> systemTestingDefects;
 	private List<Integer> productionDefects;
-	
-
+	private String projectName;
 
 }

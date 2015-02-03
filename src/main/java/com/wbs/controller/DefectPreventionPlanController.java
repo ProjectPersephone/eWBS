@@ -33,9 +33,9 @@ public class DefectPreventionPlanController {
 	}
 	
 	@RequestMapping(value="/findByProject", method=RequestMethod.GET)
-	public ResponseEntity<DefectPreventionPlan> findByProject(@RequestParam(value="projectId", required=true) int projectId){
-		DefectPreventionPlan Defetcts=defectPreventionPlanService.findByProject(projectId);
-		return new ResponseEntity<DefectPreventionPlan>(Defetcts,HttpStatus.OK);
+	public ResponseEntity<List<DefectPreventionPlan>> findByProject(@RequestParam(value="projectName", required=true) String projectName){
+		List<DefectPreventionPlan> Defetcts=defectPreventionPlanService.findByProject(projectName);
+		return new ResponseEntity<List<DefectPreventionPlan>>(Defetcts,HttpStatus.OK);
 	}
 
 }
