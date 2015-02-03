@@ -38,6 +38,11 @@ mainApp.config([ '$routeProvider', function($routeProvider) {
 		controller : 'metricReportController'
 	});
 	
+	$routeProvider.when('/teamLeaves', {
+		templateUrl : 'teamLeaves.html',
+		controller : 'teamLeavesController'
+	});
+
 	$routeProvider.otherwise({
 		redirectTo : '/'
 	});
