@@ -173,6 +173,19 @@ mainApp.controller("reviewCommentsAndBugsController", function($scope, $http,
 	$scope.dbBugs.integrationTestingDefects = [ 0, 0, 0, 0 ];
 	$scope.dbBugs.systemTestingDefects = [ 0, 0, 0, 0 ];
 	$scope.dbBugs.productionDefects = [ 0, 0, 0, 0 ];
+	
+	load("gap");
+
+	function load(projectName) {
+		$http.get(
+				"/eWBS/resources/defect/findByProject?projectName="
+						+ projectName).success(function(data, status) {
+			$scope.dbBugs = data;
+		});
+	}
+	$scope.get = function() {
+		$scope.flag = true;
+	}
 
 	$scope.submit = function() {
 		alert("data bug" + JSON.stringify($scope.dbBugs));
