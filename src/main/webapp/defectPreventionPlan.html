@@ -23,14 +23,17 @@
 								<th>Defect Type and details</th>
 								<th>Prevention Plan</th>
 								<th>Current status</th>
+								<th ng-if="role">Edit</th>
 							</tr>
 						</thead>
 						<tbody>
 							<tr ng-repeat="defectPreventionPlan in defectPreventionPlanList">
-								<td>{{$index}}</td>
+								<td>{{$index+1}}</td>
 								<td><a href>{{defectPreventionPlan.defectTypeAndDetails}}</a></td>
 								<td>{{defectPreventionPlan.preventionPlan }}</td>
 								<td>{{defectPreventionPlan.currentStatus }}</td>
+								<td ng-if="role"><a href
+									ng-click="update(defectPreventionPlan.defectTypeAndDetails)">EDIT</a></td>
 							</tr>
 						</tbody>
 					</table>
@@ -40,6 +43,7 @@
 	</div>
 	<div class="row" ng-if="flag">
 		<div class="col-xs-12 col-sm-8">
+		<span ng-if="role" class="btn btn-primary" ng-click="back()">BACK</span>
 			<div class="box">
 				<div class="box-content">
 					<form name="defectPreventionPlanForm" class="form-horizontal">
@@ -83,8 +87,10 @@
 							</div>
 							<div class="form-group">
 								<div class="col-sm-9 col-sm-offset-3">
-									<input type="submit" class="btn btn-primary" value="Submit"
-										ng-disabled='!defectPreventionPlanForm.$valid' ng-click="save()" />
+								<span ng-if="flagSave"><input  type="submit" class="btn btn-primary" value="Save"
+										ng-disabled='!defectPreventionPlanForm.$valid' ng-click="save()" /></span>
+								<span ng-if="flagUpdate"><input  type="submit" class="btn btn-primary" value="Update"
+										ng-disabled='!defectPreventionPlanForm.$valid' ng-click="updateValue()" /></span>		
 								</div>
 							</div>
 						</form>
