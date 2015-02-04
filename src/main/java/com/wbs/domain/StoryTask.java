@@ -1,16 +1,19 @@
 package com.wbs.domain;
 
-import org.springframework.data.mongodb.core.mapping.Document;
-
 import lombok.Getter;
 import lombok.Setter;
+
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 @Getter
 @Setter
 @Document(collection = "storytask")
 public class StoryTask {
 
-	private String tasks;
+	@Id
+	private long storyTaskId;
+	private String task;
 	private long storyId;
 	private String phase; // It will come from list of phases.
 	private String status;
@@ -30,5 +33,5 @@ public class StoryTask {
 	private int duration;
 	private String iterationStart;
 	private String iterationEnd;
-
+	private String projectName;
 }

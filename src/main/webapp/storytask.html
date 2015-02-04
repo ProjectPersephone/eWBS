@@ -7,96 +7,324 @@
 		</ol>
 	</div>
 </div>
-<div class="row" ng-controller="StoryTaskController">
-	<div class="col-xs-12">
-		<div class="box">
-			<div class="box-header">
-				<div class="box-name">
-					<span>Task</span>
+<div ng-controller="StoryTaskController">
+	<div class="row" ng-if="!flag">
+		<div class="col-xs-12">
+			<span class="btn btn-primary" ng-click="add()">ADD NEW</span>
+			<div class="box">
+				<div class="box-header">
+					<div class="box-name">
+						<span>Task</span>
+					</div>
+				</div>
+				<div class="box-content no-padding">
+					<table
+						class="table table-striped table-bordered table-hover table-heading no-border-bottom">
+						<thead>
+							<tr>
+								<th>#</th>
+								<th>Task</th>
+								<th>StoryId</th>
+								<th>Phase</th>
+								<th>%Work Complete</th>
+								<th>Resource</th>
+								<th>Effort Variance</th>
+								<th>Schedule Variance</th>
+								<th>Details</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="storyTask in storyTaskList">
+								<td>{{$index+1}}</td>
+								<td>{{storyTask.task}}</td>
+								<td>{{storyTask.storyId}}</td>
+								<td>{{storyTask.phase}}</td>
+								<td>{{storyTask.workCompletedPer}}</td>
+								<td>{{storyTask.resource}}</td>
+								<td>{{storyTask.effortVariance}}</td>
+								<td>{{storyTask.scheduleVariance}}</td>
+								<td><a href ng-click="select(storyTask.storyTaskId)">DETAILS</a></td>
+							</tr>
+						</tbody>
+					</table>
 				</div>
 			</div>
-			<div class="box-content no-padding">
-				<table
-					class="table table-striped table-bordered table-hover table-heading no-border-bottom">
-					<thead>
-						<tr>
-							<th>#</th>
-							<th>Task</th>
-							<th>StoryId</th>
-							<th>Phase</th>
-							<th>%Work Complete</th>
-							<th>Resource</th>
-							<th>Actual Start</th>
-							<th>Actural End</th>
-							<th>Effort Variance</th>
-							<th>Details</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td>1</td>
-							<td><a href="#">Oracle</a></td>
-							<td>OracleDB</td>
-							<td>Oracle</td>
-							<td>OracleDB</td>
-							<td>Oracle</td>
-							<td>OracleDB</td>
-							<td>Oracle</td>
-							<td>OracleDB</td>
-							<td><a href="#">Details</a></td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td>Oracle</td>
-							<td>OracleDB</td>
-							<td>Oracle</td>
-							<td>OracleDB</td>
-							<td>Oracle</td>
-							<td>OracleDB</td>
-							<td>Oracle</td>
-							<td>OracleDB</td>
-							<td><a href="#">Details</a></td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td>Oracle</td>
-							<td>OracleDB</td>
-							<td>Oracle</td>
-							<td>OracleDB</td>
-							<td>Oracle</td>
-							<td>OracleDB</td>
-							<td>Oracle</td>
-							<td>OracleDB</td>
-							<td><a href="#">Details</a></td>
-						</tr>
+		</div>
+	</div>
+	<div class="row" ng-if="flag">
+		<div class="col-xs-12 col-sm-8">
+			<span class="btn btn-primary" ng-click="back()">BACK</span>
+			<div class="box">
+				<div class="box-content">
+					<form name="StoryTaskForm" class="form-horizontal">
+						<fieldset>
+							<legend>Story</legend>
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Task</label>
+								<div class="col-sm-5">
+									<textarea rows="3" class="form-control"
+										ng-model="storyTask.task" required></textarea>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label">StoryId</label>
+								<div class="col-sm-5">
+									<select ng-model="storyTask.storyId" class="form-control"
+										required
+										ng-options="story.storyId as story.storyId for story in storyList">
+									</select>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Phase</label>
+								<div class="col-sm-5">
+									<select ng-model="storyTask.phase" class="form-control"
+										required>
+										<option value="">Select</option>
+										<option value="Requirements">Requirements</option>
+										<option value="Analysis">Analysis</option>
+										<option value="Design">Design</option>
+										<option value="Design Review">Design Review</option>
+										<option value="Desgin Rework">Design Rework</option>
+										<option value="Coding">Coding</option>
+										<option value="Review">Review</option>
+										<option value="Rework">Rework</option>
+										<option value="Whitebox Testing">Whitebox Testing</option>
+										<option value="Support">Support</option>
+										<option value="Blocker or WaitTime">Blocker or
+											WaitTime</option>
+										<option value="Milestone">Milestone</option>
+										<option value="Fixing Defects">Fixing Defects</option>
+										<option value="Fixing Review Comments">Fixing Review
+											Comments</option>
+										<option value="Hudle & Analysis">Huddle & Analysis</option>
+										<option value="DB Changes">DB Changes</option>
+										<option value="DE Changes">DE Changes</option>
+										<option value="Service Level Tests">Service Level
+											Tests</option>
+										<option value="Unit Testing">Unit Testing</option>
+										<option value="Validation">Validation</option>
+										<option value="Deployment &  Testing">Deployment &
+											Testing</option>
+										<option value="Refactoring">Refactoring</option>
+										<option value="Test Cases">Test Cases</option>
+										<option value="Code Review">Code Review</option>
+										<option value="Requirements Review">Requirements
+											Review</option>
+										<option value="Requirements Rework">Requirements
+											Rework</option>
+										<option value="HLD">HLD</option>
+										<option value="HLD Review">HLD Review</option>
+										<option value="HLD Rework">HLD Rework</option>
+										<option value="LLD">LLD</option>
+										<option value="LLD Review">LLD Review</option>
+										<option value="LLD Rework">LLD Rework</option>
+										<option value="Unit Testing Rework">Unit Testing
+											Rework</option>
+										<option value="Project Management">Project Management</option>
+										<option value="Status Reporting">Status Reporting</option>
+										<option value="UAT Defect Fixing">UAT Defect Fixing</option>
+										<option value="Training">Training</option>
+										<option value="Status Reporting">Status Reporting</option>
+										<option value="UAT Defect Fixing">UAT Defect Fixing</option>
+										<option value="Training">Training</option>
+										<option value="WBS">WBS</option>
+										<option value="Meetings">Meetings</option>
+										<option value="Client Calls">Client Calls</option>
+										<option value="Requirement/Project
+											Clarification">Requirement/Project
+											Clarification</option>
+										<option value="Knowledge Transition">Knowledge
+											Transition</option>
+										<option value="Build Management">Build Management</option>
+										<option value="DB Setup">DB Setup</option>
+										<option value="Environment Setup">Environment Setup</option>
+										<option value="Audits">Audits</option>
+										<option value="Timesheet Entry">Timesheet Entry</option>
+									</select>
+								</div>
+							</div>
 
-						<tr>
-							<td>1</td>
-							<td>Oracle</td>
-							<td>OracleDB</td>
-							<td>Oracle</td>
-							<td>OracleDB</td>
-							<td>Oracle</td>
-							<td>OracleDB</td>
-							<td>Oracle</td>
-							<td>OracleDB</td>
-							<td><a href="#">Details</a></td>
-						</tr>
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Status</label>
+								<div class="col-sm-5">
+									<select ng-model="storyTask.status" class="form-control"
+										required>
+										<option value="">Select</option>
+										<option value="Completed">Completed</option>
+										<option value="WIP">WIP</option>
+										<option value="Deferred">Deferred</option>
+										<option value="Others">Others</option>
+									</select>
+								</div>
+							</div>
 
-						<tr>
-							<td>1</td>
-							<td>Oracle</td>
-							<td>OracleDB</td>
-							<td>Oracle</td>
-							<td>OracleDB</td>
-							<td>Oracle</td>
-							<td>OracleDB</td>
-							<td>Oracle</td>
-							<td>OracleDB</td>
-							<td><a href="#">Details</a></td>
-						</tr>
-					</tbody>
-				</table>
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Work Completed(%)</label>
+								<div class="col-sm-5">
+									<input type="number" class="form-control"
+										ng-model="storyTask.workCompletedPer" required />
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Resource</label>
+								<div class="col-sm-5">
+									<select ng-model="storyTask.resource" class="form-control"
+										required>
+										<option value="">Select</option>
+										<option value="Functional">Functional</option>
+										<option value="Technical">Technical</option>
+										<option value="Other">Other</option>
+									</select>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Planned Start Date</label>
+								<div class="col-sm-5">
+									<input type="text" class="form-control"
+										ng-model="storyTask.plannedStartDate" id="plannedStartDate"
+										required />
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Planned Start Date</label>
+								<div class="col-sm-5">
+									<input type="text" class="form-control"
+										ng-model="storyTask.plannedEndDate" id="plannedEndDate"
+										required />
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Actual Start Date</label>
+								<div class="col-sm-5">
+									<input type="text" class="form-control"
+										ng-model="storyTask.actualStartDate" id="actualStartDate"
+										required />
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Actual End Date</label>
+								<div class="col-sm-5">
+									<input type="text" class="form-control"
+										ng-model="storyTask.actualEndDate" id="actualEndDate" required />
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Effort Planned</label>
+								<div class="col-sm-5">
+									<input type="number" class="form-control"
+										ng-model="storyTask.effortPlanned" required />
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Effort Actual</label>
+								<div class="col-sm-5">
+									<input type="number" class="form-control"
+										ng-model="storyTask.effortActual" required />
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Effort Variance</label>
+								<div class="col-sm-5">
+									<input type="number" class="form-control"
+										ng-model="storyTask.effortVariance" disabled />
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Schedule Variance</label>
+								<div class="col-sm-5">
+									<input type="number" class="form-control"
+										ng-model="storyTask.scheduleVariance" disabled />
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Remarks</label>
+								<div class="col-sm-5">
+									<input type="text" class="form-control"
+										ng-model="storyTask.remarks" required />
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Blockers</label>
+								<div class="col-sm-5">
+									<select ng-model="storyTask.blocker" class="form-control"
+										required>
+										<option value="">Select</option>
+										<option value="Test">Test</option>
+										<option value="Data">Data</option>
+										<option value="Environment">Environment</option>
+									</select>
+								</div>
+							</div>
+
+
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Spring</label>
+								<div class="col-sm-5">
+									<input type="text" class="form-control"
+										ng-model="storyTask.spring" />
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Duration</label>
+								<div class="col-sm-5">
+									<input type="number" class="form-control"
+										ng-model="storyTask.duration" />
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Iteration Start</label>
+								<div class="col-sm-5">
+									<input type="number" class="form-control"
+										ng-model="storyTask.iterationStart" />
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Iteration End</label>
+								<div class="col-sm-5">
+									<input type="number" class="form-control"
+										ng-model="storyTask.iterationEnd" />
+								</div>
+							</div>
+
+
+							<div class="form-group">
+								<div class="col-sm-9 col-sm-offset-3">
+									<input type="submit" class="btn btn-primary" value="SAVE"
+										ng-disabled='!StoryTaskForm.$valid' ng-click="save()" />
+								</div>
+							</div>
+					</form>
+					<script>
+						$(document).ready(function() {
+							$('#plannedStartDate').datepicker({
+								format : "dd/mm/yyyy"
+							});
+							$('#plannedEndDate').datepicker({
+								format : "dd/mm/yyyy"
+							});
+							$('#actualStartDate').datepicker({
+								format : "dd/mm/yyyy"
+							});
+
+							$('#actualEndDate').datepicker({
+								format : "dd/mm/yyyy"
+							});
+						});
+					</script>
+				</div>
 			</div>
 		</div>
 	</div>

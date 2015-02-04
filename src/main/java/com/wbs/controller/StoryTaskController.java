@@ -25,26 +25,40 @@ public class StoryTaskController {
 	@Autowired
 	private StoryTaskService storyTaskService;
 
-	@RequestMapping(value="/task-list",method = RequestMethod.POST)
+	@RequestMapping(value = "/list/{projectName}", method = RequestMethod.GET)
 	@ResponseBody
-	public ResponseEntity<?> getStoryTaskList(){
+	public ResponseEntity<?> getStoryTaskList(
+			@PathVariable("projectName") String projectName) {
 		log.info("Getting story task list");
-		List<StoryTask> storyTaskList = storyTaskService.getStoryTaskList();
-		return ((null == storyTaskList) || (storyTaskList.isEmpty())) ? new ResponseEntity<String>("StoryTask not found ",HttpStatus.NOT_FOUND) : new ResponseEntity<List<StoryTask>>(storyTaskList, HttpStatus.OK);
+		List<StoryTask> storyTaskList = storyTaskService
+				.getStoryTaskList(projectName);
+		return ((null == storyTaskList) || (storyTaskList.isEmpty())) ? new ResponseEntity<String>(
+				"StoryTask not found ", HttpStatus.NOT_FOUND)
+				: new ResponseEntity<List<StoryTask>>(storyTaskList,
+						HttpStatus.OK);
 	}
-	
-	@RequestMapping(value="/{storyTaskId}",method = RequestMethod.POST)
+
+	@RequestMapping(value = "/{storyTaskId}", method = RequestMethod.POST)
 	@ResponseBody
-	public ResponseEntity<?> getStoryTask(@PathVariable("storyTaskId") int storyTaskId){
-		log.info("Getting story task :{}"+storyTaskId);
-		return new ResponseEntity<StoryTask>(storyTaskService.getStoryTask(storyTaskId), HttpStatus.OK);
+	public ResponseEntity<?> getStoryTask(
+			@PathVariable("storyTaskId") int storyTaskId) {
+		log.info("Getting story task :{}" + storyTaskId);
+		return new ResponseEntity<StoryTask>(
+				storyTaskService.getStoryTask(storyTaskId), HttpStatus.OK);
 	}
-	
-	@RequestMapping(value="/update",method = RequestMethod.POST)
+
+	@RequestMapping(value = "/add", method = RequestMethod.POST)
 	@ResponseBody
-	public ResponseEntity<?> updateStoryTask(@RequestBody() StoryTask storyTask){
-		log.info("Updatting  story task :{}"+storyTask.getTasks());
+	public ResponseEntity<?> saveStoryTask(@RequestBody StoryTask storyTask) {
+		log.info("Adding new storyTask {}", storyTask.getTask());
+		storyTaskService.saveStoryTask(storyTask);
+		return new ResponseEntity<String>("story added", HttpStatus.OK);
+	}
+
+	@RequestMapping(value = "/update", method = RequestMethod.POST)
+	@ResponseBody
+	public ResponseEntity<?> updateStoryTask(@RequestBody() StoryTask storyTask) {
+		log.info("Updatting  story task :{}" + storyTask.getTask());
 		return new ResponseEntity<String>(HttpStatus.OK);
 	}
-	
 }

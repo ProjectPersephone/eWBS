@@ -4,7 +4,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.query.BasicQuery;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
 
 import com.wbs.domain.StoryTask;
@@ -16,15 +17,16 @@ public class StoryTaskRepository {
 	private MongoTemplate mongoTemplate;
 
 	public void saveStoryTask(StoryTask storyTask) {
-		mongoTemplate.save(storyTask);
+		mongoTemplate.insert(storyTask);
 	}
 
-	public List<StoryTask> getStoryTaskList() {
-		return mongoTemplate.findAll(StoryTask.class);
+	public List<StoryTask> getStoryTaskList(String projectName) {
+		Query query = new Query(Criteria.where("projectName").is(projectName));
+		return mongoTemplate.find(query, StoryTask.class);
 	}
 
 	public StoryTask getStoryTask(int storyTaskId) {
-		BasicQuery basicQuery = new BasicQuery("{'id':" + storyTaskId + "}");
-		return mongoTemplate.findOne(basicQuery, StoryTask.class);
+		Query query = new Query(Criteria.where("id").is(storyTaskId));
+		return mongoTemplate.findOne(query, StoryTask.class);
 	}
 }

@@ -12,7 +12,7 @@
 			<span class="btn btn-primary" ng-click="add()">ADD NEW</span>
 			<div class="box">
 				<div class="box-name">
-					<span>Stories List</span>
+					<span>Story List</span>
 				</div>
 				<div class="box-content no-padding">
 					<table
@@ -20,16 +20,19 @@
 						<thead>
 							<tr>
 								<th>#</th>
+								<th>StoryId</th>
 								<th>Story</th>
-								<th>Description</th>
+								<th>Type</th>
 								<th>EDIT</th>
 							</tr>
 						</thead>
 						<tbody>
 							<tr ng-repeat="story in storyList">
 								<td>{{$index+1}}</td>
-								<td><a href ng-click="select(story.projectName)">{{project.projectName}}</a></td>
-								<td><a href ng-click="update(project.projectName)">EDIT</a></td>
+								<td>{{story.storyId}}</td>
+								<td>{{story.story}}</td>
+								<td>{{story.type }}</td>
+								<td><a href ng-click="select(story.storyId)">EDIT</a></td>
 							</tr>
 						</tbody>
 					</table>
@@ -39,23 +42,34 @@
 	</div>
 	<div class="row" ng-if="flag">
 		<div class="col-xs-12 col-sm-8">
+			<span class="btn btn-primary" ng-click="back()">BACK</span>
 			<div class="box">
 				<div class="box-content">
-					<form name="ProjectForm" class="form-horizontal">
+					<form name="StoryForm" class="form-horizontal">
 						<fieldset>
-							<legend>Project ADD/EDIT</legend>
+							<legend>Story</legend>
 							<div class="form-group">
-								<label class="col-sm-3 control-label">Project Name</label>
+								<label class="col-sm-3 control-label">Story</label>
 								<div class="col-sm-5">
-									<input type="text" class="form-control"
-										ng-model="project.projectName" required />
+									<textarea rows="5" class="form-control" ng-model="story.story"
+										required></textarea>
 								</div>
 							</div>
-
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Description</label>
+								<div class="col-sm-5">
+									<select ng-model="story.type" class="form-control" required>
+										<option value="">Select</option>
+										<option value="Functional">Functional</option>
+										<option value="Technical">Technical</option>
+										<option value="Other">Other</option>
+									</select>
+								</div>
+							</div>
 							<div class="form-group">
 								<div class="col-sm-9 col-sm-offset-3">
-									<input type="submit" class="btn btn-primary" value="Submit"
-										ng-disabled='!ProjectForm.$valid' ng-click="save()" />
+									<input type="submit" class="btn btn-primary" value="SAVE"
+										ng-disabled='!StoryForm.$valid' ng-click="save()" />
 								</div>
 							</div>
 					</form>

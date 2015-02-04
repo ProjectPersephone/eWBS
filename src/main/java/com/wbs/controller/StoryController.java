@@ -5,10 +5,9 @@ import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,6 +19,7 @@ import com.wbs.service.StoryService;
 
 @Slf4j
 @RequestMapping(value = "/story")
+@Controller
 public class StoryController {
 
 	@Autowired
@@ -44,8 +44,7 @@ public class StoryController {
 
 	@RequestMapping(value = "/{_id}", method = RequestMethod.GET)
 	@ResponseBody
-	public ResponseEntity<?> findStory(
-			@PathVariable("projectName") long _id) {
+	public ResponseEntity<?> findStory(@PathVariable("projectName") long _id) {
 		log.info("Requesting project: {}", _id);
 		Story story = storyService.findStory(_id);
 		return new ResponseEntity<Story>(story, HttpStatus.OK);
