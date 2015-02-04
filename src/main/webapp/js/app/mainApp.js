@@ -23,6 +23,36 @@ mainApp.config([ '$routeProvider', function($routeProvider) {
 		templateUrl : 'reviewCommentsAndBugs.html',
 		controller : 'reviewCommentsAndBugsController'
 	});
+	$routeProvider.when('/defectLeakageMatrics', {
+		templateUrl : 'defectLeakageMatrics.html',
+		controller : 'defectLeakageMatricsController'
+	});
+
+	$routeProvider.when('/causalAnalysis', {
+		templateUrl : 'causalAnalysis.html',
+		controller : 'causalAnalysisController'
+	});
+
+	$routeProvider.when('/metricReport', {
+		templateUrl : 'metricReport.html',
+		controller : 'metricReportController'
+	});
+
+	$routeProvider.when('/teamLeaves', {
+		templateUrl : 'teamLeaves.html',
+		controller : 'teamLeavesController'
+	});
+
+	$routeProvider.when('/defectPreventionPlan', {
+		templateUrl : 'defectPreventionPlan.html',
+		controller : 'defectPreventionPlanController'
+	});
+
+	$routeProvider.when('/user', {
+		templateUrl : 'addUser.html',
+		controller : 'userController'
+	});
+
 	$routeProvider.otherwise({
 		redirectTo : '/'
 	});

@@ -1,32 +1,31 @@
 package com.wbs.repository;
 
 import java.util.List;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.data.mongodb.MongoDbFactory;
 import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.SimpleMongoDbFactory;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
 
-import com.mongodb.Mongo;
 import com.wbs.domain.User;
+import com.wbs.util.MailService;
 
 @Repository
 public class UserRepository {
 
-	public @Bean
-    MongoDbFactory mongoDbFactory() throws Exception {
-        return new SimpleMongoDbFactory(new Mongo(), "wbs");
-    }
 	@Autowired
 	private MongoTemplate mongoTemplate;
+	
+	@Autowired
+	private MailService mailService;
 
 	public void save(User user) {
-		System.out.println("User :" + user);
+		String password = Integer.toString(new Random().nextInt(999999));
+		user.setPassword(password);
 		mongoTemplate.insert(user);
+		mailService.sendMail(user);
 	}
 	
 	public User getUser(String username) {

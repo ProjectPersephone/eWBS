@@ -1,0 +1,106 @@
+<!--Start Breadcrumb-->
+<div class="row">
+	<div id="breadcrumb" class="col-xs-12">
+		<ol class="breadcrumb">
+			<li><a href="#/defectPreventionPlan">Defect Prevention Plan</a></li>
+		</ol>
+	</div>
+</div>
+<div ng-controller="defectPreventionPlanController">
+	<div class="row" ng-if="!flag">
+		<div class="col-xs-12">
+			<span class="btn btn-primary" ng-click="add()">ADD NEW</span>
+			<div class="box">
+				<div class="box-name">
+					<span>Defect Prevention Plan List</span>
+				</div>
+				<div class="box-content no-padding">
+					<table
+						class="table table-striped table-bordered table-hover table-heading no-border-bottom">
+						<thead>
+							<tr>
+								<th>#</th>
+								<th>Defect Type and details</th>
+								<th>Prevention Plan</th>
+								<th>Current status</th>
+								<th ng-if="role">Edit</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="defectPreventionPlan in defectPreventionPlanList">
+								<td>{{$index+1}}</td>
+								<td><a href>{{defectPreventionPlan.defectTypeAndDetails}}</a></td>
+								<td>{{defectPreventionPlan.preventionPlan }}</td>
+								<td>{{defectPreventionPlan.currentStatus }}</td>
+								<td ng-if="role"><a href
+									ng-click="update(defectPreventionPlan.defectTypeAndDetails)">EDIT</a></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row" ng-if="flag">
+		<div class="col-xs-12 col-sm-8">
+		<span ng-if="role" class="btn btn-primary" ng-click="back()">BACK</span>
+			<div class="box">
+				<div class="box-content">
+					<form name="defectPreventionPlanForm" class="form-horizontal">
+						<fieldset>
+							<legend>Defect prevention Plan ADD/EDIT</legend>
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Defect Type and details</label>
+								<div class="row form-group">
+									<div class="col-sm-3">
+									<select class="form-control" ng-model="defectPreventionPlan.defectTypeAndDetails">
+								<option>3rd Party</option>
+								<option>Application Boundary</option>
+								<option>Attributes related</option>
+								<option>Boundary Value</option>
+								<option>Due to Other modules</option>
+								<option>Co-existence with other application</option>
+								<option>Concurrency issue</option>
+								<option>Data Related</option>
+								<option>Technology related</option>
+								<option>Database related</option>
+								<option>Deployment</option>
+								<option>Documentation</option>
+								<option>Environment</option>
+								</select>
+								</div>
+							</div>
+						</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Prevention Plan</label>
+								<div class="col-sm-5">
+									<input type="text" class="form-control"
+										ng-model="defectPreventionPlan.preventionPlan" required />
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Current status</label>
+								<div class="col-sm-5">
+									<input type="text" class="form-control"
+										ng-model="defectPreventionPlan.currentStatus" required />
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="col-sm-9 col-sm-offset-3">
+								<span ng-if="flagSave"><input  type="submit" class="btn btn-primary" value="Save"
+										ng-disabled='!defectPreventionPlanForm.$valid' ng-click="save()" /></span>
+								<span ng-if="flagUpdate"><input  type="submit" class="btn btn-primary" value="Update"
+										ng-disabled='!defectPreventionPlanForm.$valid' ng-click="updateValue()" /></span>		
+								</div>
+							</div>
+						</form>
+					 <!-- <script typtext/javascript">
+						// When the document is ready
+						
+					</script>
+  -->
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

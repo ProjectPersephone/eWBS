@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 
+import com.wbs.domain.CausalAnalysis;
 import com.wbs.domain.DefectPreventionPlan;
 @Repository
 public class DefectPreventionPlanRepository {
@@ -24,12 +25,25 @@ public class DefectPreventionPlanRepository {
 			return list;
 		}
 		
-		public DefectPreventionPlan findByProject(int projectId) {
-			Query query = new Query(Criteria.where("projectId").is(projectId));
+		public List<DefectPreventionPlan> findByProject(String projectName) {
+			Query query = new Query(Criteria.where("projectName").is(projectName));
+			System.out.println(query);
+			List<DefectPreventionPlan> defectPreventionPlan = mongoTemplate.find(query, DefectPreventionPlan.class);
+			System.out.println(defectPreventionPlan);
+			return defectPreventionPlan;
+		}
+
+		public DefectPreventionPlan findBydefectTypeAndDetails(String projectName, String defectTypeAndDetails) {
+			Query query=new Query(Criteria.where("projectName").is(projectName).and("defectTypeAndDetails").is(defectTypeAndDetails));
 			System.out.println(query);
 			DefectPreventionPlan defectPreventionPlan = mongoTemplate.findOne(query, DefectPreventionPlan.class);
 			System.out.println(defectPreventionPlan);
 			return defectPreventionPlan;
+		}
+
+		public void updateDefect(DefectPreventionPlan defectPreventionPlan) {
+			mongoTemplate.save(defectPreventionPlan);
+			
 		}
 
 }

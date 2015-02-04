@@ -12,7 +12,7 @@ public class UserService {
 
 	@Autowired
 	private UserRepository userRepository;
-		
+	
 	public void createUser(User user){
 		userRepository.save(user);
 	}
@@ -27,5 +27,9 @@ public class UserService {
 
 	public User authenticateUser(User user) {
 		return userRepository.authenticateUser(user);
+	}
+
+	public void sendMail(String mailId) {
+		
 	}
 }

@@ -1,0 +1,105 @@
+<!--Start Breadcrumb-->
+<div class="row">
+	<div id="breadcrumb" class="col-xs-12">
+		<ol class="breadcrumb">
+			<li><a href="#/teamLeaves">Team Leaves</a></li>
+		</ol>
+	</div>
+</div>
+<div ng-controller="teamLeavesController">
+	<div class="row" ng-if="!flag">
+		<div class="col-xs-12">
+			<span class="btn btn-primary" ng-click="add()">Apply Leave</span>
+			<div class="box">
+				<div class="box-name">
+					<span>Team Leaves</span>
+				</div>
+				<div class="box-content no-padding">
+					<table
+						class="table table-striped table-bordered table-hover table-heading no-border-bottom">
+						<thead>
+							<tr>
+								<th>#</th>
+								<th>EmployeeId</th>
+								<th>ResourceName</th>
+								<th>startDate</th>
+								<th>endDate</th>
+								<th>No Of Hours</th>
+								<th>Planned/UnPlanned Leave</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="teamLeaves in teamLeaveslist">
+								<td>{{$index+1}}</td>
+								<td>{{teamLeaves.employeeId }}</td>
+								<td>{{teamLeaves.name }}</td>
+								<td>{{teamLeaves.startDate}}</td>
+								<td>{{teamLeaves.endDate}}</td>
+								<td>{{[dateDifference(teamLeaves.startDate,teamLeaves.endDate)+1]*9}}</td>
+								<td>{{dateDifference(teamLeaves.startDate,teamLeaves.endDate)+1}}</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row" ng-if="flag">
+		<div class="col-xs-12 col-sm-8">
+			<div class="box">
+				<div class="box-content">
+					<form name="ProjectForm" class="form-horizontal">
+						<fieldset>
+							<legend>Apply Leaves</legend>
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Name:</label>
+								<div class="col-sm-5">
+									<input type="text" class="form-control"
+										ng-model="teamLeaves.name" required disabled />
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Employee Id:</label>
+								<div class="col-sm-5">
+									<input type="text" class="form-control"
+										ng-model="teamLeaves.employeeId" required />
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Start Date</label>
+								<div class="col-sm-5">
+									<input type="date" class="form-control"
+										ng-model="teamLeaves.startDate" id="startDate" required />
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label">End Date</label>
+								<div class="col-sm-5">
+									<input type="date" class="form-control"
+										ng-model="teamLeaves.endDate" id="endDate" required />
+								</div>
+							</div>
+
+							<div class="form-group">
+								<div class="col-sm-9 col-sm-offset-3">
+									<input type="submit" class="btn btn-primary" value="Submit"
+										ng-disabled='!ProjectForm.$valid' ng-click="save()" />
+								</div>
+							</div>
+					</form>
+					<script>
+						$(document).ready(function() {
+							$('#startDate').datepicker({
+								format : "dd/mm/yyyy"
+							});
+							$('#endDate').datepicker({
+								format : "dd/mm/yyyy"
+							});
+						});
+					</script>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

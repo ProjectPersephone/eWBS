@@ -2,6 +2,7 @@ package com.wbs.service;
 
 import java.util.List;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,8 +23,15 @@ public class DefectPreventionPlanService {
 			return defectPreventionPlanRepository.findAll();
 		}
 		
-		public DefectPreventionPlan findByProject(int projectId) {
-			return defectPreventionPlanRepository.findByProject(projectId);
+		public List<DefectPreventionPlan> findByProject(String projectName) {
+			return defectPreventionPlanRepository.findByProject(projectName);
 		}
-				
+		
+		public DefectPreventionPlan findByDefectName(String projectName,String defectTypeAndDetails){
+			return defectPreventionPlanRepository.findBydefectTypeAndDetails(projectName, defectTypeAndDetails);
+		}
+		
+		public void updateDefect(DefectPreventionPlan defectPreventionPlan){
+			defectPreventionPlanRepository.updateDefect(defectPreventionPlan);
+		}
 }

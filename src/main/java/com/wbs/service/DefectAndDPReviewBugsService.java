@@ -18,8 +18,8 @@ public class DefectAndDPReviewBugsService {
 			defectAndDPReviewBugsRepository.save(defectAndDPReviewBugs);
 		}
 		
-		public List<DefectAndDPReviewBugs> findAllDefectAndDPReviewBugs() {
-			return defectAndDPReviewBugsRepository.findAll();
+		public DefectAndDPReviewBugs findAllDefectAndDPReviewBugs(String projectName) {
+			return defectAndDPReviewBugsRepository.findAll(projectName);
 		}
 		
 		public DefectAndDPReviewBugs findByProject(int projectId) {

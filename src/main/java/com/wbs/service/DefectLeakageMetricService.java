@@ -15,16 +15,16 @@ public class DefectLeakageMetricService {
 		private DefectLeakageMetricRepository defectLeakageMetricRepository;
 
 		public void createCasualAnalysis(DefectLeakageMetric defectLeakageMetric) {
+			System.out.println(defectLeakageMetric.getProjectName());
 			defectLeakageMetricRepository.save(defectLeakageMetric);
 		}
 		
 		public List<DefectLeakageMetric> findAllCasualAnalysis() {
 			return defectLeakageMetricRepository.findAll();
 		}
-		
-		public DefectLeakageMetric findByProject(int projectId) {
-			return defectLeakageMetricRepository.findByProject(projectId);
+	
+		public DefectLeakageMetric findProject(String projectName) {
+			return defectLeakageMetricRepository.findProject(projectName);
 		}
-
 		
 }
