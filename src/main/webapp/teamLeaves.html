@@ -35,8 +35,8 @@
 								<td>{{teamLeaves.name }}</td>
 								<td>{{teamLeaves.startDate}}</td>
 								<td>{{teamLeaves.endDate}}</td>
-								<td>{{dateDifference(teamLeaves.startDate,teamLeaves.endDate)*9}}</td>
-								<td>{{dateDifference(teamLeaves.startDate,teamLeaves.endDate)}}</td>
+								<td>{{[dateDifference(teamLeaves.startDate,teamLeaves.endDate)+1]*9}}</td>
+								<td>{{dateDifference(teamLeaves.startDate,teamLeaves.endDate)+1}}</td>
 							</tr>
 						</tbody>
 					</table>
