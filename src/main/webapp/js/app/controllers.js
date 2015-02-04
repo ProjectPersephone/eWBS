@@ -158,13 +158,14 @@ mainApp.controller("StoryController", function($scope, $http, $cookieStore) {
 	$scope.flagUpdate = false;
 	$scope.flagSave = true;
 
+	$scope.story = {};
+	$scope.story.projectName = $cookieStore.get("projectName");
 	if ($cookieStore.get("role") == 'admin') {
 		$scope.role = true;
 	} else {
 		$scope.role = false;
 	}
 
-	$scope.causalAnalysis = {};
 	load();
 	function load() {
 		$http.get("/eWBS/resources/story/list/" + $scope.story.projectName)
@@ -296,7 +297,7 @@ mainApp.controller("reviewCommentsAndBugsController", function($scope, $http,
 	$scope.dbBugs.integrationTestingDefects = [ 0, 0, 0, 0 ];
 	$scope.dbBugs.systemTestingDefects = [ 0, 0, 0, 0 ];
 	$scope.dbBugs.productionDefects = [ 0, 0, 0, 0 ];
-	
+
 	load("gap");
 
 	function load(projectName) {
@@ -322,7 +323,6 @@ mainApp.controller("reviewCommentsAndBugsController", function($scope, $http,
 		});
 	}
 });
-
 
 mainApp.controller("defectLeakageMatricsController", function($scope, $http,
 		$cookieStore) {
@@ -374,7 +374,6 @@ mainApp.controller("defectLeakageMatricsController", function($scope, $http,
 	}
 
 });
-
 
 mainApp.controller("metricReportController", function($scope, $http, $document,
 		$location, $cookieStore) {
@@ -467,16 +466,16 @@ mainApp.controller("defectPreventionPlanController", function($scope, $http,
 	}
 
 	$scope.update = function(defectTypeAndDetails) {
-		//alert(defectTypeAndDetails);
+		// alert(defectTypeAndDetails);
 		$http.get(
 				"/eWBS/resources/defectPreventionPlan/findDefectByName/"
-						+ $cookieStore.get("projectName") + "/" + defectTypeAndDetails)
-				.success(function(defect) {
-					$scope.defectPreventionPlan = defect;
-					$scope.flag = true;
-					$scope.flagUpdate = true;
-					$scope.flagSave = false;
-				});
+						+ $cookieStore.get("projectName") + "/"
+						+ defectTypeAndDetails).success(function(defect) {
+			$scope.defectPreventionPlan = defect;
+			$scope.flag = true;
+			$scope.flagUpdate = true;
+			$scope.flagSave = false;
+		});
 	}
 
 	$scope.updateValue = function(defectTypeAndDetails) {
@@ -496,6 +495,20 @@ mainApp.controller("defectPreventionPlanController", function($scope, $http,
 	}
 });
 
-loginApp.controller("projectDetailsController", function($scope, $http,
+mainApp.controller("projectDetailsController", function($scope, $http,
 		$cookieStore) {
+	$scope.projectDetails = {};
+	$scope.projectDetails.projectName = $cookieStore.get("projectName");
+	load();
+	function load() {
+		$http.get(
+				"/eWBS/resources/storytask/list/"
+						+ $scope.projectDetails.projectName).success(
+				function(data) {
+					$scope.projectDetailsList = data;
+				}).error(function(data) {
+			alert(data);
+		});
+	}
+
 });

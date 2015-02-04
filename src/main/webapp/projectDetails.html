@@ -6,7 +6,7 @@
 		</ol>
 	</div>
 </div>
-<div ng-controller="ProjectController">
+<div ng-controller="projectDetailsController">
 	<div class="row">
 		<div class="col-xs-12">
 			<div class="box">
@@ -24,10 +24,10 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr ng-repeat="story in storyList">
+							<tr ng-repeat="projectDetails in projectDetailsList">
 								<td>{{$index+1}}</td>
-								<td></td>
-								<td></td>
+								<td>{{projectDetails.resource}}</td>
+								<td>{{projectDetails.blocker}}</td>
 							</tr>
 						</tbody>
 					</table>
