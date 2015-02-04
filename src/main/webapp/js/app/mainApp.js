@@ -53,6 +53,11 @@ mainApp.config([ '$routeProvider', function($routeProvider) {
 		controller : 'userController'
 	});
 
+	$routeProvider.when('/projectDetails', {
+		templateUrl : 'projectDetails.html',
+		controller : 'projectDetailsController'
+	});
+	
 	$routeProvider.otherwise({
 		redirectTo : '/'
 	});

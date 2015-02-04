@@ -496,3 +496,6 @@ mainApp.controller("defectPreventionPlanController", function($scope, $http,
 	}
 });
 
+loginApp.controller("projectDetailsController", function($scope, $http,
+		$cookieStore) {
+});
