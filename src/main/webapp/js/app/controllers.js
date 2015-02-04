@@ -82,10 +82,17 @@ mainApp.controller("ProjectController", function($scope, $location, $http,
 });
 
 mainApp.controller("StoryController", function($scope, $http, $cookieStore) {
-
 	$scope.flag = false;
-	$scope.story = {};
-	$scope.story.projectName = $cookieStore.get("projectName");
+	$scope.flagUpdate = false;
+	$scope.flagSave = true;
+
+	if ($cookieStore.get("role") == 'admin') {
+		$scope.role = true;
+	} else {
+		$scope.role = false;
+	}
+
+	$scope.causalAnalysis = {};
 	load();
 	function load() {
 		$http.get("/eWBS/resources/story/list/" + $scope.story.projectName)
@@ -217,6 +224,19 @@ mainApp.controller("reviewCommentsAndBugsController", function($scope, $http,
 	$scope.dbBugs.integrationTestingDefects = [ 0, 0, 0, 0 ];
 	$scope.dbBugs.systemTestingDefects = [ 0, 0, 0, 0 ];
 	$scope.dbBugs.productionDefects = [ 0, 0, 0, 0 ];
+	
+	load("gap");
+
+	function load(projectName) {
+		$http.get(
+				"/eWBS/resources/defect/findByProject?projectName="
+						+ projectName).success(function(data, status) {
+			$scope.dbBugs = data;
+		});
+	}
+	$scope.get = function() {
+		$scope.flag = true;
+	}
 
 	$scope.submit = function() {
 		alert("data bug" + JSON.stringify($scope.dbBugs));
@@ -230,3 +250,177 @@ mainApp.controller("reviewCommentsAndBugsController", function($scope, $http,
 		});
 	}
 });
+
+
+mainApp.controller("defectLeakageMatricsController", function($scope, $http,
+		$cookieStore) {
+
+	$scope.flag = false;
+
+	$scope.dbLeakage = {};
+	$scope.dbLeakage.projectName = "";
+	$scope.dbLeakage.requirements = [ 0, 0, 0, 0, 0, 0 ];
+	$scope.dbLeakage.analysis = [ 0, 0, 0, 0, 0, 0 ];
+	$scope.dbLeakage.design = [ 0, 0, 0, 0, 0, 0 ];
+	$scope.dbLeakage.coding = [ 0, 0, 0, 0, 0, 0 ];
+	$scope.dbLeakage.testing = [ 0, 0, 0, 0, 0, 0 ];
+	$scope.dbLeakage.production = [ 0, 0, 0, 0, 0, 0 ];
+	var projectName = $cookieStore.get("projectName");
+	load();
+	function load() {
+		$http.get(
+				"/eWBS/resources/DefectLeakageMetric/findByProject?projectName="
+						+ projectName).success(function(data, status) {
+			$scope.dbLeakage = dbLeakage;
+		}).error(function(data) {
+			alert(data);
+		});
+
+	}
+	$scope.submit = function(dbLeakage) {
+		$scope.dbLeakage = dbLeakage;
+		var restPoint = '/eWBS/resources/DefectLeakageMetric/save?projectName='
+				+ projectName;
+		$http.post(restPoint, $scope.dbLeakage).success(function(data, status) {
+			if (status == 200) {
+				alert("data entered into database successfully");
+				load();
+				$scope.flag = false;
+			} else
+				alert(status);
+		}).error(function(data, status) {
+			alert(status);
+		});
+
+	}
+	$scope.add = function() {
+		$scope.flag = true;
+	}
+
+	$scope.back = function() {
+		$scope.flag = false;
+	}
+
+});
+
+
+mainApp.controller("metricReportController", function($scope, $http, $document,
+		$location, $cookieStore) {
+	$(document).ready(function() {
+		$("button").click(function() {
+			$("div").scrollLeft();
+		});
+	});
+});
+
+mainApp.controller("teamLeavesController", function($scope, $location, $http,
+		$cookieStore) {
+	$scope.flag = false;
+	$scope.teamLeaves = {};
+	$scope.teamLeaves.name = $cookieStore.get("name");
+	load();
+	function load() {
+		$http.get("/eWBS/resources/teamLeaves/list").success(
+				function(teamLeaveslist) {
+					$scope.teamLeaveslist = teamLeaveslist;
+				});
+	}
+
+	$scope.save = function() {
+		$http.post('/eWBS/resources/teamLeaves/save', $scope.teamLeaves)
+				.success(function(data, status) {
+					load();
+					alert("Leaves added successfully.");
+					$scope.flag = false;
+				}).error(function(data, status) {
+					alert("Team Leaves is Not added.");
+				});
+	}
+	$scope.add = function() {
+		$scope.flag = true;
+	}
+	$scope.dateDifference = function(date1, date2) {
+		var dt1 = date1.split('/');
+		var dt2 = date2.split('/');
+		var one = new Date(dt1[2], dt1[1], dt1[0]);
+		var two = new Date(dt2[2], dt2[1], dt2[0]);
+
+		var millisecondsPerDay = 1000 * 60 * 60 * 24;
+		var millisBetween = two.getTime() - one.getTime();
+		var days = millisBetween / millisecondsPerDay;
+		return Math.floor(days);
+	}
+});
+
+mainApp.controller("defectPreventionPlanController", function($scope, $http,
+		$cookieStore) {
+	$scope.flag = false;
+	$scope.flagUpdate = false;
+	$scope.flagSave = true;
+
+	if ($cookieStore.get("role") == 'admin') {
+		$scope.role = true;
+	} else {
+		$scope.role = false;
+	}
+
+	$scope.defectPreventionPlan = {};
+	load();
+	function load() {
+		$http.get(
+				"/eWBS/resources/defectPreventionPlan/findByProject?projectName="
+						+ $cookieStore.get("projectName")).success(
+				function(defectList) {
+					// alert(JSON.stringify(causeList));
+					$scope.defectPreventionPlanList = defectList;
+				});
+	}
+
+	$scope.save = function() {
+		$http.post(
+				'/eWBS/resources/defectPreventionPlan/save?projectName='
+						+ $cookieStore.get("projectName"),
+				$scope.defectPreventionPlan).success(function(data, status) {
+			load();
+			alert("defect added successfully.");
+			$scope.flag = false;
+		});
+	}
+	$scope.add = function() {
+		$scope.flag = true;
+	}
+
+	$scope.back = function() {
+		$scope.flag = false;
+	}
+
+	$scope.update = function(defectTypeAndDetails) {
+		//alert(defectTypeAndDetails);
+		$http.get(
+				"/eWBS/resources/defectPreventionPlan/findDefectByName/"
+						+ $cookieStore.get("projectName") + "/" + defectTypeAndDetails)
+				.success(function(defect) {
+					$scope.defectPreventionPlan = defect;
+					$scope.flag = true;
+					$scope.flagUpdate = true;
+					$scope.flagSave = false;
+				});
+	}
+
+	$scope.updateValue = function(defectTypeAndDetails) {
+
+		$http.post(
+				'/eWBS/resources/defectPreventionPlan/update/'
+						+ $cookieStore.get("projectName"),
+				$scope.defectPreventionPlan).success(function(data, status) {
+			load();
+			alert("defect updated successfully.");
+			$scope.flag = false;
+			$scope.flagSave = true;
+			$scope.flagUpdate = false;
+		}).error(function(data, status) {
+			alert("defect not updated" + status);
+		});
+	}
+});
+
