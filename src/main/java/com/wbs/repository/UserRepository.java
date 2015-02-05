@@ -28,8 +28,12 @@ public class UserRepository {
 		mailService.sendMail(user);
 	}
 	
-	public User getUser(String username) {
-		Query query= new Query(Criteria.where("username").is(username));
+	public void update(User user) {
+		mongoTemplate.save(user);
+	}
+	
+	public User getUser(String emailId) {
+		Query query= new Query(Criteria.where("emailId").is(emailId));
 		User user=mongoTemplate.findOne(query,User.class);
 		System.out.println(user);
 		return user;
