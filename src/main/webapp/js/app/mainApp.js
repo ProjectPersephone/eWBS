@@ -77,3 +77,31 @@ mainApp.config([ '$routeProvider', function($routeProvider) {
 		redirectTo : '/'
 	});
 } ]);
+
+mainApp.service('HttpService', function($http, $cookieStore) {
+
+	var URL = "/eWBS/resources/";
+
+	this.get = function(path) {
+		return $http.get(URL + path);
+	}
+
+	this.post = function(path, data) {
+		return $http.post(URL + path, data);
+	}
+	
+});
+
+mainApp.service('HttpService', function($http, $cookieStore) {
+
+	var URL = "/eWBS/resources/";
+
+	this.get = function(path) {
+		return $http.get(URL + path);
+	}
+
+	this.post = function(path, data) {
+		return $http.post(URL + path, data);
+	}
+	
+});
