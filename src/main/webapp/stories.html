@@ -2,7 +2,9 @@
 <div class="row">
 	<div id="breadcrumb" class="col-xs-12">
 		<ol class="breadcrumb">
-			<li><a href="#/stories">Stories</a></li>
+			<li><a href="home.html">Projects</a></li>
+			<li>Matrics Data</li>
+			<li>Stories</li>
 		</ol>
 	</div>
 </div>
@@ -23,7 +25,7 @@
 								<th>StoryId</th>
 								<th>Story</th>
 								<th>Type</th>
-								<th>EDIT</th>
+								<th>Action</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -32,7 +34,7 @@
 								<td>{{story.storyId}}</td>
 								<td>{{story.story}}</td>
 								<td>{{story.type }}</td>
-								<td><a href ng-click="select(story.storyId)">EDIT</a></td>
+								<td><a href ng-click="update($index)">EDIT</a></td>
 							</tr>
 						</tbody>
 					</table>
@@ -47,6 +49,7 @@
 				<div class="box-content">
 					<form name="StoryForm" class="form-horizontal">
 						<fieldset>
+							<input type="hidden" ng-model="story.storyId" />
 							<legend>Story</legend>
 							<div class="form-group">
 								<label class="col-sm-3 control-label">Story</label>
@@ -56,7 +59,7 @@
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="col-sm-3 control-label">Description</label>
+								<label class="col-sm-3 control-label">Type</label>
 								<div class="col-sm-5">
 									<select ng-model="story.type" class="form-control" required>
 										<option value="">Select</option>

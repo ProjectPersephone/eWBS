@@ -35,12 +35,20 @@ public class ProjectController {
 		return new ResponseEntity<List<Project>>(list, HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "/add", method = RequestMethod.POST)
+	@RequestMapping(value = "/save", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseEntity<?> saveProject(@RequestBody Project project) {
 		log.info("Adding new project {}", project.getProjectName());
 		projectService.saveProject(project);
 		return new ResponseEntity<String>("Project added", HttpStatus.OK);
+	}
+	
+	@RequestMapping(value = "/update", method = RequestMethod.POST)
+	@ResponseBody
+	public ResponseEntity<?> updateProject(@RequestBody Project project) {
+		log.info("Update project {}", project.getProjectName());
+		projectService.updateProject(project);
+		return new ResponseEntity<String>("Project updated", HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/{projectName}", method = RequestMethod.GET)

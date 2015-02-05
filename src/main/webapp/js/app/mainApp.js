@@ -33,6 +33,11 @@ mainApp.config([ '$routeProvider', function($routeProvider) {
 		controller : 'causalAnalysisController'
 	});
 
+	$routeProvider.when('/addUser', {
+		templateUrl : 'addUser.html',
+		controller : 'addUserController'
+	});
+	
 	$routeProvider.when('/metricReport', {
 		templateUrl : 'metricReport.html',
 		controller : 'metricReportController'
@@ -53,7 +58,36 @@ mainApp.config([ '$routeProvider', function($routeProvider) {
 		controller : 'userController'
 	});
 
+	$routeProvider.when('/projectDetails', {
+		templateUrl : 'projectDetails.html',
+		controller : 'projectDetailsController'
+	});
+	
+	$routeProvider.when('/storyMetricReport', {
+		templateUrl : 'storyMetricReport.html',
+		controller : 'storyMetricReportController'
+	});
+	
+	$routeProvider.when('/profile', {
+		templateUrl : 'profile.html',
+		controller : 'ProfileController'
+	});
+	
 	$routeProvider.otherwise({
 		redirectTo : '/'
 	});
 } ]);
+
+mainApp.service('HttpService', function($http, $cookieStore) {
+
+	var URL = "/eWBS/resources/";
+
+	this.get = function(path) {
+		return $http.get(URL + path);
+	}
+
+	this.post = function(path, data) {
+		return $http.post(URL + path, data);
+	}
+	
+});

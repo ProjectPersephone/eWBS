@@ -8,7 +8,8 @@
 	</div>
 </div>
 <div ng-controller="StoryTaskController">
-	<div class="row" ng-if="!flag">
+	<div class="row" ng-if="!flag"
+		style="border: none; width: 1110px; height: 540px; overflow: auto">
 		<div class="col-xs-12">
 			<span class="btn btn-primary" ng-click="add()">ADD NEW</span>
 			<div class="box">
@@ -26,24 +27,51 @@
 								<th>Task</th>
 								<th>StoryId</th>
 								<th>Phase</th>
+								<th>Status</th>
 								<th>%Work Complete</th>
 								<th>Resource</th>
+								<th>Planned Start Date</th>
+								<th>Planned End Date</th>
+								<th>Actual Start Date</th>
+								<th>Actual End Date</th>
+								<th>Effort Planned</th>
+								<th>Effort Actual</th>
 								<th>Effort Variance</th>
 								<th>Schedule Variance</th>
-								<th>Details</th>
+								<th>Remark</th>
+								<th>Blocker</th>
+								<th>Sprint</th>
+								<th>Duration</th>
+								<th>IterationStart</th>
+								<th>IterationEnd</th>
+								<th>Action</th>
 							</tr>
 						</thead>
 						<tbody>
+
 							<tr ng-repeat="storyTask in storyTaskList">
 								<td>{{$index+1}}</td>
 								<td>{{storyTask.task}}</td>
 								<td>{{storyTask.storyId}}</td>
 								<td>{{storyTask.phase}}</td>
+								<td>{{storyTask.status}}</td>
 								<td>{{storyTask.workCompletedPer}}</td>
 								<td>{{storyTask.resource}}</td>
+								<td>{{storyTask.plannedStartDate}}</td>
+								<td>{{storyTask.plannedEndDate}}</td>
+								<td>{{storyTask.actualStartDate}}</td>
+								<td>{{storyTask.actualEndDate}}</td>
+								<td>{{storyTask.effortPlanned}}</td>
+								<td>{{storyTask.effortActual}}</td>
 								<td>{{storyTask.effortVariance}}</td>
 								<td>{{storyTask.scheduleVariance}}</td>
-								<td><a href ng-click="select(storyTask.storyTaskId)">DETAILS</a></td>
+								<td>{{storyTask.remarks}}</td>
+								<td>{{storyTask.blocker}}</td>
+								<td>{{storyTask.sprint}}</td>
+								<td>{{storyTask.duration}}</td>
+								<td>{{storyTask.iterationStart}}</td>
+								<td>{{storyTask.iterationEnd}}</td>
+								<td><a href ng-click="update($index)">EDIT</a></td>
 							</tr>
 						</tbody>
 					</table>
@@ -58,7 +86,8 @@
 				<div class="box-content">
 					<form name="StoryTaskForm" class="form-horizontal">
 						<fieldset>
-							<legend>Story</legend>
+							<legend>StoryTask</legend>
+							<input type="hidden" ng-model="storyTask.storyTaskId" />
 							<div class="form-group">
 								<label class="col-sm-3 control-label">Task</label>
 								<div class="col-sm-5">
@@ -162,7 +191,7 @@
 							<div class="form-group">
 								<label class="col-sm-3 control-label">Work Completed(%)</label>
 								<div class="col-sm-5">
-									<input type="number" class="form-control"
+									<input type="number" class="form-control" min="0" max="100"
 										ng-model="storyTask.workCompletedPer" required />
 								</div>
 							</div>
@@ -190,7 +219,7 @@
 							</div>
 
 							<div class="form-group">
-								<label class="col-sm-3 control-label">Planned Start Date</label>
+								<label class="col-sm-3 control-label">Planned End Date</label>
 								<div class="col-sm-5">
 									<input type="text" class="form-control"
 										ng-model="storyTask.plannedEndDate" id="plannedEndDate"
@@ -218,7 +247,7 @@
 							<div class="form-group">
 								<label class="col-sm-3 control-label">Effort Planned</label>
 								<div class="col-sm-5">
-									<input type="number" class="form-control"
+									<input type="number" class="form-control" min="0"
 										ng-model="storyTask.effortPlanned" required />
 								</div>
 							</div>
@@ -226,7 +255,7 @@
 							<div class="form-group">
 								<label class="col-sm-3 control-label">Effort Actual</label>
 								<div class="col-sm-5">
-									<input type="number" class="form-control"
+									<input type="number" class="form-control" min="0"
 										ng-model="storyTask.effortActual" required />
 								</div>
 							</div>
@@ -269,24 +298,24 @@
 
 
 							<div class="form-group">
-								<label class="col-sm-3 control-label">Spring</label>
+								<label class="col-sm-3 control-label">Sprint</label>
 								<div class="col-sm-5">
 									<input type="text" class="form-control"
-										ng-model="storyTask.spring" />
+										ng-model="storyTask.sprint" />
 								</div>
 							</div>
 
 							<div class="form-group">
 								<label class="col-sm-3 control-label">Duration</label>
 								<div class="col-sm-5">
-									<input type="number" class="form-control"
+									<input type="number" class="form-control" min="0"
 										ng-model="storyTask.duration" />
 								</div>
 							</div>
 							<div class="form-group">
 								<label class="col-sm-3 control-label">Iteration Start</label>
 								<div class="col-sm-5">
-									<input type="number" class="form-control"
+									<input type="text" class="form-control"
 										ng-model="storyTask.iterationStart" />
 								</div>
 							</div>
@@ -294,7 +323,7 @@
 							<div class="form-group">
 								<label class="col-sm-3 control-label">Iteration End</label>
 								<div class="col-sm-5">
-									<input type="number" class="form-control"
+									<input type="text" class="form-control"
 										ng-model="storyTask.iterationEnd" />
 								</div>
 							</div>

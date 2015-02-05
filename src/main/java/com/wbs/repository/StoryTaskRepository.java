@@ -17,7 +17,7 @@ public class StoryTaskRepository {
 	private MongoTemplate mongoTemplate;
 
 	public void saveStoryTask(StoryTask storyTask) {
-		mongoTemplate.insert(storyTask);
+		mongoTemplate.save(storyTask);
 	}
 
 	public List<StoryTask> getStoryTaskList(String projectName) {

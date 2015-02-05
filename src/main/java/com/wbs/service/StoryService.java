@@ -22,7 +22,9 @@ public class StoryService {
 	}
 
 	public void saveStory(Story story) {
-		story.setStoryId(counterRepository.getNextSequence("stories"));
+		if (story.getStoryId() == 0) {
+			story.setStoryId(counterRepository.getNextSequence("stories"));
+		}
 		storyRepository.saveStory(story);
 	}
 

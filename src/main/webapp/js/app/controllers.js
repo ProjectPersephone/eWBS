@@ -1,4 +1,4 @@
-mainApp.controller("Profile", function($scope, $cookieStore) {
+mainApp.controller("TopBarController", function($scope, $cookieStore) {
 	$scope.name = $cookieStore.get("name");
 	$scope.projectName = $cookieStore.get("projectName");
 	if ($cookieStore.get("emailId") == null) {
@@ -9,14 +9,15 @@ mainApp.controller("Profile", function($scope, $cookieStore) {
 		$cookieStore.remove('name');
 		$cookieStore.remove('isLogged');
 		$cookieStore.remove('role');
+		$cookieStore.remove('projectName');
 		window.location = "/eWBS/";
 	}
 });
 
 loginApp.controller("LoginController", function($scope, $http, $cookieStore) {
 	$scope.submit = function() {
-		$http.post('/eWBS/resources/login', $scope.user).success(
-				function(data, status) {
+		$http.post('/eWBS/resources/userController/login', $scope.user)
+				.success(function(data, status) {
 					if (status == 200) {
 						alert("Login successfully.");
 						$cookieStore.put("emailId", data["emailId"]);
@@ -28,56 +29,8 @@ loginApp.controller("LoginController", function($scope, $http, $cookieStore) {
 						alert("Unathourised credential.");
 					}
 				}).error(function() {
-			alert("Unathourised credential.");
-		});
-	}
-});
-
-mainApp.controller("ProjectController", function($scope, $location, $http,
-		$cookieStore) {
-	$scope.flag = false;
-
-	if ($cookieStore.get("role") == 'admin') {
-		$scope.role = true;
-	} else {
-		$scope.role = false;
-	}
-
-	$scope.project = {};
-	load();
-	function load() {
-		$http.get("/eWBS/resources/project/list").success(
-				function(projectList) {
-					$scope.projectList = projectList;
+					alert("Unathourised credential.");
 				});
-	}
-
-	$scope.save = function() {
-		$http.post('/eWBS/resources/project/add', $scope.project).success(
-				function(data, status) {
-					load();
-					alert("Project added successfully.");
-					$scope.flag = false;
-				}).error(function(data, status) {
-			alert("Project added successfully.");
-		});
-	}
-	$scope.add = function() {
-		$scope.flag = true;
-	}
-
-	$scope.back = function() {
-		$scope.flag = false;
-	}
-
-	$scope.update = function(projectName) {
-		alert(projectName);
-	}
-
-	$scope.select = function(projectName) {
-		alert("Selected Project : " + projectName);
-		$cookieStore.put("projectName", projectName);
-		$location.reload();
 	}
 });
 
@@ -87,7 +40,7 @@ mainApp.controller("causalAnalysisController", function($scope, $http,
 	$scope.flagUpdate = false;
 	$scope.flagSave = true;
 
-	if ($cookieStore.get("role") == 'admin') {
+	if ($cookieStore.get("role") == 'Admin') {
 		$scope.role = true;
 	} else {
 		$scope.role = false;
@@ -100,7 +53,6 @@ mainApp.controller("causalAnalysisController", function($scope, $http,
 				"/eWBS/resources/causalAnalysis/findByProject?projectName="
 						+ $cookieStore.get("projectName")).success(
 				function(causeList) {
-					// alert(JSON.stringify(causeList));
 					$scope.causalAnalysisList = causeList;
 				});
 	}
@@ -124,7 +76,6 @@ mainApp.controller("causalAnalysisController", function($scope, $http,
 	}
 
 	$scope.update = function(causeOfBug) {
-		// alert(causeOfBug);
 		$http.get(
 				"/eWBS/resources/causalAnalysis/findCauseByName/"
 						+ $cookieStore.get("projectName") + "/" + causeOfBug)
@@ -137,7 +88,6 @@ mainApp.controller("causalAnalysisController", function($scope, $http,
 	}
 
 	$scope.updateValue = function(causeOfBug) {
-
 		$http.post(
 				'/eWBS/resources/causalAnalysis/update/'
 						+ $cookieStore.get("projectName"),
@@ -153,10 +103,11 @@ mainApp.controller("causalAnalysisController", function($scope, $http,
 	}
 });
 
-mainApp.controller("StoryController", function($scope, $http, $cookieStore) {
+mainApp.controller("addUserController", function($scope, $http, $cookieStore) {
 	$scope.flag = false;
 	$scope.flagUpdate = false;
 	$scope.flagSave = true;
+	$scope.showLabel = false;
 
 	if ($cookieStore.get("role") == 'admin') {
 		$scope.role = true;
@@ -164,126 +115,66 @@ mainApp.controller("StoryController", function($scope, $http, $cookieStore) {
 		$scope.role = false;
 	}
 
-	$scope.causalAnalysis = {};
+	$scope.user = {};
 	load();
 	function load() {
-		$http.get("/eWBS/resources/story/list/" + $scope.story.projectName)
-				.success(function(data) {
-					$scope.storyList = data;
+		$http.get("/eWBS/resources/userController/users").success(
+				function(userList) {
+					$scope.userList = userList;
 				});
 	}
 
 	$scope.save = function() {
-		$http.post('/eWBS/resources/story/add', $scope.story).success(
+		$scope.showLabel = true;
+		$http.post('/eWBS/resources/userController/user', $scope.user).success(
 				function(data, status) {
 					load();
-					alert("Story added successfully.");
+					alert("User added successfully.");
 					$scope.flag = false;
+					$scope.user = "";
+					$scope.showLabel = false;
 				}).error(function(data, status) {
-			alert(data + "Story not added.");
+			if (status == 409)
+				alert("User e-mail Id already present");
+			else
+				alert("User not added" + status);
+			$scope.showLabel = false;
 		});
-	}
-	$scope.back = function() {
-		$scope.flag = false;
-	}
-	$scope.update = function() {
-		$scope.flag = false;
-	}
-	$scope.select = function(storyId) {
-		alert(storyId);
+
 	}
 	$scope.add = function() {
 		$scope.flag = true;
 	}
-});
 
-mainApp
-		.controller(
-				"StoryTaskController",
-				function($scope, $http, $cookieStore) {
+	$scope.back = function() {
+		$scope.flag = false;
+	}
 
-					$scope.flag = false;
-					$scope.storyTask = {};
-					$scope.storyTask.projectName = $cookieStore
-							.get("projectName");
-					load();
-					loadStoryIds();
-					function loadStoryIds() {
-						$http.get(
-								"/eWBS/resources/story/list/"
-										+ $scope.storyTask.projectName)
-								.success(function(data) {
-									$scope.storyList = data;
-								});
-					}
-
-					function load() {
-						$http.get(
-								"/eWBS/resources/storytask/list/"
-										+ $scope.storyTask.projectName)
-								.success(function(data) {
-									$scope.storyTaskList = data;
-								}).error(function(data) {
-									alert(data);
-								});
-					}
-					$scope.save = function() {
-						$http.post('/eWBS/resources/storytask/add',
-								$scope.storyTask).success(
-								function(data, status) {
-									load();
-									alert("StoryTask added successfully.");
-									$scope.flag = false;
-								}).error(function(data, status) {
-							alert(data + "StoryTask not added.");
-						});
-
-					}
-					$scope.back = function() {
-						$scope.flag = false;
-					}
-					$scope.update = function() {
-						$scope.flag = false;
-					}
-					$scope.select = function(storyId) {
-						alert(storyId);
-					}
-					$scope.add = function() {
-						$scope.flag = true;
-					}
-
-					$scope
-							.$watch(
-									'storyTask.effortActual+storyTask.effortPlanned+storyTask.workCompletedPer',
-									function() {
-										var storyTask = $scope.storyTask;
-										storyTask.effortVariance = ((storyTask.effortActual - ((storyTask.effortPlanned * 0.01) * storyTask.workCompletedPer)) / ((storyTask.effortPlanned * 0.01) * storyTask.workCompletedPer)) * 100;
-									});
-
-					$scope
-							.$watch(
-									'storyTask.actualEndDate+storyTask.plannedEndDate+storyTask.plannedStartDate',
-									function() {
-										var storyTask = $scope.storyTask;
-										storyTask.scheduleVariance = (dateDifference(
-												storyTask.actualEndDate,
-												storyTask.plannedEndDate) / ((dateDifference(
-												storyTask.plannedEndDate,
-												storyTask.plannedStartDate) + 1))) * 100;
-									});
-
-					function dateDifference(date1, date2) {
-						var dt1 = date1.split('/');
-						var dt2 = date2.split('/');
-						var one = new Date(dt1[2], dt1[1], dt1[0]);
-						var two = new Date(dt2[2], dt2[1], dt2[0]);
-
-						var millisecondsPerDay = 1000 * 60 * 60 * 24;
-						var millisBetween = two.getTime() - one.getTime();
-						var days = millisBetween / millisecondsPerDay;
-						return Math.floor(days);
-					}
+	$scope.update = function(emailId) {
+		$http.get("/eWBS/resources/userController/getUser?emailId=" + emailId)
+				.success(function(user) {
+					$scope.user = user;
+					$scope.flag = true;
+					$scope.flagUpdate = true;
+					$scope.flagSave = false;
+				}).error(function(data, status) {
+					alert("Error" + status);
 				});
+	}
+
+	$scope.updateValue = function(emailId) {
+		$http.post('/eWBS/resources/userController/updateUser', $scope.user)
+				.success(function(data, status) {
+					load();
+					alert("User updated successfully.");
+					$scope.flag = false;
+					$scope.flagSave = true;
+					$scope.flagUpdate = false;
+				}).error(function(data, status) {
+					alert("User not updated" + status);
+				});
+	}
+});
 
 mainApp.controller("reviewCommentsAndBugsController", function($scope, $http,
 		$cookieStore) {
@@ -296,8 +187,9 @@ mainApp.controller("reviewCommentsAndBugsController", function($scope, $http,
 	$scope.dbBugs.integrationTestingDefects = [ 0, 0, 0, 0 ];
 	$scope.dbBugs.systemTestingDefects = [ 0, 0, 0, 0 ];
 	$scope.dbBugs.productionDefects = [ 0, 0, 0, 0 ];
-	
-	load("gap");
+	$scope.dbBugs.projectName = $cookieStore.get("projectName");
+
+	load($cookieStore.get("projectName"));
 
 	function load(projectName) {
 		$http.get(
@@ -317,12 +209,12 @@ mainApp.controller("reviewCommentsAndBugsController", function($scope, $http,
 		function(data, status) {
 			if (status == 200) {
 				alert("dbBugs data entered into database successfully");
-
+				load($cookieStore.get("projectName"));
+				$scope.flag = false;
 			}
 		});
 	}
 });
-
 
 mainApp.controller("defectLeakageMatricsController", function($scope, $http,
 		$cookieStore) {
@@ -343,7 +235,7 @@ mainApp.controller("defectLeakageMatricsController", function($scope, $http,
 		$http.get(
 				"/eWBS/resources/DefectLeakageMetric/findByProject?projectName="
 						+ projectName).success(function(data, status) {
-			$scope.dbLeakage = dbLeakage;
+			$scope.dbLeakage = data;
 		}).error(function(data) {
 			alert(data);
 		});
@@ -374,7 +266,6 @@ mainApp.controller("defectLeakageMatricsController", function($scope, $http,
 	}
 
 });
-
 
 mainApp.controller("metricReportController", function($scope, $http, $document,
 		$location, $cookieStore) {
@@ -430,7 +321,7 @@ mainApp.controller("defectPreventionPlanController", function($scope, $http,
 	$scope.flagUpdate = false;
 	$scope.flagSave = true;
 
-	if ($cookieStore.get("role") == 'admin') {
+	if ($cookieStore.get("role") == 'Admin') {
 		$scope.role = true;
 	} else {
 		$scope.role = false;
@@ -467,16 +358,16 @@ mainApp.controller("defectPreventionPlanController", function($scope, $http,
 	}
 
 	$scope.update = function(defectTypeAndDetails) {
-		//alert(defectTypeAndDetails);
+		// alert(defectTypeAndDetails);
 		$http.get(
 				"/eWBS/resources/defectPreventionPlan/findDefectByName/"
-						+ $cookieStore.get("projectName") + "/" + defectTypeAndDetails)
-				.success(function(defect) {
-					$scope.defectPreventionPlan = defect;
-					$scope.flag = true;
-					$scope.flagUpdate = true;
-					$scope.flagSave = false;
-				});
+						+ $cookieStore.get("projectName") + "/"
+						+ defectTypeAndDetails).success(function(defect) {
+			$scope.defectPreventionPlan = defect;
+			$scope.flag = true;
+			$scope.flagUpdate = true;
+			$scope.flagSave = false;
+		});
 	}
 
 	$scope.updateValue = function(defectTypeAndDetails) {
@@ -496,3 +387,37 @@ mainApp.controller("defectPreventionPlanController", function($scope, $http,
 	}
 });
 
+mainApp.controller("projectDetailsController", function($scope, $http,
+		$cookieStore) {
+	$scope.projectDetails = {};
+	$scope.projectDetails.projectName = $cookieStore.get("projectName");
+	load();
+	function load() {
+		$http.get(
+				"/eWBS/resources/storytask/list/"
+						+ $scope.projectDetails.projectName).success(
+				function(data) {
+					$scope.projectDetailsList = data;
+				}).error(function(data) {
+			alert(data);
+		});
+	}
+
+});
+mainApp.controller("storyMetricReportController", function($scope, $http,
+		$cookieStore) {
+	$scope.storyMetricReport = {};
+	$scope.storyMetricReport.projectName = $cookieStore.get("projectName");
+	load();
+	function load() {
+		$http.get(
+				"/eWBS/resources/storytask/list/"
+						+ $scope.storyMetricReport.projectName).success(
+				function(data) {
+					$scope.storyMetricReportList = data;
+				}).error(function(data) {
+			alert(data);
+		});
+	}
+
+});

@@ -29,7 +29,7 @@ public class StoryTask {
 	private float scheduleVariance; // formula
 	private String remarks;
 	private String blocker; // It will come from list of blockers
-	private String spring;
+	private String sprint;
 	private int duration;
 	private String iterationStart;
 	private String iterationEnd;
