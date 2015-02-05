@@ -1,4 +1,4 @@
-mainApp.controller("Profile", function($scope, $cookieStore) {
+mainApp.controller("TopBarController", function($scope, $cookieStore) {
 	$scope.name = $cookieStore.get("name");
 	$scope.projectName = $cookieStore.get("projectName");
 	if ($cookieStore.get("emailId") == null) {

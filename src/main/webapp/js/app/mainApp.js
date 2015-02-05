@@ -58,6 +58,16 @@ mainApp.config([ '$routeProvider', function($routeProvider) {
 		controller : 'projectDetailsController'
 	});
 	
+	$routeProvider.when('/storyMetricReport', {
+		templateUrl : 'storyMetricReport.html',
+		controller : 'storyMetricReportController'
+	});
+	
+	$routeProvider.when('/profile', {
+		templateUrl : 'profile.html',
+		controller : 'ProfileController'
+	});
+	
 	$routeProvider.otherwise({
 		redirectTo : '/'
 	});

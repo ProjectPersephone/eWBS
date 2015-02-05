@@ -22,7 +22,7 @@
 <script type="text/javascript" src="js/app/controllers.js"></script>
 <body>
 	<header class="navbar">
-		<div class="container-fluid expanded-panel" ng-controller="Profile">
+		<div class="container-fluid expanded-panel" ng-controller="TopBarController">
 			<div class="row">
 				<div id="logo" class="col-xs-12 col-sm-2">
 					<a href="index.html">WBS</a>
@@ -79,7 +79,7 @@
 							class="fa fa-dashboard"></i> <span class="hidden-xs">Home</span>
 					</a></li>
 					<li class="dropdown"><a href="#" class="dropdown-toggle">
-							<i class="fa fa-bar-chart-o"></i> <span class="hidden-xs">Matrics
+							<i class="fa fa-bar-chart-o"></i> <span class="hidden-xs">Metrics
 								Data</span>
 					</a>
 						<ul class="dropdown-menu">
@@ -104,7 +104,7 @@
 					</a>
 						<ul class="dropdown-menu">
 							<li><a class="ajax-link" href="#/metricReport">Metric Report</a></li>
-							<li><a class="ajax-link" href="#">Story Metric Report</a></li>
+							<li><a class="ajax-link" href="#/storyMetricReport">Story Metric Report</a></li>
 							<li><a class="ajax-link" href="#/projectDetails">Project Details</a></li>
 						</ul></li>
 					<li><a href="#/teamLeaves" class="active ajax-link">
