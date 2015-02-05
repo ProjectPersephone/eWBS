@@ -297,8 +297,9 @@ mainApp.controller("reviewCommentsAndBugsController", function($scope, $http,
 	$scope.dbBugs.integrationTestingDefects = [ 0, 0, 0, 0 ];
 	$scope.dbBugs.systemTestingDefects = [ 0, 0, 0, 0 ];
 	$scope.dbBugs.productionDefects = [ 0, 0, 0, 0 ];
-
-	load("gap");
+	$scope.dbBugs.projectName = $cookieStore.get("projectName");
+	
+	load($cookieStore.get("projectName"));
 
 	function load(projectName) {
 		$http.get(
@@ -318,7 +319,8 @@ mainApp.controller("reviewCommentsAndBugsController", function($scope, $http,
 		function(data, status) {
 			if (status == 200) {
 				alert("dbBugs data entered into database successfully");
-
+				load($cookieStore.get("projectName"));
+				$scope.flag = false;
 			}
 		});
 	}
@@ -343,7 +345,7 @@ mainApp.controller("defectLeakageMatricsController", function($scope, $http,
 		$http.get(
 				"/eWBS/resources/DefectLeakageMetric/findByProject?projectName="
 						+ projectName).success(function(data, status) {
-			$scope.dbLeakage = dbLeakage;
+			$scope.dbLeakage = data;
 		}).error(function(data) {
 			alert(data);
 		});
@@ -506,6 +508,23 @@ mainApp.controller("projectDetailsController", function($scope, $http,
 						+ $scope.projectDetails.projectName).success(
 				function(data) {
 					$scope.projectDetailsList = data;
+				}).error(function(data) {
+			alert(data);
+		});
+	}
+
+});
+mainApp.controller("storyMetricReportController", function($scope, $http,
+		$cookieStore) {
+	$scope.storyMetricReport = {};
+	$scope.storyMetricReport.projectName = $cookieStore.get("projectName");
+	load();
+	function load() {
+		$http.get(
+				"/eWBS/resources/storytask/list/"
+						+ $scope.storyMetricReport.projectName).success(
+				function(data) {
+					$scope.storyMetricReportList = data;
 				}).error(function(data) {
 			alert(data);
 		});
