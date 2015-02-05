@@ -6,7 +6,7 @@
 		</ol>
 	</div>
 </div>
-<div ng-controller="userController">
+<div ng-controller="addUserController">
 	<div class="row" ng-if="!flag">
 		<div class="col-xs-12">
 			<span class="btn btn-primary" ng-click="add()">ADD USER</span>
@@ -21,20 +21,22 @@
 							<tr>
 								<th>#</th>
 								<th>Employee ID</th>
-								<th>User Mail id</th>
+								<th>Employee e-Mail Id</th>
+								<th>Employee Name</th>
 								<th>Project List</th>
 								<th>Role</th>
-								<th>Action</th>
+								<th ng-if="role">Edit</th>
 							</tr>
 						</thead>
 						<tbody>
 							<tr ng-repeat="user in userList">
-								<td>{{$index}}</td>
+								<td>{{$index+1}}</td>
 								<td><a href>{{user.employeeId}}</a></td>
-								<td>{{user.emailId }}</td>
+								<td>{{user.emailId}}</td>
+								<td>{{user.name}}</td>
 								<td>{{user.project}}</td>
 								<td>{{user.role}}</td>
-								<td><a href="#" ng-click="edit(user.emailId)">edit</a></td>
+								<td ng-if="role"><a href ng-click="update(user.emailId)">EDIT</a></td>
 							</tr>
 						</tbody>
 					</table>
@@ -58,7 +60,14 @@
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="col-sm-3 control-label">User mail id</label>
+								<label class="col-sm-3 control-label">Employee Name</label>
+								<div class="col-sm-5">
+									<input type="text" class="form-control"
+										ng-model="user.name" required />
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Employee Mail Id</label>
 								<div class="col-sm-5">
 									<input type="text" class="form-control"
 										ng-model="user.emailId " required />
@@ -67,15 +76,21 @@
 							<div class="form-group">
 								<label class="col-sm-3 control-label">Role</label>
 								<div class="col-sm-5">
-									<input type="text" class="form-control"
-										ng-model="user.role" required />
+								<select class="form-control" ng-model="user.role" required>
+								<option>Employee</option>
+								<option>Project Leader</option>
+								<option>Admin</option>
+								</select>
 								</div>
 							</div>
 							<div class="form-group">
 								<div class="col-sm-9 col-sm-offset-3">
-									<input type="submit" class="btn btn-primary" value="Submit"
-										ng-disabled='!userForm.$valid' ng-click="save()" />
+								<span ng-if="flagSave"><input  type="submit" class="btn btn-primary" value="Save"
+										ng-disabled='!userForm.$valid' ng-click="save()" /></span>
+								<span ng-if="flagUpdate"><input  type="submit" class="btn btn-primary" value="Update"
+										ng-disabled='!userForm.$valid' ng-click="updateValue()" /></span>		
 								</div>
+								<span ng-if="showLabel"><center><font color="red"><label>Wait for process..</label></font></center></span>
 							</div>
 						</form>
 					 <!-- <script typtext/javascript">

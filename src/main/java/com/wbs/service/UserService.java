@@ -17,8 +17,12 @@ public class UserService {
 		userRepository.save(user);
 	}
 
-	public User getUser(String username) {
-		return userRepository.getUser(username);
+	public void updateUser(User user){
+		userRepository.update(user);
+	}
+	
+	public User getUser(String emailId) {
+		return userRepository.getUser(emailId);
 	}
 	
 	public List<User> getAllUsers() {

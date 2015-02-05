@@ -17,6 +17,7 @@ import com.wbs.domain.User;
 import com.wbs.service.UserService;
 
 @Controller
+@RequestMapping(value="/userController")
 public class UserController {
 
 	@Autowired
@@ -27,10 +28,16 @@ public class UserController {
 		userService.createUser(user);
 		return new ResponseEntity<String>("User created", HttpStatus.OK);
 	}
+	
+	@RequestMapping(value = "/updateUser", method = RequestMethod.POST)
+	public ResponseEntity<String> updateUser(@RequestBody User user) {
+		userService.updateUser(user);
+		return new ResponseEntity<String>("User updated", HttpStatus.OK);
+	}
 
-	@RequestMapping(value = "/login", method = RequestMethod.GET)
-	public ResponseEntity<User> getUser(@RequestParam(value = "username", required = true) String username) {
-		User user = userService.getUser(username);
+	@RequestMapping(value = "/getUser", method = RequestMethod.GET)
+	public ResponseEntity<User> getUser(@RequestParam(value = "emailId", required = true) String emailId) {
+		User user = userService.getUser(emailId);
 		return new ResponseEntity<User>(user, HttpStatus.OK);
 	}
 

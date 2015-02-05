@@ -33,6 +33,11 @@ mainApp.config([ '$routeProvider', function($routeProvider) {
 		controller : 'causalAnalysisController'
 	});
 
+	$routeProvider.when('/addUser', {
+		templateUrl : 'addUser.html',
+		controller : 'addUserController'
+	});
+	
 	$routeProvider.when('/metricReport', {
 		templateUrl : 'metricReport.html',
 		controller : 'metricReportController'
