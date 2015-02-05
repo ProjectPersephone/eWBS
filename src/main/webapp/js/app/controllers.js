@@ -1,4 +1,5 @@
-mainApp.controller("TopBarController", function($scope, $cookieStore) {
+mainApp.controller("TopBarController", function($scope, $rootScope,
+		$cookieStore) {
 	$scope.name = $cookieStore.get("name");
 	$scope.projectName = $cookieStore.get("projectName");
 	if ($cookieStore.get("emailId") == null) {
@@ -9,7 +10,12 @@ mainApp.controller("TopBarController", function($scope, $cookieStore) {
 		$cookieStore.remove('name');
 		$cookieStore.remove('isLogged');
 		$cookieStore.remove('role');
+		$cookieStore.remove('projectName');
 		window.location = "/eWBS/";
+	}
+
+	$rootScope.setProjectName = function(projectName) {
+		$scope.projectName = projectName;
 	}
 });
 
@@ -50,34 +56,6 @@ mainApp.controller("ProjectController", function($scope, $location, $http,
 				function(projectList) {
 					$scope.projectList = projectList;
 				});
-	}
-
-	$scope.save = function() {
-		$http.post('/eWBS/resources/project/add', $scope.project).success(
-				function(data, status) {
-					load();
-					alert("Project added successfully.");
-					$scope.flag = false;
-				}).error(function(data, status) {
-			alert("Project added successfully.");
-		});
-	}
-	$scope.add = function() {
-		$scope.flag = true;
-	}
-
-	$scope.back = function() {
-		$scope.flag = false;
-	}
-
-	$scope.update = function(projectName) {
-		alert(projectName);
-	}
-
-	$scope.select = function(projectName) {
-		alert("Selected Project : " + projectName);
-		$cookieStore.put("projectName", projectName);
-		$location.reload();
 	}
 });
 
@@ -150,13 +128,12 @@ mainApp.controller("causalAnalysisController", function($scope, $http,
 	}
 });
 
-mainApp.controller("addUserController", function($scope, $http,
-		$cookieStore) {
+mainApp.controller("addUserController", function($scope, $http, $cookieStore) {
 	$scope.flag = false;
 	$scope.flagUpdate = false;
 	$scope.flagSave = true;
-	$scope.showLabel=false;
-	
+	$scope.showLabel = false;
+
 	if ($cookieStore.get("role") == 'admin') {
 		$scope.role = true;
 	} else {
@@ -166,31 +143,29 @@ mainApp.controller("addUserController", function($scope, $http,
 	$scope.user = {};
 	load();
 	function load() {
-		$http.get(
-				"/eWBS/resources/userController/users").success(
+		$http.get("/eWBS/resources/userController/users").success(
 				function(userList) {
 					$scope.userList = userList;
 				});
 	}
 
 	$scope.save = function() {
-		$scope.showLabel=true;
-		$http.post(
-				'/eWBS/resources/userController/user',
-				$scope.user).success(function(data, status) {
-			load();
-			alert("User added successfully.");
-			$scope.flag = false;
-			$scope.user="";
-			$scope.showLabel=false;
-		}).error(function(data, status) {
-			if(status==409)
+		$scope.showLabel = true;
+		$http.post('/eWBS/resources/userController/user', $scope.user).success(
+				function(data, status) {
+					load();
+					alert("User added successfully.");
+					$scope.flag = false;
+					$scope.user = "";
+					$scope.showLabel = false;
+				}).error(function(data, status) {
+			if (status == 409)
 				alert("User e-mail Id already present");
 			else
 				alert("User not added" + status);
-			$scope.showLabel=false;
-		});	
-		
+			$scope.showLabel = false;
+		});
+
 	}
 	$scope.add = function() {
 		$scope.flag = true;
@@ -201,8 +176,7 @@ mainApp.controller("addUserController", function($scope, $http,
 	}
 
 	$scope.update = function(emailId) {
-		$http.get(
-				"/eWBS/resources/userController/getUser?emailId=" + emailId)
+		$http.get("/eWBS/resources/userController/getUser?emailId=" + emailId)
 				.success(function(user) {
 					$scope.user = user;
 					$scope.flag = true;
@@ -214,20 +188,18 @@ mainApp.controller("addUserController", function($scope, $http,
 	}
 
 	$scope.updateValue = function(emailId) {
-		$http.post(
-				'/eWBS/resources/userController/updateUser',
-				$scope.user).success(function(data, status) {
-			load();
-			alert("User updated successfully.");
-			$scope.flag = false;
-			$scope.flagSave = true;
-			$scope.flagUpdate = false;
-		}).error(function(data, status) {
-			alert("User not updated" + status);
-		});
+		$http.post('/eWBS/resources/userController/updateUser', $scope.user)
+				.success(function(data, status) {
+					load();
+					alert("User updated successfully.");
+					$scope.flag = false;
+					$scope.flagSave = true;
+					$scope.flagUpdate = false;
+				}).error(function(data, status) {
+					alert("User not updated" + status);
+				});
 	}
 });
-
 
 mainApp.controller("StoryController", function($scope, $http, $cookieStore) {
 	$scope.flag = false;
@@ -244,123 +216,63 @@ mainApp.controller("StoryController", function($scope, $http, $cookieStore) {
 
 	load();
 	function load() {
-		$http.get("/eWBS/resources/story/list/" + $scope.story.projectName)
-				.success(function(data) {
-					$scope.storyList = data;
+		$http.get("/eWBS/resources/userController/users").success(
+				function(userList) {
+					$scope.userList = userList;
 				});
 	}
 
 	$scope.save = function() {
-		$http.post('/eWBS/resources/story/add', $scope.story).success(
+		$scope.showLabel = true;
+		$http.post('/eWBS/resources/userController/user', $scope.user).success(
 				function(data, status) {
 					load();
-					alert("Story added successfully.");
+					alert("User added successfully.");
 					$scope.flag = false;
+					$scope.user = "";
+					$scope.showLabel = false;
 				}).error(function(data, status) {
-			alert(data + "Story not added.");
+			if (status == 409)
+				alert("User e-mail Id already present");
+			else
+				alert("User not added" + status);
+			$scope.showLabel = false;
 		});
-	}
-	$scope.back = function() {
-		$scope.flag = false;
-	}
-	$scope.update = function() {
-		$scope.flag = false;
-	}
-	$scope.select = function(storyId) {
-		alert(storyId);
+
 	}
 	$scope.add = function() {
 		$scope.flag = true;
 	}
-});
 
-mainApp
-		.controller(
-				"StoryTaskController",
-				function($scope, $http, $cookieStore) {
+	$scope.back = function() {
+		$scope.flag = false;
+	}
 
-					$scope.flag = false;
-					$scope.storyTask = {};
-					$scope.storyTask.projectName = $cookieStore
-							.get("projectName");
-					load();
-					loadStoryIds();
-					function loadStoryIds() {
-						$http.get(
-								"/eWBS/resources/story/list/"
-										+ $scope.storyTask.projectName)
-								.success(function(data) {
-									$scope.storyList = data;
-								});
-					}
-
-					function load() {
-						$http.get(
-								"/eWBS/resources/storytask/list/"
-										+ $scope.storyTask.projectName)
-								.success(function(data) {
-									$scope.storyTaskList = data;
-								}).error(function(data) {
-									alert(data);
-								});
-					}
-					$scope.save = function() {
-						$http.post('/eWBS/resources/storytask/add',
-								$scope.storyTask).success(
-								function(data, status) {
-									load();
-									alert("StoryTask added successfully.");
-									$scope.flag = false;
-								}).error(function(data, status) {
-							alert(data + "StoryTask not added.");
-						});
-
-					}
-					$scope.back = function() {
-						$scope.flag = false;
-					}
-					$scope.update = function() {
-						$scope.flag = false;
-					}
-					$scope.select = function(storyId) {
-						alert(storyId);
-					}
-					$scope.add = function() {
-						$scope.flag = true;
-					}
-
-					$scope
-							.$watch(
-									'storyTask.effortActual+storyTask.effortPlanned+storyTask.workCompletedPer',
-									function() {
-										var storyTask = $scope.storyTask;
-										storyTask.effortVariance = ((storyTask.effortActual - ((storyTask.effortPlanned * 0.01) * storyTask.workCompletedPer)) / ((storyTask.effortPlanned * 0.01) * storyTask.workCompletedPer)) * 100;
-									});
-
-					$scope
-							.$watch(
-									'storyTask.actualEndDate+storyTask.plannedEndDate+storyTask.plannedStartDate',
-									function() {
-										var storyTask = $scope.storyTask;
-										storyTask.scheduleVariance = (dateDifference(
-												storyTask.actualEndDate,
-												storyTask.plannedEndDate) / ((dateDifference(
-												storyTask.plannedEndDate,
-												storyTask.plannedStartDate) + 1))) * 100;
-									});
-
-					function dateDifference(date1, date2) {
-						var dt1 = date1.split('/');
-						var dt2 = date2.split('/');
-						var one = new Date(dt1[2], dt1[1], dt1[0]);
-						var two = new Date(dt2[2], dt2[1], dt2[0]);
-
-						var millisecondsPerDay = 1000 * 60 * 60 * 24;
-						var millisBetween = two.getTime() - one.getTime();
-						var days = millisBetween / millisecondsPerDay;
-						return Math.floor(days);
-					}
+	$scope.update = function(emailId) {
+		$http.get("/eWBS/resources/userController/getUser?emailId=" + emailId)
+				.success(function(user) {
+					$scope.user = user;
+					$scope.flag = true;
+					$scope.flagUpdate = true;
+					$scope.flagSave = false;
+				}).error(function(data, status) {
+					alert("Error" + status);
 				});
+	}
+
+	$scope.updateValue = function(emailId) {
+		$http.post('/eWBS/resources/userController/updateUser', $scope.user)
+				.success(function(data, status) {
+					load();
+					alert("User updated successfully.");
+					$scope.flag = false;
+					$scope.flagSave = true;
+					$scope.flagUpdate = false;
+				}).error(function(data, status) {
+					alert("User not updated" + status);
+				});
+	}
+});
 
 mainApp.controller("reviewCommentsAndBugsController", function($scope, $http,
 		$cookieStore) {
