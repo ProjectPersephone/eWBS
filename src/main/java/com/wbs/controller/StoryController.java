@@ -34,7 +34,7 @@ public class StoryController {
 		return new ResponseEntity<List<Story>>(list, HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "/add", method = RequestMethod.POST)
+	@RequestMapping(value = "/save", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseEntity<?> saveProject(@RequestBody Story story) {
 		log.info("Adding new project {}", story.getStory());

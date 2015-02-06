@@ -22,7 +22,7 @@ public class StoryRepository {
 	}
 
 	public void saveStory(Story story) {
-		mongoTemplate.insert(story);
+		mongoTemplate.save(story);
 	}
 
 	public Story findStory(long _id) {

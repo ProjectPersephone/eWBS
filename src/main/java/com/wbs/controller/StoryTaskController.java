@@ -47,7 +47,7 @@ public class StoryTaskController {
 				storyTaskService.getStoryTask(storyTaskId), HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "/add", method = RequestMethod.POST)
+	@RequestMapping(value = "/save", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseEntity<?> saveStoryTask(@RequestBody StoryTask storyTask) {
 		log.info("Adding new storyTask {}", storyTask.getTask());

@@ -27,7 +27,7 @@
 								<th>ApprovedBy</th>
 								<th>FromDate</th>
 								<th>ToDate</th>
-								<th ng-if="role">EDIT</th>
+								<th ng-if="role">Action</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -39,8 +39,7 @@
 								<td>{{project.approvedBy }}</td>
 								<td>{{project.fromDate}}</td>
 								<td>{{project.toDate}}</td>
-								<td ng-if="role"><a href
-									ng-click="update(project.projectName)">EDIT</a></td>
+								<td ng-if="role"><a href ng-click="update($index)">EDIT</a></td>
 							</tr>
 						</tbody>
 					</table>
@@ -60,7 +59,7 @@
 							<div class="form-group">
 								<label class="col-sm-3 control-label">Project Name</label>
 								<div class="col-sm-5">
-									<input type="text" class="form-control"
+									<input type="text" class="form-control" ng-disabled="!savebtn"
 										ng-model="project.projectName" required />
 								</div>
 							</div>
@@ -102,8 +101,12 @@
 
 							<div class="form-group">
 								<div class="col-sm-9 col-sm-offset-3">
-									<input type="submit" class="btn btn-primary" value="Submit"
-										ng-disabled='!ProjectForm.$valid' ng-click="save()" />
+									<input type="submit" class="btn btn-primary" value="Save"
+										ng-if="savebtn" ng-disabled='!ProjectForm.$valid'
+										ng-click="save()" /> <input type="submit"
+										class="btn btn-primary" value="UPDATE" ng-if="!savebtn"
+										ng-disabled='!ProjectForm.$valid' ng-click="edit()" />
+
 								</div>
 							</div>
 					</form>

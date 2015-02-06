@@ -18,8 +18,10 @@ public class StoryTaskService {
 	private CounterRepository counterRepository;
 
 	public void saveStoryTask(StoryTask storyTask) {
-		storyTask.setStoryTaskId(counterRepository
-				.getNextSequence("storyTasks"));
+		if (storyTask.getStoryTaskId() == 0) {
+			storyTask.setStoryTaskId(counterRepository
+					.getNextSequence("storyTasks"));
+		}
 		storyTaskRepository.saveStoryTask(storyTask);
 	}
 

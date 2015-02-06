@@ -17,6 +17,10 @@ public class ProjectService {
 	public void saveProject(Project project){
 		projectRepository.saveProject(project);
 	}
+	
+	public void updateProject(Project project){
+		projectRepository.updateProject(project);
+	}
 
 	public Project findProject(String projectName) {
 		return projectRepository.findProject(projectName);

@@ -20,6 +20,10 @@ public class ProjectRepository {
 		mongoTemplate.insert(project);
 	}
 
+	public void updateProject(Project project) {
+		mongoTemplate.save(project);
+	}
+
 	public Project findProject(String projectName) {
 		Query query = new Query(Criteria.where("projectName").is(projectName));
 		return mongoTemplate.findOne(query, Project.class);
