@@ -327,15 +327,6 @@ mainApp.controller("defectLeakageMatricsController", function($scope, $http,
 
 });
 
-mainApp.controller("metricReportController", function($scope, $http, $document,
-		$location, $cookieStore) {
-	$(document).ready(function() {
-		$("button").click(function() {
-			$("div").scrollLeft();
-		});
-	});
-});
-
 mainApp.controller("teamLeavesController", function($scope, $location, $http,
 		$cookieStore) {
 	$scope.flag = false;
