@@ -68,9 +68,9 @@ mainApp.config([ '$routeProvider', function($routeProvider) {
 		controller : 'storyMetricReportController'
 	});
 	
-	$routeProvider.when('/profile', {
-		templateUrl : 'profile.html',
-		controller : 'ProfileController'
+	$routeProvider.when('/changepass', {
+		templateUrl : 'changepassword.html',
+		controller : 'ChangePSController'
 	});
 	
 	$routeProvider.otherwise({
