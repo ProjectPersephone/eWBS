@@ -7,7 +7,6 @@ import org.springframework.stereotype.Repository;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 
-import com.wbs.domain.CausalAnalysis;
 import com.wbs.domain.DefectPreventionPlan;
 @Repository
 public class DefectPreventionPlanRepository {

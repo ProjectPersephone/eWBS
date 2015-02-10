@@ -11,6 +11,12 @@ mainApp.config([ '$routeProvider', function($routeProvider) {
 		templateUrl : 'projects.html',
 		controller : 'ProjectController'
 	});
+
+	$routeProvider.when('/functionalTask', {
+		templateUrl : 'functionalTask.html',
+		controller : 'functionalTaskController'
+	});
+
 	$routeProvider.when('/stories', {
 		templateUrl : 'stories.html',
 		controller : 'StoryController'
@@ -37,7 +43,7 @@ mainApp.config([ '$routeProvider', function($routeProvider) {
 		templateUrl : 'addUser.html',
 		controller : 'addUserController'
 	});
-	
+
 	$routeProvider.when('/metricReport', {
 		templateUrl : 'metricReport.html',
 		controller : 'metricReportController'
@@ -62,17 +68,17 @@ mainApp.config([ '$routeProvider', function($routeProvider) {
 		templateUrl : 'projectDetails.html',
 		controller : 'projectDetailsController'
 	});
-	
+
 	$routeProvider.when('/storyMetricReport', {
 		templateUrl : 'storyMetricReport.html',
 		controller : 'storyMetricReportController'
 	});
-	
+
 	$routeProvider.when('/profile', {
 		templateUrl : 'profile.html',
 		controller : 'ProfileController'
 	});
-	
+
 	$routeProvider.otherwise({
 		redirectTo : '/'
 	});
@@ -89,5 +95,5 @@ mainApp.service('HttpService', function($http, $cookieStore) {
 	this.post = function(path, data) {
 		return $http.post(URL + path, data);
 	}
-	
+
 });
