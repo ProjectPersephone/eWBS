@@ -1,0 +1,326 @@
+<!--Start Breadcrumb-->
+<div class="row">
+	<div id="breadcrumb" class="col-xs-12">
+		<ol class="breadcrumb">
+			<li><a href="#/defectLeakageMatrics">Defect Leakage Matric
+					Bugs ( Release /buildwise/monthly) Phase of detection</a></li>
+		</ol>
+	</div>
+</div>
+<div ng-controller="defectLeakageMatricsController">
+	<div class="row" ng-if="!flag">
+		<div class="col-xs-12">
+			<span class="btn btn-primary" ng-click="add()">UPDATE</span>
+			<div class="box">
+				<div class="box-name">
+					<span>Defect Leakage Matric Bugs ( Release
+						/buildwise/monthly) Phase of detection</span>
+						<div>
+					<table class="table table-bordered">
+						<thead>
+							<tr>
+								<th>Phase of origin</th>
+								<th>Requirements</th>
+								<th>Analysis</th>
+								<th>Design</th>
+								<th>Coding</th>
+								<th>Testing</th>
+								<th>Production</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>Requirements</td>
+								<td>{{dbLeakage.requirements[0]}}</td>
+								<td>{{dbLeakage.requirements[1]}}</td>
+								<td>{{dbLeakage.requirements[2]}}</td>
+								<td>{{dbLeakage.requirements[3]}}</td>
+								<td>{{dbLeakage.requirements[4]}}</td>
+								<td>{{dbLeakage.requirements[5]}}</td>
+							</tr>
+							<tr>
+								<td>Analysis</td>
+								<td><input type="text" disabled="disabled" style="background-color: gray;"></td>
+								<td>{{dbLeakage.analysis[1]}}</td>
+								<td>{{dbLeakage.analysis[2]}}</td>
+								<td>{{dbLeakage.analysis[3]}}</td>
+								<td>{{dbLeakage.analysis[4]}}</td>
+								<td>{{dbLeakage.analysis[5]}}</td>
+							</tr>
+							<tr>
+								<td>Design</td>
+								<td><input type="text" disabled="disabled" style="background-color: gray;"></td>
+								<td><input type="text" disabled="disabled" style="background-color: gray;"></td>
+								<td>{{dbLeakage.design[2]}}</td>
+								<td>{{dbLeakage.design[3]}}</td>
+								<td>{{dbLeakage.design[4]}}</td>
+								<td>{{dbLeakage.design[5]}}</td>
+							</tr>
+							<tr>
+								<td>Coding</td>
+								<td><input type="text" disabled="disabled" style="background-color: gray;"></td>
+								<td><input type="text" disabled="disabled" style="background-color: gray;"></td>
+								<td><input type="text" disabled="disabled" style="background-color: gray;"></td>
+								<td>{{dbLeakage.coding[3]}}</td>
+								<td>{{dbLeakage.coding[4]}}</td>
+								<td>{{dbLeakage.coding[5]}}</td>
+							</tr>
+							<tr>
+								<td>Testing</td>
+								<td><input type="text" disabled="disabled" style="background-color: gray;"></td>
+								<td><input type="text" disabled="disabled" style="background-color: gray;"></td>
+								<td><input type="text" disabled="disabled" style="background-color: gray;"></td>
+								<td><input type="text" disabled="disabled" style="background-color: gray;"></td>
+								<td>{{dbLeakage.testing[4]}}</td>
+								<td>{{dbLeakage.testing[5]}}</td>
+							</tr>
+							<tr>
+								<td>Production</td>
+								<td><input type="text" disabled="disabled" style="background-color: gray;"></td>
+								<td><input type="text" disabled="disabled" style="background-color: gray;"></td>
+								<td><input type="text" disabled="disabled" style="background-color: gray;"></td>
+								<td><input type="text" disabled="disabled" style="background-color: gray;"></td>
+								<td><input type="text" disabled="disabled" style="background-color: gray;"></td>
+								<td>{{dbLeakage.production[5]}}</td>
+							</tr>
+						</tbody>
+					</table>
+					<table class="table table-bordered">
+						<thead>
+							<tr>
+								<th>Phase</th>
+								<th>Leakage %</th>
+								<th>Preventive action planned ( Give link to the evidence)
+									to reduce/prevent defect creep</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>Requirements</td>
+								<td><p>{{[[
+										dbLeakage.requirements[1]+dbLeakage.requirements[2]+
+										dbLeakage.requirements[3]+dbLeakage.requirements[4]+dbLeakage.requirements[5]]/
+										[dbLeakage.requirements[0] +
+										dbLeakage.requirements[1]+dbLeakage.requirements[2]+
+										dbLeakage.requirements[3]+dbLeakage.requirements[4]+dbLeakage.requirements[5]]]*100}}
+									</p></td>
+
+								<td>{{dbLeakage.requirementsPreventiveAction}}</td>
+							</tr>
+							<tr>
+								<td>Analysis</td>
+								<td><p>{{[[
+										dbLeakage.analysis[2]+dbLeakage.analysis[3]+dbLeakage.analysis[4]+dbLeakage.analysis[5]]/
+										[dbLeakage.analysis[1]+dbLeakage.analysis[2]+
+										dbLeakage.analysis[3]+dbLeakage.analysis[4]+dbLeakage.analysis[5]]]*100}}
+									</p></td>
+								<td>{{dbLeakage.analysisPreventiveAction}}</td>
+							</tr>
+							<tr>
+								<td>Design</td>
+								<td><p>{{[[dbLeakage.design[3]+dbLeakage.design[4]+dbLeakage.design[5]]/
+										[dbLeakage.design[2]+dbLeakage.design[3]+dbLeakage.design[4]+dbLeakage.design[5]]]*100}}
+									</p></td>
+								<td>{{dbLeakage.designPreventiveAction}}</td>
+							</tr>
+							<tr>
+								<td>Coding</td>
+								<td><p>{{[[dbLeakage.coding[4]+dbLeakage.coding[5]]/
+										[dbLeakage.coding[3]+dbLeakage.coding[4]+dbLeakage.coding[5]]]*100}}
+									</p></td>
+								<td>{{dbLeakage.codingPreventiveAction}}</td>
+							</tr>
+							<tr>
+								<td>Testing</td>
+								<td><p>{{[[dbLeakage.testing[5]]/[dbLeakage.testing[4]+dbLeakage.testing[5]]]*100}}
+									</p></td>
+								<td>{{dbLeakage.testingPreventiveAction}}</td>
+							</tr>
+							<tr>
+								<td>Production</td>
+								<td><p>0</p></td>
+								<td>{{dbLeakage.productionPreventiveAction}}</td>
+							</tr>
+						</tbody>
+					</table>
+					</div> 
+				</div>
+			</div>
+		</div>
+	</div>
+	<form name="defectLeakageForm">
+		<div class="row" ng-if="flag">
+			<div class="col-xs-12">
+			<span class="btn btn-primary" ng-click="back()">Back</span>
+			
+				<div class="box">
+					<div class="box-header">
+						<div class="box-name"></div>
+					</div>
+					<div class="box-content no-padding">
+						<table class="table table-bordered">
+							<thead>
+								<tr>
+									<th>Phase of origin</th>
+									<th>Requirements</th>
+									<th>Analysis</th>
+									<th>Design</th>
+									<th>Coding</th>
+									<th>Testing</th>
+									<th>Production</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>Requirements</td>
+									<td><input type="number"
+										ng-model="dbLeakage.requirements[0]" size="2" maxlength="2" value="0"></td>
+									<td><input type="number"
+										ng-model="dbLeakage.requirements[1]" size="2" maxlength="2" text="0"></td>
+									<td><input type="number"
+										ng-model="dbLeakage.requirements[2]" size="2" maxlength="2" placeholder="0"></td>
+									<td><input type="number"
+										ng-model="dbLeakage.requirements[3]" size="2" maxlength="2"></td>
+									<td><input type="number"
+										ng-model="dbLeakage.requirements[4]" size="2" maxlength="2"></td>
+									<td><input type="number"
+										ng-model="dbLeakage.requirements[5]" size="2" maxlength="2">
+									</td>
+
+								</tr>
+								<tr>
+									<td>Analysis</td>
+									<td><input type="text" disabled="disabled" style="background-color: gray;"></td>
+									<td><input type="number" ng-model="dbLeakage.analysis[1]"
+										size="2" maxlength="2">
+									<td><input type="number" ng-model="dbLeakage.analysis[2]"
+										size="2" maxlength="2">
+									<td><input type="number" ng-model="dbLeakage.analysis[3]"
+										size="2" maxlength="2">
+									<td><input type="number" ng-model="dbLeakage.analysis[4]"
+										size="2" maxlength="2">
+									<td><input type="number" ng-model="dbLeakage.analysis[5]"
+										size="2" maxlength="2">
+								</tr>
+								<tr>
+									<td>Design</td>
+									<td><input type="text" disabled="disabled" style="background-color: gray;"></td>
+									<td><input type="text" disabled="disabled" style="background-color: gray;"></td>
+									<td><input type="number" ng-model="dbLeakage.design[2]"
+										size="2" maxlength="2">
+									<td><input type="number" ng-model="dbLeakage.design[3]"
+										size="2" maxlength="2">
+									<td><input type="number" ng-model="dbLeakage.design[4]"
+										size="2" maxlength="2">
+									<td><input type="number" ng-model="dbLeakage.design[5]"
+										size="2" maxlength="2">
+								</tr>
+								<tr>
+									<td>Coding</td>
+									<td><input type="text" disabled="disabled" style="background-color: gray;"></td>
+									<td><input type="text" disabled="disabled" style="background-color: gray;"></td>
+									<td><input type="text" disabled="disabled" style="background-color: gray;"></td>
+									<td><input type="number" ng-model="dbLeakage.coding[3]"
+										size="2" maxlength="2">
+									<td><input type="number" ng-model="dbLeakage.coding[4]"
+										size="2" maxlength="2">
+									<td><input type="number" ng-model="dbLeakage.coding[5]"
+										size="2" maxlength="2">
+								</tr>
+								<tr>
+									<td>Testing</td>
+									<td><input type="text" disabled="disabled" style="background-color: gray;"></td>
+									<td><input type="text" disabled="disabled" style="background-color: gray;"></td>
+									<td><input type="text" disabled="disabled" style="background-color: gray;"></td>
+									<td><input type="text" disabled="disabled" style="background-color: gray;"></td>
+									<td><input type="number" ng-model="dbLeakage.testing[4]"
+										size="2" maxlength="2">
+									<td><input type="number" ng-model="dbLeakage.testing[5]"
+										size="2" maxlength="2">
+								</tr>
+								<tr>
+									<td>Production</td>
+									<td><input type="text" disabled="disabled" style="background-color: gray;"></td>
+									<td><input type="text" disabled="disabled" style="background-color: gray;"></td>
+									<td><input type="text" disabled="disabled" style="background-color: gray;"></td>
+									<td><input type="text" disabled="disabled" style="background-color: gray;"></td>
+									<td><input type="text" disabled="disabled" style="background-color: gray;"></td>
+									<td><input type="number"
+										ng-model="dbLeakage.production[5]" size="2" maxlength="2">
+								</tr>
+							</tbody>
+						</table>
+						<table class="table table-bordered">
+							<thead>
+								<tr>
+									<th>Phase</th>
+									<th>Leakage %</th>
+									<th>Preventive action planned ( Give link to the evidence)
+										to reduce/prevent defect creep</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>Requirements</td>
+									<td><p>{{[[
+											dbLeakage.requirements[1]+dbLeakage.requirements[2]+
+											dbLeakage.requirements[3]+dbLeakage.requirements[4]+dbLeakage.requirements[5]]/
+											[dbLeakage.requirements[0] +
+											dbLeakage.requirements[1]+dbLeakage.requirements[2]+
+											dbLeakage.requirements[3]+dbLeakage.requirements[4]+dbLeakage.requirements[5]]]*100}}
+										</p></td>
+
+									<td><input type="text"
+										ng-model="dbLeakage.requirementsPreventiveAction"></td>
+								</tr>
+								<tr>
+									<td>Analysis</td>
+									<td><p>{{[[
+											dbLeakage.analysis[2]+dbLeakage.analysis[3]+dbLeakage.analysis[4]+dbLeakage.analysis[5]]/
+											[dbLeakage.analysis[1]+dbLeakage.analysis[2]+
+											dbLeakage.analysis[3]+dbLeakage.analysis[4]+dbLeakage.analysis[5]]]*100}}
+										</p></td>
+									<td><input type="text"
+										ng-model="dbLeakage.analysisPreventiveAction"></td>
+								</tr>
+								<tr>
+									<td>Design</td>
+									<td><p>{{[[dbLeakage.design[3]+dbLeakage.design[4]+dbLeakage.design[5]]/
+											[dbLeakage.design[2]+dbLeakage.design[3]+dbLeakage.design[4]+dbLeakage.design[5]]]*100}}
+										</p></td>
+									<td><input type="text"
+										ng-model="dbLeakage.designPreventiveAction"></td>
+								</tr>
+								<tr>
+									<td>Coding</td>
+									<td><p>{{[[dbLeakage.coding[4]+dbLeakage.coding[5]]/
+											[dbLeakage.coding[3]+dbLeakage.coding[4]+dbLeakage.coding[5]]]*100}}
+										</p></td>
+									<td><input type="text"
+										ng-model="dbLeakage.codingPreventiveAction"></td>
+								</tr>
+								<tr>
+									<td>Testing</td>
+									<td><p>{{[[dbLeakage.testing[5]]/[dbLeakage.testing[4]+dbLeakage.testing[5]]]*100}}
+										</p></td>
+									<td><input type="text"
+										ng-model="dbLeakage.testingPreventiveAction"></td>
+								</tr>
+								<tr>
+									<td>Production</td>
+									<td><p>0</p></td>
+									<td><input type="text"
+										ng-model="dbLeakage.productionPreventiveAction"></td>
+								</tr>
+							</tbody>
+						</table>
+						<div class="text-center">
+							<input type="submit" class="btn btn-primary" value="submit"
+								ng-disabled="!defectLeakageForm.$valid" ng-click="submit(dbLeakage)" />
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>

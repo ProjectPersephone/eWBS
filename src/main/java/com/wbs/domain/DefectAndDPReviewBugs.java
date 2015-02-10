@@ -24,5 +24,8 @@ public class DefectAndDPReviewBugs extends AuditEntity {
 	private List<Integer> systemTestingDefects;
 	private List<Integer> productionDefects;
 	private String projectName;
+	private int totalDefects;
+	private int totalWeightedDefects;
+	private int defectDensity;
 
 }

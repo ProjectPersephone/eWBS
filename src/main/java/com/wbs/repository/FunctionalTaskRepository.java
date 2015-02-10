@@ -4,22 +4,21 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Repository;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
-import com.wbs.domain.DefectLeakageMetric;
+import com.wbs.domain.FunctionalTask;
 
 @Repository
-public class DefectLeakageMetricRepository {
+public class FunctionalTaskRepository {
 	
 		@Autowired
 		private MongoTemplate mongoTemplate;
 
-		public void save(DefectLeakageMetric defectLeakageMetric ) {
-			System.out.println("DefectLeakageMetric :" + defectLeakageMetric);
-			mongoTemplate.save(defectLeakageMetric);
+		public void save(FunctionalTask functionalTask ) {
+			mongoTemplate.save(functionalTask);
 		}
 		
-		public DefectLeakageMetric findProject(String projectName) {
+		public FunctionalTask findProject(String projectName) {
 			Query query = new Query(Criteria.where("projectName").is(projectName));
-			return mongoTemplate.findOne(query, DefectLeakageMetric.class);
+			return mongoTemplate.findOne(query, FunctionalTask.class);
 		}
 
 }

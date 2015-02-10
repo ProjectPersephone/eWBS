@@ -1,7 +1,5 @@
 package com.wbs.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,19 +19,12 @@ public class DefectLeakageMetricController {
 	private DefectLeakageMetricService defectLeakageMetricService;
 
 	@RequestMapping(value = "/save", method = RequestMethod.PUT)
-	public ResponseEntity<String> createDefectAndDPReviewBugsService(
+	public ResponseEntity<String> createDefectLeakageMetric(
 			@RequestParam(value = "projectName", required = true) String projectName,
 			@RequestBody DefectLeakageMetric defectLeakageMetric) {
-		System.out.println("controller" + projectName);
 		defectLeakageMetric.setProjectName(projectName);
-		defectLeakageMetricService.createCasualAnalysis(defectLeakageMetric);
+		defectLeakageMetricService.createDefectLeakageMetric(defectLeakageMetric);;
 		return new ResponseEntity<String>("DefectLeakageMetric Table Created", HttpStatus.OK);
-	}
-
-	@RequestMapping(value = "/findAll", method = RequestMethod.POST)
-	public ResponseEntity<List<DefectLeakageMetric>> findAllDefectAndDPReviewBugsService() {
-		List<DefectLeakageMetric> Defetcts = defectLeakageMetricService.findAllCasualAnalysis();
-		return new ResponseEntity<List<DefectLeakageMetric>>(Defetcts, HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/findByProject", method = RequestMethod.GET)

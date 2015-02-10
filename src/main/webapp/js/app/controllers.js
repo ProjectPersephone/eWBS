@@ -39,26 +39,6 @@ loginApp.controller("LoginController", function($scope, $http, $cookieStore) {
 	}
 });
 
-mainApp.controller("ProjectController", function($scope, $location, $http,
-		$cookieStore) {
-	$scope.flag = false;
-
-	if ($cookieStore.get("role") == 'Admin') {
-		$scope.role = true;
-	} else {
-		$scope.role = false;
-	}
-
-	$scope.project = {};
-	load();
-	function load() {
-		$http.get("/eWBS/resources/project/list").success(
-				function(projectList) {
-					$scope.projectList = projectList;
-				});
-	}
-});
-
 mainApp.controller("causalAnalysisController", function($scope, $http,
 		$cookieStore) {
 	$scope.flag = false;
@@ -200,80 +180,6 @@ mainApp.controller("addUserController", function($scope, $http, $cookieStore) {
 				});
 	}
 });
-
-mainApp.controller("StoryController", function($scope, $http, $cookieStore) {
-	$scope.flag = false;
-	$scope.flagUpdate = false;
-	$scope.flagSave = true;
-
-	$scope.story = {};
-	$scope.story.projectName = $cookieStore.get("projectName");
-	if ($cookieStore.get("role") == 'Admin') {
-		$scope.role = true;
-	} else {
-		$scope.role = false;
-	}
-
-	load();
-	function load() {
-		$http.get("/eWBS/resources/userController/users").success(
-				function(userList) {
-					$scope.userList = userList;
-				});
-	}
-
-	$scope.save = function() {
-		$scope.showLabel = true;
-		$http.post('/eWBS/resources/userController/user', $scope.user).success(
-				function(data, status) {
-					load();
-					alert("User added successfully.");
-					$scope.flag = false;
-					$scope.user = "";
-					$scope.showLabel = false;
-				}).error(function(data, status) {
-			if (status == 409)
-				alert("User e-mail Id already present");
-			else
-				alert("User not added" + status);
-			$scope.showLabel = false;
-		});
-
-	}
-	$scope.add = function() {
-		$scope.flag = true;
-	}
-
-	$scope.back = function() {
-		$scope.flag = false;
-	}
-
-	$scope.update = function(emailId) {
-		$http.get("/eWBS/resources/userController/getUser?emailId=" + emailId)
-				.success(function(user) {
-					$scope.user = user;
-					$scope.flag = true;
-					$scope.flagUpdate = true;
-					$scope.flagSave = false;
-				}).error(function(data, status) {
-					alert("Error" + status);
-				});
-	}
-
-	$scope.updateValue = function(emailId) {
-		$http.post('/eWBS/resources/userController/updateUser', $scope.user)
-				.success(function(data, status) {
-					load();
-					alert("User updated successfully.");
-					$scope.flag = false;
-					$scope.flagSave = true;
-					$scope.flagUpdate = false;
-				}).error(function(data, status) {
-					alert("User not updated" + status);
-				});
-	}
-});
-
 
 
 mainApp.controller("defectLeakageMatricsController", function($scope, $http,

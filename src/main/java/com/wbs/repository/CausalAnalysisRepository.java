@@ -27,18 +27,14 @@ public class CausalAnalysisRepository {
 		
 		public List<CausalAnalysis> findByProject(String projectName) {
 			Query query = new Query(Criteria.where("projectName").is(projectName));
-			System.out.println(query);
 			List<CausalAnalysis> causalAnalysis = mongoTemplate.find(query, CausalAnalysis.class);
-			System.out.println(causalAnalysis);
 			return causalAnalysis;
 		}
 
 		public CausalAnalysis findByCauseofBug(String projectName,String causeOfBug)
 		{
 			Query query=new Query(Criteria.where("projectName").is(projectName).and("causeOfBug").is(causeOfBug));
-			System.out.println(query);
 			CausalAnalysis causalAnalysis = mongoTemplate.findOne(query, CausalAnalysis.class);
-			System.out.println(causalAnalysis);
 			return causalAnalysis;
 		}
 		
