@@ -1,0 +1,175 @@
+<!--Start Breadcrumb-->
+<div class="row">
+	<div id="breadcrumb" class="col-xs-12">
+		<ol class="breadcrumb">
+			<li><a href="#/functionalTask">Functional Task</a></li>
+		</ol>
+	</div>
+</div>
+<div ng-controller="functionalTaskController">
+	<div class="row" ng-if="!flag">
+		<div class="col-xs-12">
+			<span class="btn btn-primary" ng-click="add()">Update</span>
+			<div class="box">
+				<div class="box-name">
+					<span>Functional Task</span>
+				</div>
+				<div class="box-content no-padding">
+					<table class="table table-bordered">
+						<thead>
+							<tr>
+								<th>Functional Task</th>
+								<th>Effort Planned(P Hrs)</th>
+								<th>Effort Actual(P Hrs)</th>
+								<th>Remarks</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>Project Planning and tracking</td>
+								<td>{{functionalTask.projectPlanningAndTrackingPlanned}}</td>
+								<td>{{functionalTask.projectPlanningAndTrackingActual}}</td>
+								<td>{{functionalTask.projectPlanningAndTrackingRemarks}}</td>
+
+							</tr>
+							<tr>
+								<td>Risk management</td>
+								<td>{{functionalTask.riskManagementPlanned}}</td>
+								<td>{{functionalTask.riskManagementActual}}</td>
+								<td>{{functionalTask.riskManagementRemarks}}</td>
+							</tr>
+							<tr>
+								<td>Change Management</td>
+								<td>{{functionalTask.changeManagementPlanned}}</td>
+								<td>{{functionalTask.changeManagementActual}}</td>
+								<td>{{functionalTask.changeManagementRemarks}}</td>
+							</tr>
+							<tr>
+								<td>Total Effort</td>
+								<td>{{functionalTask.projectPlanningAndTrackingPlanned+functionalTask.riskManagementPlanned+functionalTask.changeManagementPlanned}}</td>
+								<td>{{functionalTask.projectPlanningAndTrackingActual+functionalTask.riskManagementActual+functionalTask.changeManagementActual}}</td>
+								<td>0</td>
+							</tr>
+							<tr>
+								<td>SIZE(No of Simple Tasks/Requests)</td>
+								<td>{{functionalTask.sizePlanned}}</td>
+								<td>{{functionalTask.sizeActual}}</td>
+								<td>{{functionalTask.sizeRemarks}}</td>
+							</tr>
+							<tr>
+								<td>Number of Requirements/Stories</td>
+								<td>0</td>
+								<td>0</td>
+								<td>0</td>
+							</tr>
+							<tr>
+								<td>Story Points</td>
+								<td>{{functionalTask.storyPointsPlanned}}</td>
+								<td>{{functionalTask.storyPointsActual}}</td>
+								<td>{{functionalTask.storyPointsRemarks}}</td>
+							</tr>
+							<tr>
+								<td>Requests/Requirements/Stories</td>
+								<td>0</td>
+								<td>0</td>
+								<td>0</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row" ng-if="flag">
+		<div class="col-xs-12 col-sm-8">
+			<div class="box">
+			<span class="btn btn-primary" ng-click="back()">Back</span>
+				<div class="box-content">
+					<form name="FunctionalTaskForm" class="form-horizontal">
+						<fieldset>
+							<legend>Update Functional Task</legend>
+							<table class="table table-bordered">
+								<thead>
+									<tr>
+										<th>Functional Task</th>
+										<th>Effort Planned(P Hrs)</th>
+										<th>Effort Actual(P Hrs)</th>
+										<th>Remarks</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>Project Planning and tracking</td>
+										<td><input type="number" class="form-control"
+											ng-model="functionalTask.projectPlanningAndTrackingPlanned" /></td>
+										<td><input type="number" class="form-control"
+											ng-model="functionalTask.projectPlanningAndTrackingActual" /></td>
+										<td><input type="text" class="form-control"
+											ng-model="functionalTask.projectPlanningAndTrackingRemarks" /></td>
+
+									</tr>
+									<tr>
+										<td>Risk management</td>
+										<td><input type="number" class="form-control"
+											ng-model="functionalTask.riskManagementPlanned" /></td>
+										<td><input type="number" class="form-control"
+											ng-model="functionalTask.riskManagementActual" /></td>
+										<td><input type="text" class="form-control"
+											ng-model="functionalTask.riskManagementRemarks" /></td>
+									</tr>
+									<tr>
+										<td>Change Management</td>
+										<td><input type="number" class="form-control"
+											ng-model="functionalTask.changeManagementPlanned" /></td>
+										<td><input type="number" class="form-control"
+											ng-model="functionalTask.changeManagementActual" /></td>
+										<td><input type="text" class="form-control"
+											ng-model="functionalTask.changeManagementRemarks" /></td>
+									</tr>
+									<tr>
+										<td>Total Effort</td>
+										<td>{{functionalTask.projectPlanningAndTrackingPlanned+functionalTask.riskManagementPlanned+functionalTask.changeManagementPlanned}}</td>
+										<td>{{functionalTask.projectPlanningAndTrackingActual+functionalTask.riskManagementActual+functionalTask.changeManagementActual}}</td>
+										<td>0</td>
+									</tr>
+									<tr>
+										<td>SIZE(No of Simple Tasks/Requests)</td>
+										<td><input type="number" class="form-control"
+											ng-model="functionalTask.sizePlanned" /></td>
+										<td><input type="number" class="form-control"
+											ng-model="functionalTask.sizeActual" /></td>
+										<td><input type="text" class="form-control"
+											ng-model="functionalTask.sizeRemarks" /></td>
+										<td>
+									<tr>
+										<td>Number of Requirements/Stories</td>
+										<td>0</td>
+										<td>0</td>
+										<td>0</td>
+									</tr>
+									<tr>
+										<td>Story Points</td>
+										<td><input type="number" class="form-control"
+											ng-model="functionalTask.storyPointsPlanned" /></td>
+										<td><input type="number" class="form-control"
+											ng-model="functionalTask.storyPointsActual" /></td>
+										<td><input type="text" class="form-control"
+											ng-model="functionalTask.storyPointsRemarks" /></td>
+									</tr>
+									<tr>
+										<td>Requests/Requirements/Stories</td>
+										<td>0</td>
+										<td>0</td>
+										<td>0</td>
+									</tr>
+								</tbody>
+							</table>
+							<div class="text-center">
+							<input type="submit" class="btn btn-primary" value="submit"
+								ng-disabled="!FunctionalTaskForm.$valid" ng-click="submit()" />
+						</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

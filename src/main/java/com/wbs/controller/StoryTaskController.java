@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.mongodb.DBObject;
 import com.wbs.domain.StoryTask;
 import com.wbs.service.StoryTaskService;
 
@@ -27,24 +28,19 @@ public class StoryTaskController {
 
 	@RequestMapping(value = "/list/{projectName}", method = RequestMethod.GET)
 	@ResponseBody
-	public ResponseEntity<?> getStoryTaskList(
-			@PathVariable("projectName") String projectName) {
+	public ResponseEntity<?> getStoryTaskList(@PathVariable("projectName") String projectName) {
 		log.info("Getting story task list");
-		List<StoryTask> storyTaskList = storyTaskService
-				.getStoryTaskList(projectName);
+		List<StoryTask> storyTaskList = storyTaskService.getStoryTaskList(projectName);
 		return ((null == storyTaskList) || (storyTaskList.isEmpty())) ? new ResponseEntity<String>(
-				"StoryTask not found ", HttpStatus.NOT_FOUND)
-				: new ResponseEntity<List<StoryTask>>(storyTaskList,
-						HttpStatus.OK);
+				"StoryTask not found ", HttpStatus.NOT_FOUND) : new ResponseEntity<List<StoryTask>>(storyTaskList,
+				HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/{storyTaskId}", method = RequestMethod.POST)
 	@ResponseBody
-	public ResponseEntity<?> getStoryTask(
-			@PathVariable("storyTaskId") int storyTaskId) {
+	public ResponseEntity<?> getStoryTask(@PathVariable("storyTaskId") int storyTaskId) {
 		log.info("Getting story task :{}" + storyTaskId);
-		return new ResponseEntity<StoryTask>(
-				storyTaskService.getStoryTask(storyTaskId), HttpStatus.OK);
+		return new ResponseEntity<StoryTask>(storyTaskService.getStoryTask(storyTaskId), HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
@@ -60,5 +56,13 @@ public class StoryTaskController {
 	public ResponseEntity<?> updateStoryTask(@RequestBody() StoryTask storyTask) {
 		log.info("Updatting  story task :{}" + storyTask.getTask());
 		return new ResponseEntity<String>(HttpStatus.OK);
+	}
+
+	@RequestMapping(value = "/group/{projectName}", method = RequestMethod.GET)
+	@ResponseBody
+	public ResponseEntity<?> groupByStroyId(@PathVariable("projectName") String projectName) {
+		storyTaskService.groupByStroyId(projectName);
+		List<DBObject> list = storyTaskService.groupByStroyId(projectName);
+		return new ResponseEntity<List<DBObject>>(list, HttpStatus.OK);
 	}
 }
