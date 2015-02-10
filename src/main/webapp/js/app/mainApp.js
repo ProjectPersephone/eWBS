@@ -30,7 +30,7 @@ mainApp.config([ '$routeProvider', function($routeProvider) {
 		controller : 'reviewCommentsAndBugsController'
 	});
 	$routeProvider.when('/defectLeakageMatrics', {
-		templateUrl : 'defectLeakageMatrics.html',
+		templateUrl : 'defectLeakageMetrics.html',
 		controller : 'defectLeakageMatricsController'
 	});
 

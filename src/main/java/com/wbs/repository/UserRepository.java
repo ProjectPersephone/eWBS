@@ -35,7 +35,6 @@ public class UserRepository {
 	public User getUser(String emailId) {
 		Query query= new Query(Criteria.where("emailId").is(emailId));
 		User user=mongoTemplate.findOne(query,User.class);
-		System.out.println(user);
 		return user;
 	}
 	

@@ -1,0 +1,324 @@
+<!--Start Breadcrumb-->
+<div class="row">
+	<div id="breadcrumb" class="col-xs-12">
+		<ol class="breadcrumb">
+			<li><a href="#/metricReport">Metrics Report</a></li>
+		</ol>
+	</div>
+</div>
+<form name="">
+	<div class="row" ng-controller="metricReportController">
+		<div ng-controller="defectLeakageMatricsController"
+			style="border: none; width: 1110px; height: 540px; overflow: auto">
+			<div ng-controller="reviewCommentsAndBugsController">
+				<div class="box">
+					<div class="box-content no-padding">
+						<div>all are in *perHours</div>
+						<table
+							class="table table-striped table-bordered table-hover table-heading no-border-bottom">
+							<thead>
+								<tr>
+									<th>Total Planned Effort</th>
+									<th>Total Actual Effort</th>
+									<th>Planned Functional Effort</th>
+									<th>Actual Functional Effort</th>
+									<th>Planned Requirements Effort</th>
+									<th>Actual Requirements Effort</th>
+									<th>Planned Analysis Effort</th>
+									<th>Actual Analysis Effort</th>
+									<th>Planned Design Effort</th>
+									<th>Actual Design Effort</th>
+									<th>Planned Development Effort</th>
+									<th>Actual Development Effort</th>
+									<th>Planned Design Review Effort</th>
+									<th>Actual Design Review Effort</th>
+									<th>Planned WhiteBox Testing Effort</th>
+									<th>Actual WhiteBox Testing Effort</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>{{ sum("effortPlanned") }}</td>
+									<td>{{ sum("effortActual") }}</td>
+									<td>{{ sumByPhase("effortPlanned", "Functional") }}</td>
+									<td>{{ sumByPhase("effortActual", "Functional") }}</td>
+									<td>{{ sumByPhase("effortPlanned", "Requirements") }}</td>
+									<td>{{ sumByPhase("effortActual", "Requirements") }}</td>
+									<td>{{ sumByPhase("effortPlanned", "Analysis") }}</td>
+									<td>{{ sumByPhase("effortActual", "Analysis") }}</td>
+									<td>{{ sumByPhase("effortPlanned", "Design") }}</td>
+									<td>{{ sumByPhase("effortActual", "Design") }}</td>
+									<td>{{ sumByPhase("effortPlanned", "Development") }}</td>
+									<td>{{ sumByPhase("effortActual", "Development") }}</td>
+									<td>{{ sumByPhase("effortPlanned", "Design Review") }}</td>
+									<td>{{ sumByPhase("effortActual", "Design Review") }}</td>
+									<td>{{ sumByPhase("effortPlanned", "WhiteBox Testing") }}</td>
+									<td>{{ sumByPhase("effortActual", "WhiteBox Testing") }}</td>
+								</tr>
+							</tbody>
+
+							<thead>
+								<tr>
+									<th>Planned Total Review effort</th>
+									<th>Actual Total Review effort</th>
+									<th>Planned Total Rework effort</th>
+									<th>Actual Total Rework effort</th>
+									<th>Planned Testing effort</th>
+									<th>Actual Testing effort</th>
+									<th>Planned Support effort</th>
+									<th>Actual Support effort</th>
+									<th>Planned Blocker/Wait effort</th>
+									<th>Actual Blocker/Wait effort</th>
+									<th>Planned Non-Velocity effort</th>
+									<th>Actual Non-Velocity effort</th>
+									<th>Planned Design Rework effort</th>
+									<th>Actual Design Rework effort</th>
+									<th>CoQ Effort</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>{{ sumByPhaseType("effortPlanned", "Review") }}</td>
+									<td>{{ sumByPhaseType("effortActual", "Review") }}</td>
+									<td>{{ sumByPhaseType("effortPlanned", "Rework") }}</td>
+									<td>{{ sumByPhaseType("effortActual", "Rework") }}</td>
+									<td>{{ sumByPhase("effortPlanned", "Testing") }}</td>
+									<td>{{ sumByPhase("effortActual", "Testing") }}</td>
+									<td>{{ sumByPhase("effortPlanned", "Support") }}</td>
+									<td>{{ sumByPhase("effortActual", "Support") }}</td>
+									<td>{{ sumByPhase("effortPlanned", "Blocker or WaitTime")
+										}}</td>
+									<td>{{ sumByPhase("effortActual", "Blocker or WaitTime")
+										}}</td>
+									<td></td>
+									<td></td>
+									<td>{{ sumByPhase("effortPlanned", "Design Rework") }}</td>
+									<td>{{ sumByPhase("effortActual", "Design Rework") }}</td>
+									<td></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+
+				<table
+					class="table table-striped table-bordered table-hover table-heading no-border-bottom">
+					<thead>
+						<tr>
+							<th>Metric</th>
+							<th>Goal</th>
+							<th>UCL</th>
+							<th>LCL</th>
+							<th>Value</th>
+							<th>Comments and Corrective Action taken</th>
+							<th>Preventive Action planned(with link to the evidence)</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>Total Effort Variance %</td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td>{{
+								((sum("effortActual")-sum("effortPlanned"))/sum("effortPlanned"))*100
+								| number }}</td>
+							<td></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>Functional Effort Variance %</td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td>{{ ((sumByPhase("effortActual",
+								"Functional")-sumByPhase("effortPlanned",
+								"Functional"))/sumByPhase("effortActual", "Functional"))*100 |
+								number}}</td>
+							<td></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>Development Effort Variance %</td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td>{{ ((sumByPhase("effortActual",
+								"Development")-sumByPhase("effortPlanned",
+								"Development"))/sumByPhase("effortActual", "Development"))*100 |
+								number}}</td>
+							<td></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>Schedule Variance %</td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td>{{ percent("scheduleVariance") }}</td>
+							<td></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>Productivity Effort Variance %</td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>COQ %</td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>Rework %</td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td>{{ (sumByPhaseType("effortActual", "Rework") * 100) /
+								sum("effortActual") | number}}</td>
+							<td></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>Defect Density</td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td>{{ (dbBugs.requirementsDefects[0]*8 +
+								dbBugs.requirementsDefects[1]*4+dbBugs.requirementsDefects[2]*2+dbBugs.requirementsDefects[3]*1+dbBugs.analysisDefects[0]*8
+								+
+								dbBugs.analysisDefects[1]*4+dbBugs.analysisDefects[2]*2+dbBugs.analysisDefects[3]*1+dbBugs.designDefects[0]*8
+								+
+								dbBugs.designDefects[1]*4+dbBugs.designDefects[2]*2+dbBugs.designDefects[3]*1+dbBugs.codeReviewsDefects[0]*8
+								+
+								dbBugs.codeReviewsDefects[1]*4+dbBugs.codeReviewsDefects[2]*2+dbBugs.codeReviewsDefects[3]*1+dbBugs.unitTestingDefects[0]*8
+								+
+								dbBugs.unitTestingDefects[1]*4+dbBugs.unitTestingDefects[2]*2+dbBugs.unitTestingDefects[3]*1+dbBugs.integrationTestingDefects[0]*8
+								+
+								dbBugs.integrationTestingDefects[1]*4+dbBugs.integrationTestingDefects[2]*2+dbBugs.integrationTestingDefects[3]*1+dbBugs.systemTestingDefects[0]*8
+								+
+								dbBugs.systemTestingDefects[1]*4+dbBugs.systemTestingDefects[2]*2+dbBugs.systemTestingDefects[3]*1+dbBugs.productionDefects[0]
+								*8+
+								dbBugs.productionDefects[1]*4+dbBugs.productionDefects[2]*2+dbBugs.productionDefects[3]*1)
+								/ sum("effortActual") | number}}</td>
+							<td></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>Review Effectiveness %</td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td>{{ [dbBugs.requirementsDefects[0]*8 +
+								dbBugs.requirementsDefects[1]*4+dbBugs.requirementsDefects[2]*2+dbBugs.requirementsDefects[3]*1+dbBugs.analysisDefects[0]*8
+								+
+								dbBugs.analysisDefects[1]*4+dbBugs.analysisDefects[2]*2+dbBugs.analysisDefects[3]*1+
+								dbBugs.designDefects[0]*8 +
+								dbBugs.designDefects[1]*4+dbBugs.designDefects[2]*2+dbBugs.designDefects[3]*1]*100/[dbBugs.requirementsDefects[0]*8
+								+
+								dbBugs.requirementsDefects[1]*4+dbBugs.requirementsDefects[2]*2+dbBugs.requirementsDefects[3]*1+dbBugs.analysisDefects[0]*8
+								+
+								dbBugs.analysisDefects[1]*4+dbBugs.analysisDefects[2]*2+dbBugs.analysisDefects[3]*1+
+								dbBugs.designDefects[0]*8 +
+								dbBugs.designDefects[1]*4+dbBugs.designDefects[2]*2+dbBugs.designDefects[3]*1+dbBugs.codeReviewsDefects[0]*8
+								+
+								dbBugs.codeReviewsDefects[1]*4+dbBugs.codeReviewsDefects[2]*2+dbBugs.codeReviewsDefects[3]*1+dbBugs.unitTestingDefects[0]*8
+								+
+								dbBugs.unitTestingDefects[1]*4+dbBugs.unitTestingDefects[2]*2+dbBugs.unitTestingDefects[3]*1+dbBugs.integrationTestingDefects[0]*8
+								+
+								dbBugs.integrationTestingDefects[1]*4+dbBugs.integrationTestingDefects[2]*2+dbBugs.integrationTestingDefects[3]*1+dbBugs.systemTestingDefects[0]*8
+								+
+								dbBugs.systemTestingDefects[1]*4+dbBugs.systemTestingDefects[2]*2+dbBugs.systemTestingDefects[3]*1+dbBugs.productionDefects[0]
+								*8+
+								dbBugs.productionDefects[1]*4+dbBugs.productionDefects[2]*2+dbBugs.productionDefects[3]*1]
+								| number }}</td>
+							<td></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>Requirements Defect Leakage %</td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td>{{ [[
+								dbLeakage.requirements[1]+dbLeakage.requirements[2]+
+								dbLeakage.requirements[3]+dbLeakage.requirements[4]+dbLeakage.requirements[5]]/
+								[dbLeakage.requirements[0] +
+								dbLeakage.requirements[1]+dbLeakage.requirements[2]+
+								dbLeakage.requirements[3]+dbLeakage.requirements[4]+dbLeakage.requirements[5]]]*100
+								| number }}</td>
+							<td></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>Analysis Defect Leakage %</td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td>{{[[
+								dbLeakage.analysis[2]+dbLeakage.analysis[3]+dbLeakage.analysis[4]+dbLeakage.analysis[5]]/
+								[dbLeakage.analysis[1]+dbLeakage.analysis[2]+
+								dbLeakage.analysis[3]+dbLeakage.analysis[4]+dbLeakage.analysis[5]]]*100
+								| number}}</td>
+							<td></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>Design Defect Leakage %</td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td>{{[[dbLeakage.design[3]+dbLeakage.design[4]+dbLeakage.design[5]]/
+								[dbLeakage.design[2]+dbLeakage.design[3]+dbLeakage.design[4]+dbLeakage.design[5]]]*100
+								| number}}</td>
+							<td></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>Coding Defect Leakage %</td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td>{{[[dbLeakage.coding[4]+dbLeakage.coding[5]]/
+								[dbLeakage.coding[3]+dbLeakage.coding[4]+dbLeakage.coding[5]]]*100
+								| number}}</td>
+							<td></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>Testing Defect Leakage %</td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td>{{[[dbLeakage.testing[5]]/[dbLeakage.testing[4]+dbLeakage.testing[5]]]*100
+								| number }}</td>
+							<td></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>Requirements Stability Index</td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>Velocity Effort (phrs)</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</form>
+
