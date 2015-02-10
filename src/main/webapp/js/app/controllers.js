@@ -453,20 +453,4 @@ mainApp.controller("projectDetailsController", function($scope, $http,
 	}
 
 });
-mainApp.controller("storyMetricReportController", function($scope, $http,
-		$cookieStore) {
-	$scope.storyMetricReport = {};
-	$scope.storyMetricReport.projectName = $cookieStore.get("projectName");
-	load();
-	function load() {
-		$http.get(
-				"/eWBS/resources/storytask/list/"
-						+ $scope.storyMetricReport.projectName).success(
-				function(data) {
-					$scope.storyMetricReportList = data;
-				}).error(function(data) {
-			alert(data);
-		});
-	}
 
-});
