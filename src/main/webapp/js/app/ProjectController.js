@@ -4,7 +4,7 @@ mainApp.controller("ProjectController", function($rootScope, $scope,
 	$scope.flag = false;
 	$scope.project = {};
 
-	if ($cookieStore.get("role") == 'admin') {
+	if ($cookieStore.get("role") == 'Admin') {
 		$scope.role = true;
 	} else {
 		$scope.role = false;
