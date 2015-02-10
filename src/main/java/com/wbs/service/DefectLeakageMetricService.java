@@ -1,7 +1,5 @@
 package com.wbs.service;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,15 +12,11 @@ public class DefectLeakageMetricService {
 		@Autowired
 		private DefectLeakageMetricRepository defectLeakageMetricRepository;
 
-		public void createCasualAnalysis(DefectLeakageMetric defectLeakageMetric) {
+		public void createDefectLeakageMetric(DefectLeakageMetric defectLeakageMetric) {
 			System.out.println(defectLeakageMetric.getProjectName());
 			defectLeakageMetricRepository.save(defectLeakageMetric);
 		}
 		
-		public List<DefectLeakageMetric> findAllCasualAnalysis() {
-			return defectLeakageMetricRepository.findAll();
-		}
-	
 		public DefectLeakageMetric findProject(String projectName) {
 			return defectLeakageMetricRepository.findProject(projectName);
 		}
