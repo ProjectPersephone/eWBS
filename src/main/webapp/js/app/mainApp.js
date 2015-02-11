@@ -12,6 +12,11 @@ mainApp.config([ '$routeProvider', function($routeProvider) {
 		controller : 'ProjectController'
 	});
 
+	$routeProvider.when('/UserAllocation/:projectName', {
+		templateUrl : 'userAllocationToProject.html',
+		controller : 'UserAllocationToProjectController'
+	});
+
 	$routeProvider.when('/functionalTask', {
 		templateUrl : 'functionalTask.html',
 		controller : 'functionalTaskController'

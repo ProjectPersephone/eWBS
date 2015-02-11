@@ -27,7 +27,7 @@
 								<th>ApprovedBy</th>
 								<th>FromDate</th>
 								<th>ToDate</th>
-								<th ng-if="role">Action</th>
+								<th ng-if="role" colspan="2">Action</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -40,6 +40,7 @@
 								<td>{{project.fromDate}}</td>
 								<td>{{project.toDate}}</td>
 								<td ng-if="role"><a href ng-click="update($index)">EDIT</a></td>
+								<td ng-if="role"><a href="#/UserAllocation/{{project.projectName}}">Users</a></td>
 							</tr>
 						</tbody>
 					</table>
