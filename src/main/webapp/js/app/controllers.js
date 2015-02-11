@@ -20,6 +20,9 @@ mainApp.controller("TopBarController", function($scope, $rootScope,
 });
 
 loginApp.controller("LoginController", function($scope, $http, $cookieStore) {
+	if ($cookieStore.get("isLogged") == true) {
+		window.location = "/eWBS/home.html";
+	}
 	$scope.submit = function() {
 		$http.post('/eWBS/resources/userController/login', $scope.user)
 				.success(function(data, status) {
@@ -107,8 +110,6 @@ mainApp.controller("causalAnalysisController", function($scope, $http,
 		});
 	}
 });
-
-
 
 mainApp.controller("defectLeakageMatricsController", function($scope, $http,
 		$cookieStore) {
@@ -289,4 +290,3 @@ mainApp.controller("projectDetailsController", function($scope, $http,
 	}
 
 });
-

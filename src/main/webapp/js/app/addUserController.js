@@ -25,14 +25,13 @@ mainApp.controller("addUserController", function($scope, $cookieStore,
 		HttpService.post('userController/user', $scope.user).success(
 				function(data, status) {
 					$scope.load();
-					alert("Action successfull !!!");
+					alert("User added successfull !!!");
 					$scope.flag = false;
 					$scope.showLabel = false;
 				}).error(function(data) {
-			alert("Action unsuccessfull !!!");
+			alert("User adding unsuccessfull !!! " + data);
 			$scope.showLabel = false;
 		});
-
 	}
 
 	$scope.update = function(index) {
@@ -45,11 +44,11 @@ mainApp.controller("addUserController", function($scope, $cookieStore,
 		HttpService.post("userController/updateUser", $scope.user).success(
 				function(data) {
 					$scope.load();
-					alert("Action successfull !!!");
+					alert("User updated successfull !!!");
 					$scope.flag = false;
 					$scope.savebtn = true;
 				}).error(function(data) {
-			alert("Action unsuccessfull !!!");
+			alert("User adding unsuccessfull !!!");
 		});
 	}
 
