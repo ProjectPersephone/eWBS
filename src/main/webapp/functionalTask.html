@@ -9,7 +9,7 @@
 <div ng-controller="functionalTaskController">
 	<div class="row" ng-if="!flag">
 		<div class="col-xs-12">
-			<span class="btn btn-primary" ng-click="add()">Update</span>
+			<span class="btn btn-primary" ng-click="update()">Update</span>
 			<div class="box">
 				<div class="box-name">
 					<span>Functional Task</span>
@@ -50,17 +50,31 @@
 								<td>{{functionalTask.projectPlanningAndTrackingActual+functionalTask.riskManagementActual+functionalTask.changeManagementActual}}</td>
 								<td>0</td>
 							</tr>
+
+							<tr>
+								<td>SIZE(No of Complex Tasks/Requests)</td>
+								<td>{{functionalTask.sizeOfComplexRequestPlanned}}</td>
+								<td>{{functionalTask.sizeOfComplexRequestActual}}</td>
+								<td>{{functionalTask.sizeOfComplexRequestRemarks}}</td>
+							</tr>
+							<tr>
+								<td>SIZE(No of Medium Tasks/Requests)</td>
+								<td>{{functionalTask.sizeOfMediumRequestPlanned}}</td>
+								<td>{{functionalTask.sizeOfMediumRequestActual}}</td>
+								<td>{{functionalTask.sizeOfMediumRequestRemarks}}</td>
+							</tr>
 							<tr>
 								<td>SIZE(No of Simple Tasks/Requests)</td>
-								<td>{{functionalTask.sizePlanned}}</td>
-								<td>{{functionalTask.sizeActual}}</td>
-								<td>{{functionalTask.sizeRemarks}}</td>
+								<td>{{functionalTask.sizeOfSimpleRequestPlanned}}</td>
+								<td>{{functionalTask.sizeOfSimpleRequestActual}}</td>
+								<td>{{functionalTask.sizeOfSimpleRequestRemarks}}</td>
 							</tr>
 							<tr>
 								<td>Number of Requirements/Stories</td>
-								<td>0</td>
-								<td>0</td>
-								<td>0</td>
+								<td>{{functionalTask.sizeOfComplexRequestPlanned*6+functionalTask.sizeOfMediumRequestPlanned*3+functionalTask.sizeOfSimpleRequestPlanned*1}}</td>
+								<td>{{functionalTask.sizeOfComplexRequestActual*6+functionalTask.sizeOfMediumRequestActual*3+functionalTask.sizeOfSimpleRequestActual*1}}</td>
+								<td>{{functionalTask.NumberofRequirementsRemarks}}</td>
+								
 							</tr>
 							<tr>
 								<td>Story Points</td>
@@ -83,7 +97,7 @@
 	<div class="row" ng-if="flag">
 		<div class="col-xs-12 col-sm-8">
 			<div class="box">
-			<span class="btn btn-primary" ng-click="back()">Back</span>
+				<span class="btn btn-primary" ng-click="back()">Back</span>
 				<div class="box-content">
 					<form name="FunctionalTaskForm" class="form-horizontal">
 						<fieldset>
@@ -101,30 +115,39 @@
 									<tr>
 										<td>Project Planning and tracking</td>
 										<td><input type="number" class="form-control"
-											ng-model="functionalTask.projectPlanningAndTrackingPlanned" /></td>
+											ng-model="functionalTask.projectPlanningAndTrackingPlanned"
+											required="required" /></td>
 										<td><input type="number" class="form-control"
-											ng-model="functionalTask.projectPlanningAndTrackingActual" /></td>
+											ng-model="functionalTask.projectPlanningAndTrackingActual"
+											required="required" /></td>
 										<td><input type="text" class="form-control"
-											ng-model="functionalTask.projectPlanningAndTrackingRemarks" /></td>
+											ng-model="functionalTask.projectPlanningAndTrackingRemarks"
+											required="required" /></td>
 
 									</tr>
 									<tr>
 										<td>Risk management</td>
 										<td><input type="number" class="form-control"
-											ng-model="functionalTask.riskManagementPlanned" /></td>
+											ng-model="functionalTask.riskManagementPlanned"
+											required="required" /></td>
 										<td><input type="number" class="form-control"
-											ng-model="functionalTask.riskManagementActual" /></td>
+											ng-model="functionalTask.riskManagementActual"
+											required="required" /></td>
 										<td><input type="text" class="form-control"
-											ng-model="functionalTask.riskManagementRemarks" /></td>
+											ng-model="functionalTask.riskManagementRemarks"
+											required="required" /></td>
 									</tr>
 									<tr>
 										<td>Change Management</td>
 										<td><input type="number" class="form-control"
-											ng-model="functionalTask.changeManagementPlanned" /></td>
+											ng-model="functionalTask.changeManagementPlanned"
+											required="required" /></td>
 										<td><input type="number" class="form-control"
-											ng-model="functionalTask.changeManagementActual" /></td>
+											ng-model="functionalTask.changeManagementActual"
+											required="required" /></td>
 										<td><input type="text" class="form-control"
-											ng-model="functionalTask.changeManagementRemarks" /></td>
+											ng-model="functionalTask.changeManagementRemarks"
+											required="required" /></td>
 									</tr>
 									<tr>
 										<td>Total Effort</td>
@@ -132,20 +155,42 @@
 										<td>{{functionalTask.projectPlanningAndTrackingActual+functionalTask.riskManagementActual+functionalTask.changeManagementActual}}</td>
 										<td>0</td>
 									</tr>
+
+									<tr>
+										<td>SIZE(No of Complex Tasks/Requests)</td>
+										<td><input type="number" class="form-control"
+											ng-model="functionalTask.sizeOfComplexRequestPlanned" /></td>
+										<td><input type="number" class="form-control"
+											ng-model="functionalTask.sizeOfComplexRequestActual" /></td>
+										<td><input type="text" class="form-control"
+											ng-model="functionalTask.sizeOfComplexRequestRemarks" /></td>
+										<td>
+									<tr>
+									<tr>
+										<td>SIZE(No of Medium Tasks/Requests)</td>
+										<td><input type="number" class="form-control"
+											ng-model="functionalTask.sizeOfMediumRequestPlanned" /></td>
+										<td><input type="number" class="form-control"
+											ng-model="functionalTask.sizeOfMediumRequestActual" /></td>
+										<td><input type="text" class="form-control"
+											ng-model="functionalTask.sizeOfMediumRequestRemarks" /></td>
+										<td>
+									<tr>
 									<tr>
 										<td>SIZE(No of Simple Tasks/Requests)</td>
 										<td><input type="number" class="form-control"
-											ng-model="functionalTask.sizePlanned" /></td>
+											ng-model="functionalTask.sizeOfSimpleRequestPlanned" /></td>
 										<td><input type="number" class="form-control"
-											ng-model="functionalTask.sizeActual" /></td>
+											ng-model="functionalTask.sizeOfSimpleRequestActual" /></td>
 										<td><input type="text" class="form-control"
-											ng-model="functionalTask.sizeRemarks" /></td>
+											ng-model="functionalTask.sizeOfSimpleRequestRemarks" /></td>
 										<td>
 									<tr>
 										<td>Number of Requirements/Stories</td>
-										<td>0</td>
-										<td>0</td>
-										<td>0</td>
+										<td>{{functionalTask.sizeOfComplexRequestPlanned*6+functionalTask.sizeOfMediumRequestPlanned*3+functionalTask.sizeOfSimpleRequestPlanned*1}}</td>
+										<td>{{functionalTask.sizeOfComplexRequestActual*6+functionalTask.sizeOfMediumRequestActual*3+functionalTask.sizeOfSimpleRequestActual*1}}</td>
+										<td><input type="text" class="form-control"
+											ng-model="functionalTask.NumberofRequirementsRemarks" /></td>
 									</tr>
 									<tr>
 										<td>Story Points</td>
@@ -165,9 +210,9 @@
 								</tbody>
 							</table>
 							<div class="text-center">
-							<input type="submit" class="btn btn-primary" value="submit"
-								ng-disabled="!FunctionalTaskForm.$valid" ng-click="submit()" />
-						</div>
+								<input type="submit" class="btn btn-primary" value="submit"
+									ng-disabled="!FunctionalTaskForm.$valid" ng-click="submit()" />
+							</div>
 				</div>
 			</div>
 		</div>

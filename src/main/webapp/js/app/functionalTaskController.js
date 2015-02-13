@@ -1,42 +1,32 @@
-mainApp.controller("functionalTaskController", function($scope, $http,
-		$cookieStore) {
-
+mainApp.controller("functionalTaskController", function($scope, $cookieStore,
+		HttpService) {
 	$scope.flag = false;
-
 	$scope.functionalTask = {};
 	$scope.functionalTask.projectName = "";
+
 	var projectName = $cookieStore.get("projectName");
-	load();
-	function load() {
-		alert("/eWBS/resources/FunctionalTask/findByProject?projectName="
-				+ projectName);
-		$http.get(
-				"/eWBS/resources/FunctionalTask/findByProject?projectName="
-						+ projectName).success(function(data, status) {
 
-			$scope.functionalTask = data;
-		}).error(function(data) {
-			alert(data);
-		});
-
+	$scope.load = function() {
+		HttpService.get(
+				"FunctionalTask/findByProject?projectName=" + projectName)
+				.success(function(functionalTask) {
+					$scope.functionalTask = functionalTask;
+				});
 	}
+	$scope.load();
+
 	$scope.submit = function() {
-		$http.post(
-				'/eWBS/resources/FunctionalTask/save?projectName='
-						+ projectName, $scope.functionalTask).success(
-				function(data, status) {
-					if (status == 200) {
-						alert("data entered into database successfully");
-						load();
-						$scope.flag = false;
-					} else
-						alert(status);
-				}).error(function(data, status) {
-			alert(status);
+		HttpService.post("FunctionalTask/save?projectName=" + projectName,
+				$scope.functionalTask).success(function(functionalTask) {
+			$scope.load();
+			alert("Action successfull !!!");
+			$scope.flag = false;
+		}).error(function(functionalTask) {
+			alert("Action unsuccessfull !!!");
 		});
-
 	}
-	$scope.add = function() {
+
+	$scope.update = function() {
 		$scope.flag = true;
 	}
 

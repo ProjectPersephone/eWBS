@@ -25,9 +25,17 @@ public class FunctionalTask extends AuditEntity {
 	private int changeManagementActual;
 	private String changeManagementRemarks;
 	
-	private int sizePlanned;
-	private int sizeActual;
-	private String sizeRemarks;
+	private int sizeOfSimpleRequestPlanned;
+	private int sizeOfSimpleRequestActual;
+	private int sizeOfSimpleRequestRemarks;
+	
+	private int sizeOfComplexRequestPlanned;
+	private int sizeOfComplexRequestActual;
+	private int sizeOfComplexRequestRemarks;
+	
+	private String sizeOfMediumRequestPlanned;
+	private String sizeOfMediumRequestActual;
+	private String sizeOfMediumRequestRemarks;
 	
 	private int storyPointsPlanned;
 	private int storyPointsActual;
