@@ -37,10 +37,11 @@
 							<div class="form-group">
 								<label class="control-label">Email ID</label> <input
 									type="email" class="form-control" name="emailId"
-									ng-model="user.emailId" required> <span
-									style="color: red" ng-show="LoginForm.emailId.$invalid"><span
-									ng-show="LoginForm.emailId.$error.emailId">Invalid email
-										address.</span> </span>
+									ng-model="user.emailId" required><span
+									style="color: red" ng-show="LoginForm.emailId.$invalid">
+									<span ng-show="LoginForm.emailId.$error.email">Invalid
+										email address.</span>
+								</span>
 							</div>
 							<div class="form-group">
 								<label class="control-label">Password</label> <input
