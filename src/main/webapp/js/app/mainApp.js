@@ -4,8 +4,7 @@ var loginApp = angular.module("loginApp", [ 'ngCookies' ]);
 
 mainApp.config([ '$routeProvider', function($routeProvider) {
 	$routeProvider.when('/', {
-		templateUrl : 'projects.html',
-		controller : 'ProjectController'
+		templateUrl : 'coverpage.html',
 	});
 	$routeProvider.when('/projects', {
 		templateUrl : 'projects.html',
