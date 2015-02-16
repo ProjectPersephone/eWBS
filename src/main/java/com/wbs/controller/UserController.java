@@ -46,11 +46,22 @@ public class UserController {
 		List<User> userList = userService.getAllUsers();
 		return new ResponseEntity<List<User>>(userList, HttpStatus.OK);
 	}
+	
+	@RequestMapping(value = "/projectUsers", method = RequestMethod.GET)
+	public ResponseEntity<List<User>> getUsers(@RequestParam(value = "projectName", required = true) String projectName) {
+		List<User> userList = userService.getUsers(projectName);
+		return new ResponseEntity<List<User>>(userList, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value = "/otherUsers", method = RequestMethod.GET)
+	public ResponseEntity<List<User>> getOtherUsers(@RequestParam(value = "projectName", required = true) String projectName) {
+		List<User> userList = userService.getOtherUsers(projectName);
+		return new ResponseEntity<List<User>>(userList, HttpStatus.OK);
+	}
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public ResponseEntity<?> authenticateUser(@RequestBody User user) {
 		User user2 = userService.authenticateUser(user);
-		System.out.print(user2);
 		if (user2 == null) {
 			return new ResponseEntity<String>("incorrect username or password !", HttpStatus.UNAUTHORIZED);
 		} else

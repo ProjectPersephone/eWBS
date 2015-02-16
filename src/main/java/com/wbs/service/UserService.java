@@ -36,4 +36,12 @@ public class UserService {
 	public void sendMail(String mailId) {
 		
 	}
+
+	public List<User> getUsers(String projectName) {
+		return userRepository.getUsers(projectName);
+	}
+
+	public List<User> getOtherUsers(String projectName) {
+		return userRepository.getOtherUsers(projectName);
+	}
 }

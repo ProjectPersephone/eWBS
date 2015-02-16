@@ -1,65 +1,107 @@
-mainApp.controller("UserAllocationToProjectController", function($scope,
-		$cookieStore, $routeParams, HttpService) {
-	$scope.flag = false;
-	$scope.savebtn = true;
-	$scope.showLabel = false;
-	$scope.user = {};
-
-	if ($cookieStore.get("role") == 'Admin') {
-		$scope.role = true;
-	} else {
-		$scope.role = false;
-	}
-
-	$scope.load = function() {
-		HttpService.get("userController/users").success(function(data) {
-			$scope.userList = data;
-		});
-	}
-
-	$scope.load();
-
-	$scope.save = function() {
-		$scope.showLabel = true;
-		HttpService.post('userController/user', $scope.user).success(
-				function(data, status) {
-					$scope.load();
-					alert("Action successfull !!!");
-					$scope.flag = false;
-					$scope.showLabel = false;
-				}).error(function(data) {
-			alert("Action unsuccessfull !!!");
-			$scope.showLabel = false;
-		});
-
-	}
-
-	$scope.update = function(index) {
-		$scope.user = $scope.userList[index];
-		$scope.flag = true;
-		$scope.savebtn = false;
-	}
-
-	$scope.edit = function() {
-		HttpService.post("userController/updateUser", $scope.user).success(
-				function(data) {
-					$scope.load();
-					alert("Action successfull !!!");
+mainApp
+		.controller(
+				"UserAllocationToProjectController",
+				function($scope, $cookieStore, $routeParams, HttpService) {
 					$scope.flag = false;
 					$scope.savebtn = true;
-				}).error(function(data) {
-			alert("Action unsuccessfull !!!");
-		});
-	}
+					$scope.showLabel = false;
+					$scope.selection = [];
+					$scope.user = {};
+					$scope.user.project = [];
 
-	$scope.add = function() {
-		$scope.user = {};
-		$scope.flag = true;
-		$scope.savebtn = true;
-	}
+					if ($cookieStore.get("role") == 'Admin') {
+						$scope.role = true;
+					} else {
+						$scope.role = false;
+					}
 
-	$scope.back = function() {
-		$scope.flag = false;
-	}
+					$scope.load = function() {
+						HttpService.get(
+								"userController/projectUsers?projectName="
+										+ $routeParams.projectName).success(
+								function(data) {
+									$scope.projectUsers = data;
+								});
 
-});
+						HttpService.get("userController/users").success(
+								function(data) {
+									$scope.userList = data;
+								});
+
+						HttpService.get(
+								"userController/otherUsers?projectName="
+										+ $routeParams.projectName).success(
+								function(data) {
+									$scope.otherUsers = data;
+								});
+					}
+
+					$scope.load();
+
+					$scope.save = function() {
+						var total = 0;
+						for (var i = 0, len = $scope.selection.length; i < len; i++) {
+							for (var j = 0, le = $scope.otherUsers.length; j < le; j++) {
+								if ($scope.otherUsers[j].name == $scope.selection[i]) {
+									$scope.otherUsers[j].project
+											.push($routeParams.projectName);
+									$scope.user = $scope.otherUsers[j];
+									HttpService.post(
+											"userController/updateUser",
+											$scope.user).success(
+											function(data) {
+
+											}).error(function(data) {
+										alert("Action unsuccessfull !!!");
+									});
+								}
+							}
+						}
+						alert("Records Updated...");
+						$scope.back();
+						$scope.load();
+					}
+
+					$scope.remove = function(employee) {
+						for (var j = 0, le = $scope.projectUsers.length; j < le; j++) {
+							if ($scope.projectUsers[j].name == employee) {
+								var idx = $scope.projectUsers[j].project.indexOf($routeParams.projectName);
+								if (idx > -1) {
+									$scope.projectUsers[j].project.splice(idx, 1);
+								}
+								
+								$scope.user = $scope.projectUsers[j];
+								HttpService.post("userController/updateUser",
+										$scope.user).success(function(data) {
+											alert("User Removed !");
+											$scope.load();
+								}).error(function(data) {
+									alert("Action unsuccessfull !");
+								});
+							}
+						}
+					}
+
+					$scope.toggleSelection = function(employeeName) {
+						var idx = $scope.selection.indexOf(employeeName);
+						// is currently selected
+						if (idx > -1) {
+							$scope.selection.splice(idx, 1);
+						}
+
+						// is newly selected
+						else {
+							$scope.selection.push(employeeName);
+						}
+					}
+
+					$scope.add = function() {
+						$scope.flag = true;
+						$scope.savebtn = true;
+					}
+
+					$scope.back = function() {
+						$scope.flag = false;
+						$scope.load();
+					}
+				});
