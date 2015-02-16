@@ -34,7 +34,7 @@ mainApp
 						for (var j = 0; j < $scope.storyMetricReportList.length; j++) {
 							for (var i = 0; i < $scope.storyMetricReportList1.length; i++) {
 								if ($scope.storyMetricReportList[i]._id == $scope.storyMetricReportList1[i].storyId) {
-									if ($scope.storyMetricReportList1[i].status == "Completed") {
+									if ($scope.storyMetricReportList1[i].phase == "Milestone") {
 										i = $scope.storyMetricReportList1.length;
 										return "YES";
 									} else {
