@@ -5,7 +5,8 @@ mainApp.controller("addUserController", function($scope, $cookieStore,
 	$scope.savebtn = true;
 	$scope.showLabel = false;
 	$scope.user = {};
-
+	$scope.user.project=[];
+	
 	if ($cookieStore.get("role") == 'Admin') {
 		$scope.role = true;
 	} else {
@@ -22,6 +23,8 @@ mainApp.controller("addUserController", function($scope, $cookieStore,
 
 	$scope.save = function() {
 		$scope.showLabel = true;
+		$scope.user.project=[$scope.user.project];
+
 		HttpService.post('userController/user', $scope.user).success(
 				function(data, status) {
 					$scope.load();
@@ -29,7 +32,7 @@ mainApp.controller("addUserController", function($scope, $cookieStore,
 					$scope.flag = false;
 					$scope.showLabel = false;
 				}).error(function(data) {
-			alert("User adding unsuccessfull !!! " + data);
+			alert("User adding unsuccessfull !!! " + JSON.stringify($scope.user));
 			$scope.showLabel = false;
 		});
 	}
@@ -56,6 +59,11 @@ mainApp.controller("addUserController", function($scope, $cookieStore,
 		$scope.user = {};
 		$scope.flag = true;
 		$scope.savebtn = true;
+		HttpService.get("project/list").success(function(projectList) {
+			$scope.projectList = projectList;
+			//alert(projectList);
+		});
+		//alert(JSON.stringify($scope.user.project));
 	}
 
 	$scope.back = function() {
