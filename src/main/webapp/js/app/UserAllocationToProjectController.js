@@ -40,41 +40,51 @@ mainApp
 
 					$scope.save = function() {
 						var total = 0;
+						$scope.user.project = [];
 						for (var i = 0, len = $scope.selection.length; i < len; i++) {
 							for (var j = 0, le = $scope.otherUsers.length; j < le; j++) {
 								if ($scope.otherUsers[j].name == $scope.selection[i]) {
-									$scope.otherUsers[j].project
-											.push($routeParams.projectName);
 									$scope.user = $scope.otherUsers[j];
+									$scope.user.project
+											.push($routeParams.projectName);
+									
 									HttpService.post(
 											"userController/updateUser",
 											$scope.user).success(
 											function(data) {
-
+												total++;
+												if (total == $scope.selection.length) {
+													$scope.next();
+												}
 											}).error(function(data) {
 										alert("Action unsuccessfull !!!");
 									});
 								}
 							}
 						}
-						alert("Records Updated...");
-						$scope.back();
-						$scope.load();
+						$scope.next = function() {
+								alert(total);
+								alert("Records Updated...");
+								$scope.back();
+								$scope.load();
+						}
 					}
 
 					$scope.remove = function(employee) {
 						for (var j = 0, le = $scope.projectUsers.length; j < le; j++) {
 							if ($scope.projectUsers[j].name == employee) {
-								var idx = $scope.projectUsers[j].project.indexOf($routeParams.projectName);
+								var idx = $scope.projectUsers[j].project
+										.indexOf($routeParams.projectName);
 								if (idx > -1) {
-									$scope.projectUsers[j].project.splice(idx, 1);
+									$scope.projectUsers[j].project.splice(idx,
+											1);
 								}
-								
+
 								$scope.user = $scope.projectUsers[j];
 								HttpService.post("userController/updateUser",
 										$scope.user).success(function(data) {
-											alert("User Removed !");
-											$scope.load();
+									alert("User Removed !");
+									$scope.load();
 								}).error(function(data) {
 									alert("Action unsuccessfull !");
 								});
