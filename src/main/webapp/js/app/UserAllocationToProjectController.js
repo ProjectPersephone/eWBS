@@ -63,7 +63,6 @@ mainApp
 							}
 						}
 						$scope.next = function() {
-								alert(total);
 								alert("Records Updated...");
 								$scope.back();
 								$scope.load();
