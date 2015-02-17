@@ -8,7 +8,7 @@ mainApp.controller("functionalTaskController", function($scope, $cookieStore,
 
 	$scope.load = function() {
 		HttpService.get(
-				"FunctionalTask/findByProject?projectName=" + projectName)
+				"FunctionalTask/findByProject?projectName=" +projectName)
 				.success(function(functionalTask) {
 					$scope.functionalTask = functionalTask;
 				});
@@ -17,12 +17,14 @@ mainApp.controller("functionalTaskController", function($scope, $cookieStore,
 
 	$scope.submit = function() {
 		HttpService.post("FunctionalTask/save?projectName=" + projectName,
-				$scope.functionalTask).success(function(functionalTask) {
-			$scope.load();
+				$scope.functionalTask).success(function(data) {
+					$scope.load();
 			alert("Action successfull !!!");
 			$scope.flag = false;
-		}).error(function(functionalTask) {
+		
+		}).error(function(data) {
 			alert("Action unsuccessfull !!!");
+			$scope.load();
 		});
 	}
 

@@ -13,7 +13,6 @@ mainApp.controller("metricReportController", function($scope, $http, $document,
 				function(data) {
 					$scope.storyTask = data;
 				}).error(function(data) {
-			alert(data);
 		});
 	}
 

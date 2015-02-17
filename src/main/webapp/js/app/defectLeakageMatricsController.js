@@ -24,12 +24,10 @@ mainApp.controller("defectLeakageMatricsController", function($scope, $cookieSto
 	
 	$scope.submit = function(dbLeakage) {
 		$scope.dbLeakage = dbLeakage;
-		var restPoint = '/eWBS/resources/DefectLeakageMetric/save?projectName='
-				+ projectName;
-		$http.post(restPoint, $scope.dbLeakage).success(function(data, status) {
+		HttpService.post("DefectLeakageMetric/save?projectName="+ projectName, $scope.dbLeakage).success(function(data, status) {
 			if (status == 200) {
 				alert("data entered into database successfully");
-				load();
+				$scope.load();
 				$scope.flag = false;
 			} else
 				alert(status);
