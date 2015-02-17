@@ -80,6 +80,15 @@
 								</div>
 							</div>
 							<div class="form-group">
+								<label class="col-sm-3 control-label">Project Allocation</label>
+								<div class="col-sm-5">
+									<select class="form-control" ng-model="user.project" required>
+										<option>Bench</option>
+										<option ng:repeat="projects in projectList" value="{{projects.projectName}}">{{projects.projectName}}</option>
+									</select>
+								</div>
+							</div>
+							<div class="form-group">
 								<label class="col-sm-3 control-label">Role</label>
 								<div class="col-sm-5">
 									<select class="form-control" ng-model="user.role" required>
@@ -91,7 +100,7 @@
 							</div>
 							<div class="form-group">
 								<div class="col-sm-9 col-sm-offset-3">
-									<input type="submit" class="btn btn-primary" value="Save"
+									<input type="submit" class="btn btn-primary" value="Add & Send Mail"
 										ng-if="savebtn" ng-disabled='!userForm.$valid'
 										ng-click="save()" /> <input type="submit"
 										class="btn btn-primary" value="UPDATE" ng-if="!savebtn"

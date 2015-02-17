@@ -1,6 +1,6 @@
-
 mainApp.controller("reviewCommentsAndBugsController", function($scope, $http,
 		$cookieStore ) {
+	
 	$scope.dbBugs = {};
 	$scope.dbBugs.requirementsDefects = [ 0, 0, 0, 0 ];
 	$scope.dbBugs.analysisDefects = [ 0, 0, 0, 0 ];
@@ -21,17 +21,19 @@ mainApp.controller("reviewCommentsAndBugsController", function($scope, $http,
 			$scope.dbBugs = data;
 		});
 	}
+
 	$scope.get = function() {
 		$scope.flag = true;
 	}
 
-	$scope.submit = function() {
+
+	$scope.submit = function(data,status) {
 
 		$http.post('/eWBS/resources/defect/save', $scope.dbBugs).success(
 
 		function(data, status) {
 			if (status == 200) {
-				alert("dbBugs data entered into database successfully");
+				alert("reviewAndBugs data entered into database successfully");
 				load($cookieStore.get("projectName"));
 				$scope.flag = false;
 			}
