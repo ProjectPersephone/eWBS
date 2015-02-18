@@ -6,6 +6,7 @@ mainApp.controller("addUserController", function($scope, $cookieStore,
 	$scope.showLabel = false;
 	$scope.user = {};
 	$scope.user.project=[];
+	var projectText="";
 	
 	if ($cookieStore.get("role") == 'Admin') {
 		$scope.role = true;
@@ -16,6 +17,20 @@ mainApp.controller("addUserController", function($scope, $cookieStore,
 	$scope.load = function() {
 		HttpService.get("userController/users").success(function(data) {
 			$scope.userList = data;
+			//alert(JSON.stringify("a"+$scope.userList.length));
+			for(var i=0;i<$scope.userList.length;i++)
+				{
+				//alert($scope.userList[i].project);
+				projectText="";
+			 		for(var j=0;j<$scope.userList[i].project.length;j++)
+			 			{
+			 				projectText+=$scope.userList[i].project[j];
+			 				projectText+=",";
+			 			}
+			 		projectText=projectText.substring(0,projectText.length-1);
+			 		$scope.userList[i].project=projectText;
+					//alert("project:"+projectText);
+				}
 		});
 	}
 
@@ -32,7 +47,7 @@ mainApp.controller("addUserController", function($scope, $cookieStore,
 					$scope.flag = false;
 					$scope.showLabel = false;
 				}).error(function(data) {
-			alert("User adding unsuccessfull !!! " + JSON.stringify($scope.user));
+			alert("User adding unsuccessfull !!! ");
 			$scope.showLabel = false;
 		});
 	}
