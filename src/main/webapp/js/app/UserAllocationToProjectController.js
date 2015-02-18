@@ -7,6 +7,7 @@ mainApp
 					$scope.showLabel = false;
 					$scope.selection = [];
 					$scope.user = {};
+					$scope.users = [];
 					$scope.user.project = [];
 
 					if ($cookieStore.get("role") == 'Admin') {
@@ -44,29 +45,26 @@ mainApp
 						for (var i = 0, len = $scope.selection.length; i < len; i++) {
 							for (var j = 0, le = $scope.otherUsers.length; j < le; j++) {
 								if ($scope.otherUsers[j].name == $scope.selection[i]) {
-									$scope.user = $scope.otherUsers[j];
-									$scope.user.project
+									$scope.otherUsers[j].project
 											.push($routeParams.projectName);
-									
-									HttpService.post(
-											"userController/updateUser",
-											$scope.user).success(
-											function(data) {
-												total++;
-												if (total == $scope.selection.length) {
-													$scope.next();
-												}
-											}).error(function(data) {
-										alert("Action unsuccessfull !!!");
-									});
+
+									var idx = $scope.otherUsers[j].project
+											.indexOf("BENCH");
+									if (idx > -1) {
+										$scope.otherUsers[j].project.splice(
+												idx, 1);
+									}
+									$scope.users.push($scope.otherUsers[j]);
 								}
 							}
 						}
-						$scope.next = function() {
-								alert("Records Updated...");
-								$scope.back();
-								$scope.load();
-						}
+						HttpService.post("userController/updateAll",
+								$scope.users).success(function(data) {
+							alert("Records Updated");
+							$scope.back();
+						}).error(function(data) {
+							alert("Action unsuccessfull !!!");
+						});
 					}
 
 					$scope.remove = function(employee) {
@@ -77,6 +75,10 @@ mainApp
 								if (idx > -1) {
 									$scope.projectUsers[j].project.splice(idx,
 											1);
+								}
+								if ($scope.projectUsers[j].project.length == 0) {
+									$scope.projectUsers[j].project
+											.push("BENCH");
 								}
 
 								$scope.user = $scope.projectUsers[j];
