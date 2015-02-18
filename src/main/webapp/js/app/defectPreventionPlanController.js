@@ -11,7 +11,7 @@ mainApp.controller("defectPreventionPlanController", function($scope, $cookieSto
 	}
 
 	$scope.defectPreventionPlan = {};
-	function load() {
+	$scope.load = function() {
 		HttpService.get(
 				"defectPreventionPlan/findByProject?projectName="
 						+ $cookieStore.get("projectName")).success(
