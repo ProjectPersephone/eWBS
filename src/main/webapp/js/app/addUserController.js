@@ -17,19 +17,16 @@ mainApp.controller("addUserController", function($scope, $cookieStore,
 	$scope.load = function() {
 		HttpService.get("userController/users").success(function(data) {
 			$scope.userList = data;
-			//alert(JSON.stringify("a"+$scope.userList.length));
 			for(var i=0;i<$scope.userList.length;i++)
 				{
-				//alert($scope.userList[i].project);
 				projectText="";
 			 		for(var j=0;j<$scope.userList[i].project.length;j++)
 			 			{
 			 				projectText+=$scope.userList[i].project[j];
-			 				projectText+=",";
+			 				projectText+=", ";
 			 			}
-			 		projectText=projectText.substring(0,projectText.length-1);
+			 		projectText=projectText.substring(0,projectText.length-2);
 			 		$scope.userList[i].project=projectText;
-					//alert("project:"+projectText);
 				}
 		});
 	}
