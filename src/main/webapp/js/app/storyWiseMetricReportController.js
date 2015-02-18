@@ -1,6 +1,6 @@
 mainApp
 		.controller(
-				"storyMetricReportController",
+				"storyWiseMetricReportController",
 				function($scope, $cookieStore, HttpService) {
 
 					$scope.storyMetricReport = {};
@@ -17,9 +17,7 @@ mainApp
 											$scope.load();
 										});
 					}
-					
 					$scope.get();
-
 					$scope.load = function() {
 						HttpService
 								.get(

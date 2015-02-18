@@ -37,4 +37,11 @@ public class StoryTaskService {
 	public List<DBObject> groupByStroyId(String projectName){
 		return storyTaskRepository.groupByStroyId(projectName);
 	}
+	
+	public List<DBObject> groupByPhase(String projectName){
+		return storyTaskRepository.groupByPhase(projectName);
+	}
+	public List<DBObject> groupByResource(String projectName){
+		return storyTaskRepository.groupByResource(projectName);
+	}
 }

@@ -27,7 +27,9 @@
 <script type="text/javascript" src="js/app/StoryTaskController.js"></script>
 <script type="text/javascript" src="js/app/reviewAndBugsController.js"></script>
 <script type="text/javascript" src="js/app/ChangePSController.js"></script>
-<script type="text/javascript" src="js/app/metricReportController.js"></script>
+<script type="text/javascript" src="js/app/storyWiseMetricReportController.js"></script>
+<script type="text/javascript" src="js/app/phaseWiseMetricReportController.js"></script>
+<script type="text/javascript" src="js/app/resourceWiseMetricReportController.js"></script>
 <script type="text/javascript" src="js/app/addUserController.js"></script>
 <script type="text/javascript"
 	src="js/app/storyMetricReportController.js"></script>
@@ -141,8 +143,21 @@
 						<ul class="dropdown-menu">
 							<li><a class="ajax-link" href="#/metricReport">Metric
 									Report</a></li>
-							<li><a class="ajax-link" href="#/storyMetricReport">Story
-									Metric Report</a></li>
+							<li class="dropdown" ng-if="projectName"><a href="#"
+								class="dropdown-toggle"> <i class="fa fa-pencil-square-o"></i>
+									<span class="hidden-xs">Story Metric Reports</span>
+							</a>
+								<ul class="dropdown-menu">
+									<li><a class="ajax-link" href="#/storyWiseMetricReport">Story
+											Wise</a></li>
+									<li><a class="ajax-link" href="#/phaseWiseMetricReport">Phase
+										    Wise</a></li>
+									<li><a class="ajax-link" href="#/resourceWiseMetricReport">Resource
+											Wise</a></li>
+								</ul></li>
+							<li><a href="#/teamLeaves"> <i class="fa fa-dashboard"></i>
+									<span class="hidden-xs">Team Leaves</span>
+							</a></li>
 							<li><a class="ajax-link" href="#/projectDetails">Project
 									Details</a></li>
 						</ul></li>

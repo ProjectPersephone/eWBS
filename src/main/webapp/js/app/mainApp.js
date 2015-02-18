@@ -73,9 +73,19 @@ mainApp.config([ '$routeProvider', function($routeProvider) {
 		controller : 'projectDetailsController'
 	});
 
-	$routeProvider.when('/storyMetricReport', {
-		templateUrl : 'storyMetricReport.html',
-		controller : 'storyMetricReportController'
+	$routeProvider.when('/storyWiseMetricReport', {
+		templateUrl : 'storyWiseMetricReport.html',
+		controller : 'storyWiseMetricReportController'
+	});
+	
+	$routeProvider.when('/phaseWiseMetricReport', {
+		templateUrl : 'phaseWiseMetricReport.html',
+		controller : 'phaseWiseMetricReportController'
+	});
+	
+	$routeProvider.when('/resourceWiseMetricReport', {
+		templateUrl : 'resourceWiseMetricReport.html',
+		controller : 'resourceWiseMetricReportController'
 	});
 
 	$routeProvider.when('/changepass', {

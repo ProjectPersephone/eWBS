@@ -65,4 +65,20 @@ public class StoryTaskController {
 		List<DBObject> list = storyTaskService.groupByStroyId(projectName);
 		return new ResponseEntity<List<DBObject>>(list, HttpStatus.OK);
 	}
+	
+	@RequestMapping(value = "/groupByPhase/{projectName}", method = RequestMethod.GET)
+	@ResponseBody
+	public ResponseEntity<?> groupByPhase(@PathVariable("projectName") String projectName) {
+		storyTaskService.groupByPhase(projectName);
+		List<DBObject> list = storyTaskService.groupByPhase(projectName);
+		return new ResponseEntity<List<DBObject>>(list, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value = "/groupByResource/{projectName}", method = RequestMethod.GET)
+	@ResponseBody
+	public ResponseEntity<?> groupByResource(@PathVariable("projectName") String projectName) {
+		storyTaskService.groupByResource(projectName);
+		List<DBObject> list = storyTaskService.groupByResource(projectName);
+		return new ResponseEntity<List<DBObject>>(list, HttpStatus.OK);
+	}
 }
