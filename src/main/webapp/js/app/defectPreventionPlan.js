@@ -1,5 +1,5 @@
-mainApp.controller("defectPreventionPlanController", function($scope, $http,
-		$cookieStore) {
+mainApp.controller("defectPreventionPlanController", function($scope, $cookieStore,
+		HttpService) {
 	$scope.flag = false;
 	$scope.flagUpdate = false;
 	$scope.flagSave = true;
@@ -11,20 +11,19 @@ mainApp.controller("defectPreventionPlanController", function($scope, $http,
 	}
 
 	$scope.defectPreventionPlan = {};
-	load();
 	function load() {
-		$http.get(
-				"/eWBS/resources/defectPreventionPlan/findByProject?projectName="
+		HttpService.get(
+				"defectPreventionPlan/findByProject?projectName="
 						+ $cookieStore.get("projectName")).success(
 				function(defectList) {
 					// alert(JSON.stringify(causeList));
 					$scope.defectPreventionPlanList = defectList;
 				});
 	}
-
+    $scope.load();
 	$scope.save = function() {
-		$http.post(
-				'/eWBS/resources/defectPreventionPlan/save?projectName='
+		HttpService.post(
+				"defectPreventionPlan/save?projectName="
 						+ $cookieStore.get("projectName"),
 				$scope.defectPreventionPlan).success(function(data, status) {
 			load();
@@ -41,8 +40,8 @@ mainApp.controller("defectPreventionPlanController", function($scope, $http,
 	}
 
 	$scope.update = function(defectTypeAndDetails) {
-		$http.get(
-				"/eWBS/resources/defectPreventionPlan/findDefectByName/"
+		HttpService.get(
+				"defectPreventionPlan/findDefectByName/"
 						+ $cookieStore.get("projectName") + "/"
 						+ defectTypeAndDetails).success(function(defect) {
 			$scope.defectPreventionPlan = defect;
@@ -54,8 +53,8 @@ mainApp.controller("defectPreventionPlanController", function($scope, $http,
 
 	$scope.updateValue = function(defectTypeAndDetails) {
 
-		$http.post(
-				'/eWBS/resources/defectPreventionPlan/update/'
+		HttpService.post(
+				"defectPreventionPlan/update/"
 						+ $cookieStore.get("projectName"),
 				$scope.defectPreventionPlan).success(function(data, status) {
 			load();
