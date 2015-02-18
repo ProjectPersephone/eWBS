@@ -50,16 +50,22 @@ public class UserRepository {
 	}
 
 	public List<User> getUsers(String projectName) {
-		Query query= new Query();
+		Query query = new Query();
 		query.addCriteria(Criteria.where("project").is(projectName));
-		List<User> userList=mongoTemplate.find(query, User.class);
+		List<User> userList = mongoTemplate.find(query, User.class);
 		return userList;
 	}
 
 	public List<User> getOtherUsers(String projectName) {
-		Query query= new Query();
+		Query query = new Query();
 		query.addCriteria(Criteria.where("project").ne(projectName));
-		List<User> userList=mongoTemplate.find(query, User.class);
+		List<User> userList = mongoTemplate.find(query, User.class);
 		return userList;
+	}
+
+	public void updateAll(List<User> users) {
+		for (User user : users) {
+			mongoTemplate.save(user);
+		}
 	}
 }

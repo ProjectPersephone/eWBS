@@ -44,4 +44,8 @@ public class UserService {
 	public List<User> getOtherUsers(String projectName) {
 		return userRepository.getOtherUsers(projectName);
 	}
+
+	public void updateAll(List<User> users) {
+		userRepository.updateAll(users);
+	}
 }

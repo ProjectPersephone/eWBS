@@ -34,6 +34,12 @@ public class UserController {
 		userService.updateUser(user);
 		return new ResponseEntity<String>("User updated", HttpStatus.OK);
 	}
+	
+	@RequestMapping(value = "/updateAll", method = RequestMethod.POST)
+	public ResponseEntity<String> updateAll(@RequestBody List<User> users) {
+		userService.updateAll(users);
+		return new ResponseEntity<String>("All Users updated", HttpStatus.OK);
+	}
 
 	@RequestMapping(value = "/getUser", method = RequestMethod.GET)
 	public ResponseEntity<User> getUser(@RequestParam(value = "emailId", required = true) String emailId) {

@@ -1,6 +1,6 @@
-mainApp.controller("reviewCommentsAndBugsController", function($scope, $http,
-		$cookieStore ) {
-	
+mainApp.controller("reviewCommentsAndBugsController", function($scope,
+		$cookieStore, HttpService) {
+
 	$scope.dbBugs = {};
 	$scope.dbBugs.requirementsDefects = [ 0, 0, 0, 0 ];
 	$scope.dbBugs.analysisDefects = [ 0, 0, 0, 0 ];
@@ -12,32 +12,33 @@ mainApp.controller("reviewCommentsAndBugsController", function($scope, $http,
 	$scope.dbBugs.productionDefects = [ 0, 0, 0, 0 ];
 	$scope.dbBugs.projectName = $cookieStore.get("projectName");
 
-	load($cookieStore.get("projectName"));
-
-	function load(projectName) {
-		$http.get(
-				"/eWBS/resources/defect/findByProject?projectName="
-						+ projectName).success(function(data, status) {
-			$scope.dbBugs = data;
-		});
-	}
-
 	$scope.get = function() {
 		$scope.flag = true;
 	}
 
-
-	$scope.submit = function(data,status) {
-
-		$http.post('/eWBS/resources/defect/save', $scope.dbBugs).success(
-
-		function(data, status) {
-			if (status == 200) {
-				alert("reviewAndBugs data entered into database successfully");
-				load($cookieStore.get("projectName"));
-				$scope.flag = false;
-			}
-		});
+	$scope.back = function() {
+		$scope.flag = false;
 	}
 
+	$scope.load = function(projectName) {
+		HttpService
+				.get(
+						"defect/findByProject?projectName="
+								+ $scope.dbBugs.projectName).success(
+						function(data) {
+							$scope.dbBugs = data;
+						});
+	}
+
+	$scope.load();
+
+	$scope.submit = function() {
+		HttpService.post('defect/save', $scope.dbBugs).success(
+
+		function(data) {
+			alert("reviewAndBugs data entered into database successfully");
+			$scope.load();
+			$scope.flag = false;
+		});
+	}
 });
