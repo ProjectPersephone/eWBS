@@ -150,22 +150,21 @@
 									<td></td>
 									<td></td>
 									<td><p>{{dbBugs.requirementsDefects[0] +
-										dbBugs.requirementsDefects[1]+dbBugs.requirementsDefects[2]+dbBugs.requirementsDefects[3]+dbBugs.analysisDefects[0]
-										+
-										dbBugs.analysisDefects[1]+dbBugs.analysisDefects[2]+dbBugs.analysisDefects[3]+dbBugs.designDefects[0]
-										+
-										dbBugs.designDefects[1]+dbBugs.designDefects[2]+dbBugs.designDefects[3]+dbBugs.codeReviewsDefects[0]
-										+
-										dbBugs.codeReviewsDefects[1]+dbBugs.codeReviewsDefects[2]+dbBugs.codeReviewsDefects[3]+dbBugs.unitTestingDefects[0]
-										+
-										dbBugs.unitTestingDefects[1]+dbBugs.unitTestingDefects[2]+dbBugs.unitTestingDefects[3]+dbBugs.integrationTestingDefects[0]
-										+
-										dbBugs.integrationTestingDefects[1]+dbBugs.integrationTestingDefects[2]+dbBugs.integrationTestingDefects[3]+dbBugs.systemTestingDefects[0]
-										+
-										dbBugs.systemTestingDefects[1]+dbBugs.systemTestingDefects[2]+dbBugs.systemTestingDefects[3]}}</p></td>
-
-									<td><p >{{dbBugs.requirementsDefects[0]*8
+											dbBugs.requirementsDefects[1]+dbBugs.requirementsDefects[2]+dbBugs.requirementsDefects[3]+dbBugs.analysisDefects[0]
 											+
+											dbBugs.analysisDefects[1]+dbBugs.analysisDefects[2]+dbBugs.analysisDefects[3]+dbBugs.designDefects[0]
+											+
+											dbBugs.designDefects[1]+dbBugs.designDefects[2]+dbBugs.designDefects[3]+dbBugs.codeReviewsDefects[0]
+											+
+											dbBugs.codeReviewsDefects[1]+dbBugs.codeReviewsDefects[2]+dbBugs.codeReviewsDefects[3]+dbBugs.unitTestingDefects[0]
+											+
+											dbBugs.unitTestingDefects[1]+dbBugs.unitTestingDefects[2]+dbBugs.unitTestingDefects[3]+dbBugs.integrationTestingDefects[0]
+											+
+											dbBugs.integrationTestingDefects[1]+dbBugs.integrationTestingDefects[2]+dbBugs.integrationTestingDefects[3]+dbBugs.systemTestingDefects[0]
+											+
+											dbBugs.systemTestingDefects[1]+dbBugs.systemTestingDefects[2]+dbBugs.systemTestingDefects[3]}}</p></td>
+
+									<td><p>{{dbBugs.requirementsDefects[0]*8 +
 											dbBugs.requirementsDefects[1]*4+dbBugs.requirementsDefects[2]*2+dbBugs.requirementsDefects[3]*1+dbBugs.analysisDefects[0]*8
 											+
 											dbBugs.analysisDefects[1]*4+dbBugs.analysisDefects[2]*2+dbBugs.analysisDefects[3]*1+dbBugs.designDefects[0]*8
@@ -232,246 +231,252 @@
 			</div>
 		</div>
 		<div class="row" ng-if="flag">
-			<div class="col-xs-12 col-sm-8">
+			<div class="col-xs-12 col-sm-12">
+				<span class="btn btn-primary" ng-click="back()">Back</span>
 				<div class="box">
 					<div class="box-content">
-						<form name="bugsForm" class="form-horizontal">
-							<span>ReviewAndBugs List</span>
+						<span>ReviewAndBugs List</span>
 					</div>
 				</div>
 
-				<div class="box-content no-padding">
-					<table class="table table-bordered">
-						<thead>
-							<tr>
-								<th>Phase of detection</th>
-								<th>Severity 1 Defects (Critical )</th>
-								<th>Severity 2 Defects (Major)</th>
-								<th>Severity 3 Defects (Minor)</th>
-								<th>Severity 4 Defects (Suggestions,cosmetic)</th>
-								<th>Total</th>
-								<th>Weighted Defects</th>
-								<th>Defect density</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td>Requirements</td>
-								<td><input type="number"
-									ng-model="dbBugs.requirementsDefects[0]" size="2" maxlength="2">
-								<td><input type="number"
-									ng-model="dbBugs.requirementsDefects[1]" size="2" maxlength="2">
-								<td><input type="number"
-									ng-model="dbBugs.requirementsDefects[2]" size="2" maxlength="2">
-								<td><input type="number"
-									ng-model="dbBugs.requirementsDefects[3]" size="2" maxlength="2">
-								<td><p>{{dbBugs.requirementsDefects[0] +
-										dbBugs.requirementsDefects[1]+dbBugs.requirementsDefects[2]+dbBugs.requirementsDefects[3]}}
-									</p></td>
-								<td><p>{{dbBugs.requirementsDefects[0]*8 +
-										dbBugs.requirementsDefects[1]*4+dbBugs.requirementsDefects[2]*2+dbBugs.requirementsDefects[3]*1}}
-									</p></td>
-							</tr>
-							<tr>
-								<td>Analysis</td>
-								<td><input type="number"
-									ng-model="dbBugs.analysisDefects[0]" size="3" maxlength="3">
-								<td><input type="number"
-									ng-model="dbBugs.analysisDefects[1]" size="3" maxlength="3">
-								<td><input type="number"
-									ng-model="dbBugs.analysisDefects[2]" size="3" maxlength="3">
-								<td><input type="number"
-									ng-model="dbBugs.analysisDefects[3]" size="3" maxlength="3">
-								<td><p>{{dbBugs.analysisDefects[0] +
-										dbBugs.analysisDefects[1]+dbBugs.analysisDefects[2]+dbBugs.analysisDefects[3]}}</p></td>
-								<td><p>{{dbBugs.analysisDefects[0]*8 +
-										dbBugs.analysisDefects[1]*4+dbBugs.analysisDefects[2]*2+dbBugs.analysisDefects[3]*1}}
-									</p></td>
-							</tr>
-							<tr>
-								<td>Design</td>
-								<td><input type="number" ng-model="dbBugs.designDefects[0]"
-									size="3" maxlength="3">
-								<td><input type="number" ng-model="dbBugs.designDefects[1]"
-									size="3" maxlength="3">
-								<td><input type="number" ng-model="dbBugs.designDefects[2]"
-									size="3" maxlength="3">
-								<td><input type="number" ng-model="dbBugs.designDefects[3]"
-									size="3" maxlength="3">
-								<td><p>{{dbBugs.designDefects[0] +
-										dbBugs.designDefects[1]+dbBugs.designDefects[2]+dbBugs.designDefects[3]}}</p></td>
-								<td><p>{{dbBugs.designDefects[0]*8 +
-										dbBugs.designDefects[1]*4+dbBugs.designDefects[2]*2+dbBugs.designDefects[3]*1}}</p></td>
-							</tr>
-							<tr>
-								<td>Code Reviews</td>
-								<td><input type="number"
-									ng-model="dbBugs.codeReviewsDefects[0]" size="3" maxlength="3">
-								<td><input type="number"
-									ng-model="dbBugs.codeReviewsDefects[1]" size="3" maxlength="3">
-								<td><input type="number"
-									ng-model="dbBugs.codeReviewsDefects[2]" size="3" maxlength="3">
-								<td><input type="number"
-									ng-model="dbBugs.codeReviewsDefects[3]" size="3" maxlength="3">
-								<td><p>{{dbBugs.codeReviewsDefects[0] +
-										dbBugs.codeReviewsDefects[1]+dbBugs.codeReviewsDefects[2]+dbBugs.codeReviewsDefects[3]}}
-									</p></td>
-								<td><p>{{dbBugs.codeReviewsDefects[0]*8 +
-										dbBugs.codeReviewsDefects[1]*4+dbBugs.codeReviewsDefects[2]*2+dbBugs.codeReviewsDefects[3]*1}}
-									</p></td>
-							</tr>
-							<tr>
-								<td>Unit testing</td>
-								<td><input type="number"
-									ng-model="dbBugs.unitTestingDefects[0]" size="3" maxlength="3">
-								<td><input type="number"
-									ng-model="dbBugs.unitTestingDefects[1]" size="3" maxlength="3">
-								<td><input type="number"
-									ng-model="dbBugs.unitTestingDefects[2]" size="3" maxlength="3">
-								<td><input type="number"
-									ng-model="dbBugs.unitTestingDefects[3]" size="3" maxlength="3">
-								<td><p>{{dbBugs.unitTestingDefects[0] +
-										dbBugs.unitTestingDefects[1]+dbBugs.unitTestingDefects[2]+dbBugs.unitTestingDefects[3]}}
-									</p></td>
-								<td><p>{{dbBugs.unitTestingDefects[0]*8 +
-										dbBugs.unitTestingDefects[1]*4+dbBugs.unitTestingDefects[2]*2+dbBugs.unitTestingDefects[3]*1}}
-									</p></td>
-							</tr>
-							<tr>
-								<td>Integration testing</td>
-								<td><input type="number"
-									ng-model="dbBugs.integrationTestingDefects[0]" size="3"
-									maxlength="3">
-								<td><input type="number"
-									ng-model="dbBugs.integrationTestingDefects[1]" size="3"
-									maxlength="3">
-								<td><input type="number"
-									ng-model="dbBugs.integrationTestingDefects[2]" size="3"
-									maxlength="3">
-								<td><input type="number"
-									ng-model="dbBugs.integrationTestingDefects[3]" size="3"
-									maxlength="3">
-								<td><p>{{dbBugs.integrationTestingDefects[0] +
-										dbBugs.integrationTestingDefects[1]+dbBugs.integrationTestingDefects[2]+dbBugs.integrationTestingDefects[3]}}
-									</p></td>
-								<td><p>{{dbBugs.integrationTestingDefects[0]*8 +
-										dbBugs.integrationTestingDefects[1]*4+dbBugs.integrationTestingDefects[2]*2+dbBugs.integrationTestingDefects[3]*1}}
-									</p></td>
-							</tr>
-							<tr>
-								<td>System testing</td>
-								<td><input type="number"
-									ng-model="dbBugs.systemTestingDefects[0]" size="3"
-									maxlength="3">
-								<td><input type="number"
-									ng-model="dbBugs.systemTestingDefects[1]" size="3"
-									maxlength="3">
-								<td><input type="number"
-									ng-model="dbBugs.systemTestingDefects[2]" size="3"
-									maxlength="3">
-								<td><input type="number"
-									ng-model="dbBugs.systemTestingDefects[3]" size="3"
-									maxlength="3">
-								<td><p>{{dbBugs.systemTestingDefects[0] +
-										dbBugs.systemTestingDefects[1]+dbBugs.systemTestingDefects[2]+dbBugs.systemTestingDefects[3]}}
-									</p></td>
-								<td><p>{{dbBugs.systemTestingDefects[0]*8 +
-										dbBugs.systemTestingDefects[1]*4+dbBugs.systemTestingDefects[2]*2+dbBugs.systemTestingDefects[3]*1}}
-									</p></td>
-							</tr>
-							<tr>
-								<td>Production</td>
-								<td><input type="number"
-									ng-model="dbBugs.productionDefects[0]" size="3" maxlength="3">
-								<td><input type="number"
-									ng-model="dbBugs.productionDefects[1]" size="3" maxlength="3">
-								<td><input type="number"
-									ng-model="dbBugs.productionDefects[2]" size="3" maxlength="3">
-								<td><input type="number"
-									ng-model="dbBugs.productionDefects[3]" size="3" maxlength="3">
-								<td><p>{{dbBugs.productionDefects[0] +
-										dbBugs.productionDefects[1]+dbBugs.productionDefects[2]+dbBugs.productionDefects[3]}}
-									</p></td>
-								<td><p>{{dbBugs.productionDefects[0] *8+
-										dbBugs.productionDefects[1]*4+dbBugs.productionDefects[2]*2+dbBugs.productionDefects[3]*1}}
-									</p></td>
-							</tr>
+				<form name="bugsForm" class="form-horizontal">
+					<div class="box-content no-padding">
+						<table class="table table-bordered">
+							<thead>
+								<tr>
+									<th>Phase of detection</th>
+									<th>Severity 1 Defects (Critical )</th>
+									<th>Severity 2 Defects (Major)</th>
+									<th>Severity 3 Defects (Minor)</th>
+									<th>Severity 4 Defects (Suggestions,cosmetic)</th>
+									<th>Total</th>
+									<th>Weighted Defects</th>
+									<th>Defect density</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>Requirements</td>
+									<td><input type="number"
+										ng-model="dbBugs.requirementsDefects[0]" size="2"
+										maxlength="2">
+									<td><input type="number"
+										ng-model="dbBugs.requirementsDefects[1]" size="2"
+										maxlength="2">
+									<td><input type="number"
+										ng-model="dbBugs.requirementsDefects[2]" size="2"
+										maxlength="2">
+									<td><input type="number"
+										ng-model="dbBugs.requirementsDefects[3]" size="2"
+										maxlength="2">
+									<td><p>{{dbBugs.requirementsDefects[0] +
+											dbBugs.requirementsDefects[1]+dbBugs.requirementsDefects[2]+dbBugs.requirementsDefects[3]}}
+										</p></td>
+									<td><p>{{dbBugs.requirementsDefects[0]*8 +
+											dbBugs.requirementsDefects[1]*4+dbBugs.requirementsDefects[2]*2+dbBugs.requirementsDefects[3]*1}}
+										</p></td>
+								</tr>
+								<tr>
+									<td>Analysis</td>
+									<td><input type="number"
+										ng-model="dbBugs.analysisDefects[0]" size="3" maxlength="3">
+									<td><input type="number"
+										ng-model="dbBugs.analysisDefects[1]" size="3" maxlength="3">
+									<td><input type="number"
+										ng-model="dbBugs.analysisDefects[2]" size="3" maxlength="3">
+									<td><input type="number"
+										ng-model="dbBugs.analysisDefects[3]" size="3" maxlength="3">
+									<td><p>{{dbBugs.analysisDefects[0] +
+											dbBugs.analysisDefects[1]+dbBugs.analysisDefects[2]+dbBugs.analysisDefects[3]}}</p></td>
+									<td><p>{{dbBugs.analysisDefects[0]*8 +
+											dbBugs.analysisDefects[1]*4+dbBugs.analysisDefects[2]*2+dbBugs.analysisDefects[3]*1}}
+										</p></td>
+								</tr>
+								<tr>
+									<td>Design</td>
+									<td><input type="number"
+										ng-model="dbBugs.designDefects[0]" size="3" maxlength="3">
+									<td><input type="number"
+										ng-model="dbBugs.designDefects[1]" size="3" maxlength="3">
+									<td><input type="number"
+										ng-model="dbBugs.designDefects[2]" size="3" maxlength="3">
+									<td><input type="number"
+										ng-model="dbBugs.designDefects[3]" size="3" maxlength="3">
+									<td><p>{{dbBugs.designDefects[0] +
+											dbBugs.designDefects[1]+dbBugs.designDefects[2]+dbBugs.designDefects[3]}}</p></td>
+									<td><p>{{dbBugs.designDefects[0]*8 +
+											dbBugs.designDefects[1]*4+dbBugs.designDefects[2]*2+dbBugs.designDefects[3]*1}}</p></td>
+								</tr>
+								<tr>
+									<td>Code Reviews</td>
+									<td><input type="number"
+										ng-model="dbBugs.codeReviewsDefects[0]" size="3" maxlength="3">
+									<td><input type="number"
+										ng-model="dbBugs.codeReviewsDefects[1]" size="3" maxlength="3">
+									<td><input type="number"
+										ng-model="dbBugs.codeReviewsDefects[2]" size="3" maxlength="3">
+									<td><input type="number"
+										ng-model="dbBugs.codeReviewsDefects[3]" size="3" maxlength="3">
+									<td><p>{{dbBugs.codeReviewsDefects[0] +
+											dbBugs.codeReviewsDefects[1]+dbBugs.codeReviewsDefects[2]+dbBugs.codeReviewsDefects[3]}}
+										</p></td>
+									<td><p>{{dbBugs.codeReviewsDefects[0]*8 +
+											dbBugs.codeReviewsDefects[1]*4+dbBugs.codeReviewsDefects[2]*2+dbBugs.codeReviewsDefects[3]*1}}
+										</p></td>
+								</tr>
+								<tr>
+									<td>Unit testing</td>
+									<td><input type="number"
+										ng-model="dbBugs.unitTestingDefects[0]" size="3" maxlength="3">
+									<td><input type="number"
+										ng-model="dbBugs.unitTestingDefects[1]" size="3" maxlength="3">
+									<td><input type="number"
+										ng-model="dbBugs.unitTestingDefects[2]" size="3" maxlength="3">
+									<td><input type="number"
+										ng-model="dbBugs.unitTestingDefects[3]" size="3" maxlength="3">
+									<td><p>{{dbBugs.unitTestingDefects[0] +
+											dbBugs.unitTestingDefects[1]+dbBugs.unitTestingDefects[2]+dbBugs.unitTestingDefects[3]}}
+										</p></td>
+									<td><p>{{dbBugs.unitTestingDefects[0]*8 +
+											dbBugs.unitTestingDefects[1]*4+dbBugs.unitTestingDefects[2]*2+dbBugs.unitTestingDefects[3]*1}}
+										</p></td>
+								</tr>
+								<tr>
+									<td>Integration testing</td>
+									<td><input type="number"
+										ng-model="dbBugs.integrationTestingDefects[0]" size="3"
+										maxlength="3">
+									<td><input type="number"
+										ng-model="dbBugs.integrationTestingDefects[1]" size="3"
+										maxlength="3">
+									<td><input type="number"
+										ng-model="dbBugs.integrationTestingDefects[2]" size="3"
+										maxlength="3">
+									<td><input type="number"
+										ng-model="dbBugs.integrationTestingDefects[3]" size="3"
+										maxlength="3">
+									<td><p>{{dbBugs.integrationTestingDefects[0] +
+											dbBugs.integrationTestingDefects[1]+dbBugs.integrationTestingDefects[2]+dbBugs.integrationTestingDefects[3]}}
+										</p></td>
+									<td><p>{{dbBugs.integrationTestingDefects[0]*8 +
+											dbBugs.integrationTestingDefects[1]*4+dbBugs.integrationTestingDefects[2]*2+dbBugs.integrationTestingDefects[3]*1}}
+										</p></td>
+								</tr>
+								<tr>
+									<td>System testing</td>
+									<td><input type="number"
+										ng-model="dbBugs.systemTestingDefects[0]" size="3"
+										maxlength="3">
+									<td><input type="number"
+										ng-model="dbBugs.systemTestingDefects[1]" size="3"
+										maxlength="3">
+									<td><input type="number"
+										ng-model="dbBugs.systemTestingDefects[2]" size="3"
+										maxlength="3">
+									<td><input type="number"
+										ng-model="dbBugs.systemTestingDefects[3]" size="3"
+										maxlength="3">
+									<td><p>{{dbBugs.systemTestingDefects[0] +
+											dbBugs.systemTestingDefects[1]+dbBugs.systemTestingDefects[2]+dbBugs.systemTestingDefects[3]}}
+										</p></td>
+									<td><p>{{dbBugs.systemTestingDefects[0]*8 +
+											dbBugs.systemTestingDefects[1]*4+dbBugs.systemTestingDefects[2]*2+dbBugs.systemTestingDefects[3]*1}}
+										</p></td>
+								</tr>
+								<tr>
+									<td>Production</td>
+									<td><input type="number"
+										ng-model="dbBugs.productionDefects[0]" size="3" maxlength="3">
+									<td><input type="number"
+										ng-model="dbBugs.productionDefects[1]" size="3" maxlength="3">
+									<td><input type="number"
+										ng-model="dbBugs.productionDefects[2]" size="3" maxlength="3">
+									<td><input type="number"
+										ng-model="dbBugs.productionDefects[3]" size="3" maxlength="3">
+									<td><p>{{dbBugs.productionDefects[0] +
+											dbBugs.productionDefects[1]+dbBugs.productionDefects[2]+dbBugs.productionDefects[3]}}
+										</p></td>
+									<td><p>{{dbBugs.productionDefects[0] *8+
+											dbBugs.productionDefects[1]*4+dbBugs.productionDefects[2]*2+dbBugs.productionDefects[3]*1}}
+										</p></td>
+								</tr>
 
-							<tr>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td><p>{{dbBugs.requirementsDefects[0] +
-										dbBugs.requirementsDefects[1]+dbBugs.requirementsDefects[2]+dbBugs.requirementsDefects[3]+dbBugs.analysisDefects[0]
-										+
-										dbBugs.analysisDefects[1]+dbBugs.analysisDefects[2]+dbBugs.analysisDefects[3]+dbBugs.designDefects[0]
-										+
-										dbBugs.designDefects[1]+dbBugs.designDefects[2]+dbBugs.designDefects[3]+dbBugs.codeReviewsDefects[0]
-										+
-										dbBugs.codeReviewsDefects[1]+dbBugs.codeReviewsDefects[2]+dbBugs.codeReviewsDefects[3]+dbBugs.unitTestingDefects[0]
-										+
-										dbBugs.unitTestingDefects[1]+dbBugs.unitTestingDefects[2]+dbBugs.unitTestingDefects[3]+dbBugs.integrationTestingDefects[0]
-										+
-										dbBugs.integrationTestingDefects[1]+dbBugs.integrationTestingDefects[2]+dbBugs.integrationTestingDefects[3]+dbBugs.systemTestingDefects[0]
-										+
-										dbBugs.systemTestingDefects[1]+dbBugs.systemTestingDefects[2]+dbBugs.systemTestingDefects[3]}}
-									</p></td>
+								<tr>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td><p>{{dbBugs.requirementsDefects[0] +
+											dbBugs.requirementsDefects[1]+dbBugs.requirementsDefects[2]+dbBugs.requirementsDefects[3]+dbBugs.analysisDefects[0]
+											+
+											dbBugs.analysisDefects[1]+dbBugs.analysisDefects[2]+dbBugs.analysisDefects[3]+dbBugs.designDefects[0]
+											+
+											dbBugs.designDefects[1]+dbBugs.designDefects[2]+dbBugs.designDefects[3]+dbBugs.codeReviewsDefects[0]
+											+
+											dbBugs.codeReviewsDefects[1]+dbBugs.codeReviewsDefects[2]+dbBugs.codeReviewsDefects[3]+dbBugs.unitTestingDefects[0]
+											+
+											dbBugs.unitTestingDefects[1]+dbBugs.unitTestingDefects[2]+dbBugs.unitTestingDefects[3]+dbBugs.integrationTestingDefects[0]
+											+
+											dbBugs.integrationTestingDefects[1]+dbBugs.integrationTestingDefects[2]+dbBugs.integrationTestingDefects[3]+dbBugs.systemTestingDefects[0]
+											+
+											dbBugs.systemTestingDefects[1]+dbBugs.systemTestingDefects[2]+dbBugs.systemTestingDefects[3]}}
+										</p></td>
 
-								<td><p>{{dbBugs.requirementsDefects[0]*8 +
-										dbBugs.requirementsDefects[1]*4+dbBugs.requirementsDefects[2]*2+dbBugs.requirementsDefects[3]*1+dbBugs.analysisDefects[0]*8
-										+
-										dbBugs.analysisDefects[1]*4+dbBugs.analysisDefects[2]*2+dbBugs.analysisDefects[3]*1+dbBugs.designDefects[0]*8
-										+
-										dbBugs.designDefects[1]*4+dbBugs.designDefects[2]*2+dbBugs.designDefects[3]*1+dbBugs.codeReviewsDefects[0]*8
-										+
-										dbBugs.codeReviewsDefects[1]*4+dbBugs.codeReviewsDefects[2]*2+dbBugs.codeReviewsDefects[3]*1+dbBugs.unitTestingDefects[0]*8
-										+
-										dbBugs.unitTestingDefects[1]*4+dbBugs.unitTestingDefects[2]*2+dbBugs.unitTestingDefects[3]*1+dbBugs.integrationTestingDefects[0]*8
-										+
-										dbBugs.integrationTestingDefects[1]*4+dbBugs.integrationTestingDefects[2]*2+dbBugs.integrationTestingDefects[3]*1+dbBugs.systemTestingDefects[0]*8
-										+
-										dbBugs.systemTestingDefects[1]*4+dbBugs.systemTestingDefects[2]*2+dbBugs.systemTestingDefects[3]*1+dbBugs.productionDefects[0]
-										*8+
-										dbBugs.productionDefects[1]*4+dbBugs.productionDefects[2]*2+dbBugs.productionDefects[3]*1}}
-									</p></td>
-							</tr>
-							<tr>
-								<td>Review Effectiveness %</td>
-								<td><p>{{[dbBugs.requirementsDefects[0]*8 +
-										dbBugs.requirementsDefects[1]*4+dbBugs.requirementsDefects[2]*2+dbBugs.requirementsDefects[3]*1+dbBugs.analysisDefects[0]*8
-										+
-										dbBugs.analysisDefects[1]*4+dbBugs.analysisDefects[2]*2+dbBugs.analysisDefects[3]*1+
-										dbBugs.designDefects[0]*8 +
-										dbBugs.designDefects[1]*4+dbBugs.designDefects[2]*2+dbBugs.designDefects[3]*1]*100/[dbBugs.requirementsDefects[0]*8
-										+
-										dbBugs.requirementsDefects[1]*4+dbBugs.requirementsDefects[2]*2+dbBugs.requirementsDefects[3]*1+dbBugs.analysisDefects[0]*8
-										+
-										dbBugs.analysisDefects[1]*4+dbBugs.analysisDefects[2]*2+dbBugs.analysisDefects[3]*1+
-										dbBugs.designDefects[0]*8 +
-										dbBugs.designDefects[1]*4+dbBugs.designDefects[2]*2+dbBugs.designDefects[3]*1+dbBugs.codeReviewsDefects[0]*8
-										+
-										dbBugs.codeReviewsDefects[1]*4+dbBugs.codeReviewsDefects[2]*2+dbBugs.codeReviewsDefects[3]*1+dbBugs.unitTestingDefects[0]*8
-										+
-										dbBugs.unitTestingDefects[1]*4+dbBugs.unitTestingDefects[2]*2+dbBugs.unitTestingDefects[3]*1+dbBugs.integrationTestingDefects[0]*8
-										+
-										dbBugs.integrationTestingDefects[1]*4+dbBugs.integrationTestingDefects[2]*2+dbBugs.integrationTestingDefects[3]*1+dbBugs.systemTestingDefects[0]*8
-										+
-										dbBugs.systemTestingDefects[1]*4+dbBugs.systemTestingDefects[2]*2+dbBugs.systemTestingDefects[3]*1+dbBugs.productionDefects[0]
-										*8+
-										dbBugs.productionDefects[1]*4+dbBugs.productionDefects[2]*2+dbBugs.productionDefects[3]*1]
-										| number}}</p></td>
-							</tr>
-						</tbody>
+									<td><p>{{dbBugs.requirementsDefects[0]*8 +
+											dbBugs.requirementsDefects[1]*4+dbBugs.requirementsDefects[2]*2+dbBugs.requirementsDefects[3]*1+dbBugs.analysisDefects[0]*8
+											+
+											dbBugs.analysisDefects[1]*4+dbBugs.analysisDefects[2]*2+dbBugs.analysisDefects[3]*1+dbBugs.designDefects[0]*8
+											+
+											dbBugs.designDefects[1]*4+dbBugs.designDefects[2]*2+dbBugs.designDefects[3]*1+dbBugs.codeReviewsDefects[0]*8
+											+
+											dbBugs.codeReviewsDefects[1]*4+dbBugs.codeReviewsDefects[2]*2+dbBugs.codeReviewsDefects[3]*1+dbBugs.unitTestingDefects[0]*8
+											+
+											dbBugs.unitTestingDefects[1]*4+dbBugs.unitTestingDefects[2]*2+dbBugs.unitTestingDefects[3]*1+dbBugs.integrationTestingDefects[0]*8
+											+
+											dbBugs.integrationTestingDefects[1]*4+dbBugs.integrationTestingDefects[2]*2+dbBugs.integrationTestingDefects[3]*1+dbBugs.systemTestingDefects[0]*8
+											+
+											dbBugs.systemTestingDefects[1]*4+dbBugs.systemTestingDefects[2]*2+dbBugs.systemTestingDefects[3]*1+dbBugs.productionDefects[0]
+											*8+
+											dbBugs.productionDefects[1]*4+dbBugs.productionDefects[2]*2+dbBugs.productionDefects[3]*1}}
+										</p></td>
+								</tr>
+								<tr>
+									<td>Review Effectiveness %</td>
+									<td><p>{{[dbBugs.requirementsDefects[0]*8 +
+											dbBugs.requirementsDefects[1]*4+dbBugs.requirementsDefects[2]*2+dbBugs.requirementsDefects[3]*1+dbBugs.analysisDefects[0]*8
+											+
+											dbBugs.analysisDefects[1]*4+dbBugs.analysisDefects[2]*2+dbBugs.analysisDefects[3]*1+
+											dbBugs.designDefects[0]*8 +
+											dbBugs.designDefects[1]*4+dbBugs.designDefects[2]*2+dbBugs.designDefects[3]*1]*100/[dbBugs.requirementsDefects[0]*8
+											+
+											dbBugs.requirementsDefects[1]*4+dbBugs.requirementsDefects[2]*2+dbBugs.requirementsDefects[3]*1+dbBugs.analysisDefects[0]*8
+											+
+											dbBugs.analysisDefects[1]*4+dbBugs.analysisDefects[2]*2+dbBugs.analysisDefects[3]*1+
+											dbBugs.designDefects[0]*8 +
+											dbBugs.designDefects[1]*4+dbBugs.designDefects[2]*2+dbBugs.designDefects[3]*1+dbBugs.codeReviewsDefects[0]*8
+											+
+											dbBugs.codeReviewsDefects[1]*4+dbBugs.codeReviewsDefects[2]*2+dbBugs.codeReviewsDefects[3]*1+dbBugs.unitTestingDefects[0]*8
+											+
+											dbBugs.unitTestingDefects[1]*4+dbBugs.unitTestingDefects[2]*2+dbBugs.unitTestingDefects[3]*1+dbBugs.integrationTestingDefects[0]*8
+											+
+											dbBugs.integrationTestingDefects[1]*4+dbBugs.integrationTestingDefects[2]*2+dbBugs.integrationTestingDefects[3]*1+dbBugs.systemTestingDefects[0]*8
+											+
+											dbBugs.systemTestingDefects[1]*4+dbBugs.systemTestingDefects[2]*2+dbBugs.systemTestingDefects[3]*1+dbBugs.productionDefects[0]
+											*8+
+											dbBugs.productionDefects[1]*4+dbBugs.productionDefects[2]*2+dbBugs.productionDefects[3]*1]
+											| number}}</p></td>
+								</tr>
+							</tbody>
 
-					</table>
+						</table>
 
-					<div class="text-center">
-						<input type="submit" class="btn btn-primary" value="submit"
-							ng-disabled="!bugsForm.$valid" ng-click="submit()" />
+						<div class="text-center">
+							<input type="submit" class="btn btn-primary" value="Save"
+								ng-disabled="!bugsForm.$valid" ng-click="submit()" />
+						</div>
 					</div>
-				</div>
+				</form>
 			</div>
 		</div>
 	</div>
